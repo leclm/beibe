@@ -1,0 +1,44 @@
+.form-group {
+    text-align: center;
+    color: #008080;
+    font-family: Georgia, serif;
+}
+
+.login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.login-form{
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form h1{
+    text-align: center;
+    color: #008080;
+    font-family: Georgia, serif;
+}
+
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.login-form .btnSubmit{
+    font-weight: 800;
+    color: #fff;
+    background-color: #008080;
+    font-family: Georgia, serif;
+}
+
+.login-form .cadastro{
+    color: #008080;
+    font-weight: 800;
+    font-family: Georgia, serif;
+    text-decoration: none;
+}
