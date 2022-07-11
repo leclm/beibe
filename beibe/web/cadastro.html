@@ -40,18 +40,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                         <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
                           <li class="nav-item" role="presentation">
                             <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="../beibe" role="tab"
-                              aria-controls="pills-login" aria-selected="true">Login</a>
+                              aria-controls="pills-login" aria-selected="false">Login</a>
                           </li>
                           <li class="nav-item" role="presentation">
                             <a class="nav-link" id="tab-register" data-mdb-toggle="pill" href="cadastro.html" role="tab"
-                              aria-controls="pills-register" aria-selected="false">Novo Cadastro</a>
+                              aria-controls="pills-register" aria-selected="true">Novo Cadastro</a>
                           </li>
                         </ul>
                         <!-- Pills navs -->
 
                         <!-- Pills content -->
                         <div class="tab-content">
-                          <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                          <div class="tab-pane fade" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
                             <form>
                               <!-- Email input -->
                               <div class="form-outline mb-4">
@@ -77,7 +77,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
                                 <div class="col-md-6 d-flex justify-content-center">
                                   <!-- Simple link -->
-                                  <a href="cadastro.html">Esqueceu a senha?</a>
+                                  <a href="#!">Esqueceu a senha?</a>
                                 </div>
                               </div>
 
@@ -90,7 +90,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                               </div>
                             </form>
                           </div>
-                          <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                          <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
                             <form>
                               <!-- Name input -->
                               <div class="form-outline mb-4">
@@ -118,7 +118,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
                               <!-- Repeat Password input -->
                               <div class="form-outline mb-4">
-                                <input type="password" id="registrRepeatPassword" class="form-control" />
+                                <input type="password" id="registerRepeatPassword" class="form-control" />
                                 <label class="form-label" for="registerRepeatPassword">Repetir a senha</label>
                               </div>
 
@@ -148,3 +148,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
        </section>
   </body>
 </html>
+
