@@ -3,168 +3,243 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
-<html style="font-size: 16px;" lang="pt"><head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="​BEIBE - Beauty Embuste Indústria de Beleza e Estética">
-    <meta name="description" content="">
-    
-        <!-- CSS only--> 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="CSS/style.css" type="text/css" rel="stylesheet"/>
-                
-        <!--JavaScript Bundle with Popper-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-     
-    <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="Sobre">
-    <meta property="og:type" content="website">
-        
-    </head>
-       
-    <body>
-        
-        <section class="vh-100" style="background-color: #9A616D;">
-         <div class="container py-5 h-100">
-           <div class="row d-flex justify-content-center align-items-center h-100">
-             <div class="col col-xl-10">
-               <div class="card" style="border-radius: 1rem;">
-                 <div class="row g-0">
-                   <div class="col-md-6 col-lg-5 d-none d-md-block">
-                     <img src="img/rosto.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
-                     <br><br>
-                     <span style="color: hsl(342, 67%, 36%)" class="text-center"><h3>BEIBE - Beauty Embuste Indústria de Beleza e Estética</h3></span>
-                     <br><span style="color: hsl(342, 58%, 66%)" class="text-center"><h5>SAC - Sistema de Atendimento ao Cliente</h5></span>
-                   </div>
-                   <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                     <div class="card-body p-4 p-lg-5 text-black">
-                         
-                    
-                       <!-- Pills navs -->
-                        <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-                          <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="../beibe" role="tab"
-                              aria-controls="pills-login" aria-selected="true">Login</a>
-                          </li>
-                          <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="tab-register" data-mdb-toggle="pill" href="cadastro.html" role="tab"
-                              aria-controls="pills-register" aria-selected="false">Novo Cadastro</a>
-                          </li>
-                        </ul>
-                        <!-- Pills navs -->
 
-                        <!-- Pills content -->
-                        <div class="tab-content">
-                          <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                            <form>
-                                <!-- O segundo valor estará selecionado inicialmente -->
-                                
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="op1">
-                            <label class="form-check-label" for="inlineRadio1">Cliente</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="op2">
-                            <label class="form-check-label" for="inlineRadio2">Funcionário</label>
-                        </div>
-                        
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="op3">
-                            <label class="form-check-label" for="inlineRadio3">Gerente</label>
-                        </div>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      SAC - Sistema de Atendimento ao Cliente :: Trabalho Web 2 - Protótipo
+    </title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/fontawesome.min.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
 
-                              <!-- Email input -->
-                              <div class="form-outline mb-4">
-                                <input type="email" id="loginName" class="form-control" />
-                                <label class="form-label" for="loginName">E-mail</label>
-                              </div>
+    <!-- Cabeçalho de aviso de prototipagem -->
+    <div class="conteiner-fluid bg-light">
+      <div class="d-flex justify-content-between text-black-50">
+        <div><small><b>Protótipo</b></small></div>
+        <div>
+          <small>
+            <b>Opções:</b>
+            <a href="cliente/index.html">Cliente </a> |
+            <a href="funcionario/index.html">Funcionário </a> |
+            <a href="gerente/index.html">Gerente </a>  |   
+          </small>
+        </div>
+      </div>
+    </div>
 
-                              <!-- Password input -->
-                              <div class="form-outline mb-4">
-                                <input type="password" id="loginPassword" class="form-control" />
-                                <label class="form-label" for="loginPassword">Senha</label>
-                              </div>
+    <!-- Corpo da página -->
+    <main class="container mb-5">
+      <div class="text-center">
+        <h1 class="text-primary display-3 c-title">
+          <img src="assets/sacB.png" class="c-logo-large" alt="Logo do Sistema" />
+          SAC - Sistema de Atendimento ao Cliente
+        </h1>
+      </div>
+      <div class="row my-3">
+        <div class="col-6 p-2 d-flex align-items-stretch">
 
-                              <!-- 2 column grid layout -->
-                              <div class="row mb-4">
-                                <div class="col-md-6 d-flex justify-content-center">
-                                  <!-- Checkbox -->
-                                  <div class="form-check mb-3 mb-md-0">
-                                    <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
-                                    <label class="form-check-label" for="loginCheck"> Lembre-me </label>
-                                  </div>
-                                </div>
+          <!-- Formulário de login -->
+          <form id="form-login" action="#" method="POST" class="card text-center bg-info">
+            <h2 class="card-header text-light font-weight-bolder">Entrar</h2>
+            <img class="card-img-top" src="assets/logo.jpg" alt="Capa">
+            <div class="card-body">
+                <p class="card-text mt-1 text-light">
+                  A BEIBE é uma empresa de Embelezamento Artificial, voltada ao público 
+                  jovem e adulto que quer fazer a diferença no mundo. <br> 
+                  A <strong>Embuste</strong><sup>&copy;</sup>
+                  é a marca de beleza preferida dos brasileiros 
+                  (Fonte: Embuste Estatística, 2018). Todos os nossos produtos 
+                  tocam sua beleza. É assim que a marca transforma momentos simples em 
+                  momentos embusteiros há menos de 0 anos.<br>
+                </p>
+                <h2 class="card-header text-light font-weight-bolder">Login</h2>
+                <div class="form-group text-light text-left">
+                  <label for="email">E-mail:</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-at"></i>
+                      </span>
+                    </div>
+                    <input type="email" id="email" class="form-control" name="email" />
+                  </div>
+                </div>
+                <div class="form-group text-light text-left">
+                  <label for="senha">Senha:</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-unlock-alt"></i>
+                      </span>
+                    </div>
+                    <input type="password" id="senha" class="form-control" name="senha" />
+                  </div>
+                </div>
+                <div class="text-center">
+                  <p class="mt-4 mb-0 h5">
+                    Esqueceu a senha? <a href="mailto:example@email.com">Solicite a recuperação da senha</a>
+                  </p>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+              <button type="submit" class="btn btn-lg btn-light w-75">
+                Entrar
+              </button>
+            </div>
+          </form>
+        </div>
 
-                                <div class="col-md-6 d-flex justify-content-center">
-                                  <!-- Simple link -->
-                                  <a href="cadastro.html">Esqueceu a senha?</a>
-                                </div>
-                              </div>
+        <!-- Formulário de cadastro -->
+        <div class="col-6 p-3 d-flex align-items-stretch">
+          <form id="form-signup" action="#" method="POST" class="card text-center bg-info">
+            <h2 class="card-header text-light font-weight-bolder">Cadastro</h2>
+            <div class="card-body">
+              <p class="card-text text-light">Primeiro acesso? Crie sua conta:</p>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-address-card"></i>
+                  </span>
+                </div>
+                <input type="number" class="form-control" name="cpf" placeholder="CPF" step="1" />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" name="nome" placeholder="Nome completo" />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </div>
+                <input type="date" class="form-control" name="data_nasc" placeholder="Data de nascimento" />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-at"></i>
+                  </span>
+                </div>
+                <input type="email" class="form-control" name="email" placeholder="email@email.com" />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-phone-square-alt"></i>
+                  </span>
+                </div>
+                <input type="number" class="form-control" name="telefone" placeholder="(00) 0 0000 -0000" />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </span>
+                </div>
+                <input type="number" class="form-control" name="cep" placeholder="CEP" />
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary text-light" type="button" id="buscar-cep">
+                    Buscar CEP
+                  </button>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-map-marked-alt"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" name="rua" placeholder="Rua: xxxxxxxxxx" disabled />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-map-marked-alt"></i>
+                  </span>
+                </div>
+                <input type="number" class="form-control" name="numero" placeholder="Número" />
+                <input type="text" class="form-control" name="complemento" placeholder="Complemento" />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-globe-americas"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" name="cidade" placeholder="Cidade" disabled />
+                <input type="text" class="form-control" name="estado" placeholder="Estado" disabled />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-unlock-alt"></i>
+                  </span>
+                </div>
+                <input type="password" class="form-control" name="senha1" placeholder="Senha" />
+              </div>
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-unlock-alt"></i>
+                  </span>
+                </div>
+                <input type="password" class="form-control" name="senha2" placeholder="Repetir senha" />
+              </div>
+              <div class="custom-control custom-switch mb-2">
+                <input type="checkbox" class="custom-control-input" id="termos-de-uso" name="termos" />
+                <label class="custom-control-label" for="termos-de-uso">
+                  Aceito os <a href="#">Termos de Uso</a> do serviço <strong>SAC - Sistema de Atendimento ao Cliente<sup>&copy;</sup></strong>
+                </label>
+              </div>
+            </div>
+            <div class="card-footer text-center">
+              <button type="submit" class="btn btn-lg btn-light w-75">
+                Cadastrar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
 
-                              <!-- Submit button -->
-                              <button type="submit" class="btn btn-primary btn-block mb-4">Entrar</button>
-
-                              <!-- Register buttons -->
-                              <div class="text-center">
-                                <p>Novo(a​) por aqui? <a href="cadastro.html">Cadastre-se</a></p>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                            <form>
-                              <!-- Name input -->
-                              <div class="form-outline mb-4">
-                                <input type="text" id="registerName" class="form-control" />
-                                <label class="form-label" for="registerName">Nome</label>
-                              </div>
-
-                              <!-- Username input -->
-                              <div class="form-outline mb-4">
-                                <input type="text" id="registerUsername" class="form-control" />
-                                <label class="form-label" for="registerUsername">Username</label>
-                              </div>
-
-                              <!-- Email input -->
-                              <div class="form-outline mb-4">
-                                <input type="email" id="registerEmail" class="form-control" />
-                                <label class="form-label" for="registerEmail">Email</label>
-                              </div>
-
-                              <!-- Password input -->
-                              <div class="form-outline mb-4">
-                                <input type="password" id="registerPassword" class="form-control" />
-                                <label class="form-label" for="registerPassword">Senha</label>
-                              </div>
-
-                              <!-- Repeat Password input -->
-                              <div class="form-outline mb-4">
-                                <input type="password" id="registrRepeatPassword" class="form-control" />
-                                <label class="form-label" for="registerRepeatPassword">Repetir a senha</label>
-                              </div>
-
-                              <!-- Checkbox -->
-                              <div class="form-check d-flex justify-content-center mb-4">
-                                <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
-                                  aria-describedby="registerCheckHelpText" />
-                                <label class="form-check-label" for="registerCheck">
-                                  I have read and agree to the terms
-                                </label>
-                              </div>
-
-                              <!-- Submit button -->
-                              <button type="submit" class="btn btn-primary btn-block mb-3">Entrar</button>
-                            </form>
-                          </div>
-                        </div>
-                        <!-- Pills content -->
-
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </section>
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Acessar protótipo:</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="list-group text-center w-100">
+              <a href="cliente/index.html" class="text-primary list-group-item list-group-item-action list-group-item-light">Cliente</a>
+              <a href="funcionario/index.html" class="text-primary list-group-item list-group-item-action list-group-item-light">Funcionário</a>
+              <a href="gerente/index.html" class="text-primary list-group-item list-group-item-action list-group-item-light">Gerente</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-secondary c-subtitle">
+      <p class ="text-center">Serviço de Atendimento ao Cliente da <strong>Embuste</strong><sup>&copy;</sup></p>
+      <p class ="text-center"> Rua do Embuste, 1313. Curitiba, PR, 13131-313
+      <p class ="text-center"><i class="fa fa-phone-alt"></i>(41) 9 1313-1313</p>
+    </div>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
   </body>
 </html>
+

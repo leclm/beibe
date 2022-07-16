@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      SAC - Sistema de Atendimento ao Cliente :: Trabalho Web 2 - Protótipo
+    </title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+
+    <!-- Cabeçalho de aviso de prototipagem -->
+    <div class="conteiner-fluid bg-light">
+      <div class="d-flex justify-content-between text-black-50">
+        <div><small><b>Protótipo</b></small></div>
+        <div>
+          <small>
+            <b>Opções:</b>
+            <a href="../cliente/index.html">Cliente</a> |
+            <a href="../funcionario/index.html">Funcionário</a> |
+            <a href="../gerente/index.html">Gerente</a> |
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cabeçalho da página -->
+    <header class="container-fluid bg-info mb-4">
+      <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
+        <a class="navbar-brand" href="index.html">
+          <img src="../assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
+          <span class="text-white-50 h4 c-title">SAC - Sistema de Atendimento ao Cliente</span>
+        </a>
+        <div class="container">
+          <ul class="navbar-nav text-white">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="atendimentos.html">Meus Atendimentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="dadosClientes.html">Meus Dados</a>
+            </li>
+          </ul>
+        </div>
+        <div class="form-inline">
+          <a href="../index.html" class="alert-link text-white my-2 my-sm-0">
+            <i class="fas fa-power-off"></i><br>
+            Sair
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Corpo da página -->
+    <main class="container">
+      <h2 class="mb-4">
+        Meus Atendimentos
+      </h2>
+
+      <!-- Botão para abertura de novo atendimento -->
+      <a href="menuAtendimentos.html" class="btn btn-lg btn-primary">
+        <i class="fa fa-plus"></i>
+        Solicitar Atendimento
+      </a>
+
+      <!-- Tabela com atendimentos em aberto -->
+      <div class="mt-5">
+        <h3 class="mb-3 h4">Atendimentos em aberto</h3>
+        <table class="table table-hover">
+          <thead class="c-thead">
+            <tr class="text-center">
+              <th scope="col">Ocorrência</th>
+              <th scope="col">Produto</th>
+              <th scope="col">Categoria</th>
+              <th scope="col">Data de Criação</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="c-clickable text-center" data-href="menuAtendimentos.html">
+              <th scope="row">000001</th>
+              <td>Sérum Antirugas La Rosé</td>
+              <td>Produto entregue com prazo de validade com menos de 1 mês </td>
+              <td>10-jun-2022</td>
+              <td><span class="badge badge-sm badge-danger c-status">Contestado</span></td>
+              
+            </tr>
+            <tr class="c-clickable text-center" data-href="menuAtendimentos.html">
+              <th scope="row">000008</th>
+              <td>Batom liquido Matte VivaLaVida (NUDE)</td>
+              <td>Produto não recebido</td>
+              <td>02-jul-2022</td>
+              <td><span class="badge badge-sm badge-info c-status">Recebido</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tabela com atendimentos encerrados -->
+      <div class="mt-5">
+        <h3 class="h4">Atendimentos encerrados</h3>
+        <table class="table table-hover">
+          <thead class="c-thead">
+            <tr>
+              <th scope="col" class="text-center">Ocorrência</th>
+              <th scope="col">Produto</th>
+              <th scope="col" class="text-center">Categoria</th>
+              <th scope="col" class="text-center">Data de Criação</th>
+              <th scope="col" class="text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th colspan="5" class="py-3 h5 text-center">Nenhum atendimento encerrado</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/scripts.js"></script>
+  </body>
+</html>

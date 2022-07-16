@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      SAC - Sistema de Atendimento ao Cliente :: Trabalho Web 2 - Protótipo
+    </title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+
+    <!-- Cabeçalho de aviso de prototipagem -->
+    <div class="conteiner-fluid bg-light">
+      <div class="d-flex justify-content-between text-black-50">
+        <div><small><b>Protótipo</b></small></div>
+        <div>
+          <small>
+            <b>Opções</b>
+            <a href="../cliente/index.html">Cliente</a> |
+            <a href="../funcionario/index.html">Funcionário</a> |
+            <a href="../gerente/index.html">Gerente</a> |
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cabeçalho da página -->
+    <header class="container-fluid bg-info mb-4">
+      <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
+        <a class="navbar-brand" href="index.html">
+          <img src="../assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
+          <span class="text-white-50 h4 c-title">SAC - Sistema de Atendimento ao Cliente</span>
+        </a>
+        <div class="container">
+          <ul class="navbar-nav text-white">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="atendimentos.html">Meus Atendimentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="dadosClientes.html">Meus Dados</a>
+            </li>
+          </ul>
+        </div>
+        <div class="form-inline">
+          <a href="../index.html" class="alert-link text-white my-2 my-sm-0">
+            <i class="fa fa-power-off"></i><br>
+            Sair
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Corpo da página -->
+    <main class="container">
+      <h2 class="mb-4">
+        Bem-vindo(a), <strong>[cliente]</strong>
+      </h2>
+      <div class="container">
+        <div class="card-link">
+          <div class="card text-primary">
+            <div class="card-body text-center">
+              <p class="card-text display-3">
+                <i class="fa fa-history"></i>
+              </p>
+              <p class="card-text h6">
+                Atendimento(s)<br> em aberto
+              </p>
+              <a href="atendimentos.html" class="stretched-link h-0"></a>
+            </div>
+          </div>
+          <div class="card text-primary">
+            <div class="card-body text-center">
+              <p class="card-text display-3">
+                <i class="fa fa-plus-square"></i>
+              </p>
+              <p class="card-text h6">
+                Solicitar Atendimento
+              </p>
+              <a href="menuAtendimentos.html" class="stretched-link h-0"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/scripts.js"></script>
+  </body>
+</html>
