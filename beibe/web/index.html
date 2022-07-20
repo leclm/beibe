@@ -15,6 +15,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link rel="stylesheet" href="./css/fontawesome.min.css" />
     <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="icon" type="image/x-icon" href="assets/images/phone-solid.svg">
   </head>
   <body>
 
@@ -35,20 +36,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
     <!-- Corpo da página -->
     <main class="container mb-5">
+      
       <div class="text-center">
         <h1 class="text-primary display-3 c-title">
           <img src="assets/sacB.png" class="c-logo-large" alt="Logo do Sistema" />
           SAC - Sistema de Atendimento ao Cliente
         </h1>
       </div>
+      
       <div class="row my-3">
-        <div class="col-6 p-2 d-flex align-items-stretch">
-
-          <!-- Formulário de login -->
-          <form id="form-login" action="#" method="POST" class="card text-center bg-info">
-            <h2 class="card-header text-light font-weight-bolder">Entrar</h2>
-            <img class="card-img-top" src="assets/logo.jpg" alt="Capa">
-            <div class="card-body">
+        <div class=" d-flex justify-content-center">
+          <div class="col-6 p-2 d-flex align-items-stretch">
+            <!-- Formulário de login -->
+            <form id="form-login" action="#" method="POST" class="card text-center bg-info">
+              <h2 class="card-header text-light font-weight-bolder">Entrar</h2>
+              <img class="card-img-top" src="assets/logo.jpg" alt="Capa">
+              <div class="card-body">
                 <p class="card-text mt-1 text-light">
                   A BEIBE é uma empresa de Embelezamento Artificial, voltada ao público 
                   jovem e adulto que quer fazer a diferença no mundo. <br> 
@@ -82,133 +85,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                   </div>
                 </div>
                 <div class="text-center">
-                  <p class="mt-4 mb-0 h5">
+                  <p class="mt-4 mb-4 h5">
                     Esqueceu a senha? <a href="mailto:example@email.com">Solicite a recuperação da senha</a>
                   </p>
-                </div>
-            </div>
-            <div class="card-footer text-center">
-              <button type="submit" class="btn btn-lg btn-light w-75">
-                Entrar
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Formulário de cadastro -->
-        <div class="col-6 p-3 d-flex align-items-stretch">
-          <form id="form-signup" action="#" method="POST" class="card text-center bg-info">
-            <h2 class="card-header text-light font-weight-bolder">Cadastro</h2>
-            <div class="card-body">
-              <p class="card-text text-light">Primeiro acesso? Crie sua conta:</p>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-address-card"></i>
-                  </span>
-                </div>
-                <input type="number" class="form-control" name="cpf" placeholder="CPF" step="1" />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-user"></i>
-                  </span>
-                </div>
-                <input type="text" class="form-control" name="nome" placeholder="Nome completo" />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-calendar"></i>
-                  </span>
-                </div>
-                <input type="date" class="form-control" name="data_nasc" placeholder="Data de nascimento" />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-at"></i>
-                  </span>
-                </div>
-                <input type="email" class="form-control" name="email" placeholder="email@email.com" />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-phone-square-alt"></i>
-                  </span>
-                </div>
-                <input type="number" class="form-control" name="telefone" placeholder="(00) 0 0000 -0000" />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-map-marker-alt"></i>
-                  </span>
-                </div>
-                <input type="number" class="form-control" name="cep" placeholder="CEP" />
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary text-light" type="button" id="buscar-cep">
-                    Buscar CEP
+                  <button type="submit" class="btn btn-lg btn-light w-75">
+                    Entrar
                   </button>
                 </div>
               </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-map-marked-alt"></i>
-                  </span>
-                </div>
-                <input type="text" class="form-control" name="rua" placeholder="Rua: xxxxxxxxxx" disabled />
+              <div class="card-footer text-center">
+                <p class="mt-1 mb-4 h5">
+                  Ainda não é cadastrado?
+                </p>
+                <button type="button" class="btn btn-lg btn-light w-75">
+                  <a href="cadastro.html" class="btn-light">Cadastre-se</a>
+                </button>
               </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-map-marked-alt"></i>
-                  </span>
-                </div>
-                <input type="number" class="form-control" name="numero" placeholder="Número" />
-                <input type="text" class="form-control" name="complemento" placeholder="Complemento" />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-globe-americas"></i>
-                  </span>
-                </div>
-                <input type="text" class="form-control" name="cidade" placeholder="Cidade" disabled />
-                <input type="text" class="form-control" name="estado" placeholder="Estado" disabled />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-unlock-alt"></i>
-                  </span>
-                </div>
-                <input type="password" class="form-control" name="senha1" placeholder="Senha" />
-              </div>
-              <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-unlock-alt"></i>
-                  </span>
-                </div>
-                <input type="password" class="form-control" name="senha2" placeholder="Repetir senha" />
-              </div>
-              <div class="custom-control custom-switch mb-2">
-                <input type="checkbox" class="custom-control-input" id="termos-de-uso" name="termos" />
-                <label class="custom-control-label" for="termos-de-uso">
-                  Aceito os <a href="#">Termos de Uso</a> do serviço <strong>SAC - Sistema de Atendimento ao Cliente<sup>&copy;</sup></strong>
-                </label>
-              </div>
-            </div>
-            <div class="card-footer text-center">
-              <button type="submit" class="btn btn-lg btn-light w-75">
-                Cadastrar
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </main>
