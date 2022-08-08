@@ -23,12 +23,14 @@ public class Usuario  implements Serializable{
     private String bairro;
     private String cidade;
     private String uf;
-    private String senha; 
+    private String senha;
+    private String tipo;
+    
 
     public Usuario() {
     }
 
-    public Usuario(int id, String nome, String cpf, String email, String telefone, String cep, String rua, int nr, String complemento, String bairro, String cidade, String uf, String senha) {
+    public Usuario(int id, String nome, String cpf, String email, String telefone, String cep, String rua, int nr, String complemento, String bairro, String cidade, String uf, String senha, String tipo) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -42,9 +44,10 @@ public class Usuario  implements Serializable{
         this.cidade = cidade;
         this.uf = uf;
         this.senha = senha;
+        this.tipo = tipo;
     }
 
-    public Usuario(String nome, String cpf, String email, String telefone, String cep, String rua, int nr, String complemento, String bairro, String cidade, String uf, String senha) {
+    public Usuario(String nome, String cpf, String email, String telefone, String cep, String rua, int nr, String complemento, String bairro, String cidade, String uf, String senha, String tipo) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -57,6 +60,7 @@ public class Usuario  implements Serializable{
         this.cidade = cidade;
         this.uf = uf;
         this.senha = senha;
+        this.tipo = tipo;
     }
 
     public int getId() {
@@ -163,5 +167,13 @@ public class Usuario  implements Serializable{
         this.senha = senha;
     }
 
-  
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+
 }
