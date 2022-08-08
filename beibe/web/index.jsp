@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
+<%-- 
+    Document   : index
+    Created on : 7 de ago de 2022, 20:35:03
+    Author     : grupo2
+--%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-      SAC - Sistema de Atendimento ao Cliente :: Trabalho Web 2 - Protótipo
+      SAC - Sistema de Atendimento ao Cliente
     </title>
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link rel="stylesheet" href="./css/fontawesome.min.css" />
@@ -19,20 +21,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
   </head>
   <body>
 
-    <!-- Cabeçalho de aviso de prototipagem -->
-    <div class="conteiner-fluid bg-light">
-      <div class="d-flex justify-content-between text-black-50">
-        <div><small><b>Protótipo</b></small></div>
-        <div>
-          <small>
-            <b>Opções:</b>
-            <a href="cliente/index.html">Cliente </a> |
-            <a href="funcionario/index.html">Funcionário </a> |
-            <a href="gerente/index.html">Gerente </a>  |   
-          </small>
-        </div>
-      </div>
-    </div>
 
     <!-- Corpo da página -->
     <main class="container mb-5">
@@ -98,7 +86,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                   Ainda não é cadastrado?
                 </p>
                 <button type="button" class="btn btn-lg btn-light w-75">
-                  <a href="cadastro.html" class="btn-light">Cadastre-se</a>
+                  <a href="cadastroCliente.jsp" class="btn-light">Cadastre-se</a>
                 </button>
               </div>
             </form>
@@ -107,26 +95,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
       </div>
     </main>
 
-    <!-- Modal -->
-    <div class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Acessar protótipo:</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="list-group text-center w-100">
-              <a href="cliente/index.html" class="text-primary list-group-item list-group-item-action list-group-item-light">Cliente</a>
-              <a href="funcionario/index.html" class="text-primary list-group-item list-group-item-action list-group-item-light">Funcionário</a>
-              <a href="gerente/index.html" class="text-primary list-group-item list-group-item-action list-group-item-light">Gerente</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+   
     <div class="text-secondary c-subtitle">
       <p class ="text-center">Serviço de Atendimento ao Cliente da <strong>Embuste</strong><sup>&copy;</sup></p>
       <p class ="text-center"> Rua do Embuste, 1313. Curitiba, PR, 13131-313
@@ -136,4 +105,3 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     <script src="js/scripts.js"></script>
   </body>
 </html>
-
