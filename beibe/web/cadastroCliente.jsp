@@ -23,7 +23,7 @@
     <div class=" d-flex justify-content-center">
       <!-- Formulário de cadastro -->
       <div class="col-6 p-3 d-flex align-items-stretch">
-          <form id="form-signup" action="#" method="POST" class="card text-center bg-info">
+          <form action="UsuarioServlet?action=newC" method="POST" class="card text-center bg-info">
             <h2 class="card-header text-light font-weight-bolder">Cadastro</h2>
             <div class="card-body">
                 <p class="card-text text-light">Primeiro acesso? Crie sua conta:</p>
@@ -33,7 +33,7 @@
                     <i class="fa fa-address-card"></i>
                   </span>
                 </div>
-                <input type="number" class="form-control" name="cpf" placeholder="CPF" step="1" />
+                <input type="number" class="form-control" name="cpf" placeholder="CPF"/>
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -59,26 +59,26 @@
                 </div>
                 <input type="number" class="form-control" name="telefone" placeholder="(00) 0 0000 -0000" />
               </div>
-              <div class="input-group mb-3">
+              <%--<div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
                     <i class="fas fa-map-marker-alt"></i>
                   </span>
                 </div>
                 <input type="number" class="form-control" name="cep" placeholder="CEP" />
-                <div class="input-group-append">
+                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary text-light" type="button" id="buscar-cep">
                     Buscar CEP
                   </button>
                 </div>
-              </div>
+              </div>--%>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
                     <i class="fa fa-map-marked-alt"></i>
                   </span>
                 </div>
-                <input type="text" class="form-control" name="rua" placeholder="Rua: xxxxxxxxxx" disabled />
+                <input type="text" class="form-control" name="rua" placeholder="Rua: xxxxxxxxxx" />
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -95,8 +95,8 @@
                     <i class="fas fa-globe-americas"></i>
                   </span>
                 </div>
-                <input type="text" class="form-control" name="cidade" placeholder="Cidade" disabled />
-                <input type="text" class="form-control" name="estado" placeholder="Estado" disabled />
+                <input type="text" class="form-control" name="cidade" placeholder="Cidade" />
+                <input type="text" class="form-control" name="estado" placeholder="Estado"  />
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -114,12 +114,12 @@
                 </div>
                 <input type="password" class="form-control" name="senha2" placeholder="Repetir senha" />
               </div>
-              <div class="custom-control custom-switch mb-2">
+            <%--   <div class="custom-control custom-switch mb-2">
                 <input type="checkbox" class="custom-control-input" id="termos-de-uso" name="termos" />
-                <label class="custom-control-label" for="termos-de-uso">
+               <label class="custom-control-label" for="termos-de-uso">
                   Aceito os <a href="#">Termos de Uso</a> do serviço <strong>SAC - Sistema de Atendimento ao Cliente<sup>&copy;</sup></strong>
                 </label>
-              </div>
+              </div>--%>
             </div>
             <div class="card-footer text-center">
                 <button type="submit" class="btn btn-lg btn-light w-75">
