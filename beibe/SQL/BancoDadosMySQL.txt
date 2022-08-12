@@ -1,0 +1,22 @@
+CREATE DATABASE Beibe DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+use Beibe;
+
+CREATE TABLE tb_usuario
+(
+    id integer NOT NULL,
+    nome character varying(100),
+    email character varying(100),
+    cpf character(11),    
+    telefone character varying(11) ,
+    cep  character(8),
+    rua character varying(100),
+    nr integer,
+    complemento character varying(50),
+    bairro character varying(50),
+     cidade character varying(50),
+    uf character(2),
+    senha character(15),
+    tipo character(15),
+    
+    CONSTRAINT tb_usuario_pkey PRIMARY KEY (id)
+);
