@@ -39,28 +39,16 @@ public class UsuarioServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String action = request.getParameter("action");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1> ola</h1>");
-            out.println(action);
-            out.println("</body>");
-            out.println("</html>");
-        }
+       
         
         
-        /*
+        
         if(action==null || action.equals("list")){
            /* List<Cliente> clientes = ClientesFacade.listarTodos();
             request.setAttribute("listaClientes", clientes);
             RequestDispatcher rd = request.getRequestDispatcher("/clientesListar.jsp");
             rd.forward(request, response);*/
-       /* } else{            
+        } else{            
             switch (action) {
 
                 /*case "show":
@@ -138,7 +126,7 @@ public class UsuarioServlet extends HttpServlet {
                     break;
              */
              //Parte já pronta para teste------------------------------------------------------------------------
-            /*    case "newC":
+                case "newC":
                     //Valores pegos do formulario, já no formato para BD
                     String cpf = request.getParameter("cpf");
                     String nome = request.getParameter("nome");
@@ -166,13 +154,13 @@ public class UsuarioServlet extends HttpServlet {
                     //função para inserir no bd via Facade
                     UsuarioFacade.adicionarCliente(c);
                     //redireciona
-                    response.sendRedirect("UsuarioServlet");
+                    response.sendRedirect("index.jsp");
                     break;                          
             }
        
         
        
-        } */
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
