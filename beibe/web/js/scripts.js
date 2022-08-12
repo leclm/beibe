@@ -1,13 +1,5 @@
 
-// Adicionar eventos de submissão de formulário
-$('#form-login').submit(e => {
-  e.preventDefault();
-  $('.modal').modal('show');
-});
-$('form[method="POST"]').submit(e => {
-  e.preventDefault();
-  alert('Recurso indisponível!');
-});
+
 
 // Adicionar eventos em formulário
 $('#buscar-cep').click(() => {
