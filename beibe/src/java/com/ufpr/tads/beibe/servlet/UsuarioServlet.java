@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  *
- * @author nicol
+ * @author grupo2
  */
 @WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet"})
 public class UsuarioServlet extends HttpServlet {
@@ -132,9 +132,11 @@ public class UsuarioServlet extends HttpServlet {
                     String nome = request.getParameter("nome");
                     String email = request.getParameter("email");
                     String telefone = request.getParameter("telefone");
+                    String cep = request.getParameter("cep");
                     String rua = request.getParameter("rua");
                     int nr = Integer.parseInt(request.getParameter("numero"));
                     String complemento = request.getParameter("complemento");
+                    String bairro = request.getParameter("bairro");
                     String cidade = request.getParameter("cidade");
                     String uf = request.getParameter("estado");
                     String senha = request.getParameter("senha1");
@@ -145,9 +147,11 @@ public class UsuarioServlet extends HttpServlet {
                     c.setNome(nome);
                     c.setEmail(email);
                     c.setTelefone(telefone);
+                    c.setCep(cep);
                     c.setRua(rua);
                     c.setNr(nr);
                     c.setComplemento(complemento);
+                    c.setBairro(bairro);
                     c.setCidade(cidade);
                     c.setUf(uf);
                     c.setSenha(senha);
