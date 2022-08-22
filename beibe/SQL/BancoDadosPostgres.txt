@@ -7,22 +7,21 @@ CREATE DATABASE "Beibe"
 CREATE TABLE IF NOT EXISTS public.tb_usuario
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    nome character varying(100) COLLATE pg_catalog."default",
-    email character varying(100) COLLATE pg_catalog."default",
-	cpf character(11) COLLATE pg_catalog."default",	
-	telefone character varying(11) COLLATE pg_catalog."default",
-	cep  character(8) COLLATE pg_catalog."default",
-	rua character varying(100) COLLATE pg_catalog."default",
-    nr integer,
-	complemento character varying(50) COLLATE pg_catalog."default",
-	bairro character varying(50) COLLATE pg_catalog."default",
- 	cidade character varying(50) COLLATE pg_catalog."default",
-    uf character(2) COLLATE pg_catalog."default",
-	senha character(15) COLLATE pg_catalog."default",
-	tipo character(15) COLLATE pg_catalog."default",
-	
-  
-    CONSTRAINT tb_usuario_pkey PRIMARY KEY (id)
+    nome character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    cpf character(11) COLLATE pg_catalog."default" NOT NULL,
+    telefone character varying(11) COLLATE pg_catalog."default" NOT NULL,
+    cep character(8) COLLATE pg_catalog."default" NOT NULL,
+    rua character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    nr integer NOT NULL,
+    complemento character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    bairro character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    cidade character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    uf character(2) COLLATE pg_catalog."default" NOT NULL,
+    senha character(15) COLLATE pg_catalog."default" NOT NULL,
+    tipo character(15) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT tb_usuario_pkey PRIMARY KEY (id),
+    CONSTRAINT "valoresUnicos" UNIQUE (cpf, email)
 )
 
 TABLESPACE pg_default;

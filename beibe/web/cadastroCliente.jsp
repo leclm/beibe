@@ -59,7 +59,7 @@
                 </div>
                 <input type="number" class="form-control" name="telefone" placeholder="(00) 0 0000 -0000" />
               </div>
-              <%--<div class="input-group mb-3">
+              <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
                     <i class="fas fa-map-marker-alt"></i>
@@ -71,7 +71,7 @@
                     Buscar CEP
                   </button>
                 </div>
-              </div>--%>
+              </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -88,6 +88,7 @@
                 </div>
                 <input type="number" class="form-control" name="numero" placeholder="Número" />
                 <input type="text" class="form-control" name="complemento" placeholder="Complemento" />
+                <input type="text" class="form-control" name="bairro" placeholder="Bairro" />
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
