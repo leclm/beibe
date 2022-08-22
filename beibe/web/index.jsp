@@ -36,7 +36,7 @@
         <div class=" d-flex justify-content-center">
           <div class="col-6 p-2 d-flex align-items-stretch">
             <!-- Formulário de login -->
-            <form id="form-login" action="#" method="POST" class="card text-center bg-info">
+            <form id="form-login" action="LoginServlet" method="POST" class="card text-center bg-info">
               <h2 class="card-header text-light font-weight-bolder">Entrar</h2>
               <img class="card-img-top" src="assets/logo.jpg" alt="Capa">
               <div class="card-body">
