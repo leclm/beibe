@@ -3,7 +3,7 @@
     Created on : 7 de ago de 2022, 20:35:03
     Author     : grupo2
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="./css/fontawesome.min.css" />
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="icon" type="image/x-icon" href="assets/images/phone-solid.svg">
+
   </head>
   <body>
 
@@ -31,7 +32,12 @@
           SAC - Sistema de Atendimento ao Cliente
         </h1>
       </div>
-      
+      <c:if test="${requestScope.msg != null || param.msg != null}" >
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <span>${requestScope.msg == null ? param.msg : requestScope.msg}</span>
+                </div>
+      </c:if>
       <div class="row my-3">
         <div class=" d-flex justify-content-center">
           <div class="col-6 p-2 d-flex align-items-stretch">

@@ -7,6 +7,7 @@ package com.ufpr.tads.beibe.servlet;
 import com.ufpr.tads.beibe.beans.LoginBean;
 import com.ufpr.tads.beibe.beans.Usuario;
 import com.ufpr.tads.beibe.dao.UsuarioDAO;
+import com.ufpr.tads.beibe.facade.UsuarioFacade;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
@@ -38,7 +39,8 @@ public class LoginServlet extends HttpServlet {
        //Valores pegos do formulario
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-        Usuario user = UsuarioDAO.login(email,senha);
+        Usuario user = UsuarioFacade.login(email,senha);
+        //Usuario user = UsuarioDAO.login(email,senha);
         
                   
        
@@ -51,8 +53,9 @@ public class LoginServlet extends HttpServlet {
                 bean.setNome(user.getNome());
                 bean.setTipo(user.getTipo());
                 session.setAttribute("user", bean);
+                
                //direto ele funciona, mas dentro de if ou switch não ta rolando
-                response.sendRedirect("portalCliente.jsp");
+               response.sendRedirect("portalCliente.jsp");
                 
       
             /*response.setContentType("text/html;charset=UTF-8");
@@ -68,8 +71,8 @@ public class LoginServlet extends HttpServlet {
                         out.println(user.getTipo());
                         
                     }*/
-            
-           /* switch (user.getTipo()) {
+           /*
+            switch (tipo) {
                 case "cliente":
                     response.sendRedirect("portalCliente.jsp");
                     break;

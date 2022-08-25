@@ -9,12 +9,16 @@ import com.ufpr.tads.beibe.dao.UsuarioDAO;
 
 /**
  *
- * @author nicol
+ * @author grupo2
  */
 public class UsuarioFacade {
     
      public static void adicionarCliente(Usuario c) {
         UsuarioDAO.adicionarCliente(c);
+    }
+
+    public static Usuario login(String email, String senha) {
+         return UsuarioDAO.login(email,senha);
     }
      
 }
