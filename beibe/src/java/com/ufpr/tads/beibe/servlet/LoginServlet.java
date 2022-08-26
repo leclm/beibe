@@ -53,25 +53,7 @@ public class LoginServlet extends HttpServlet {
                 bean.setNome(user.getNome());
                 bean.setTipo(user.getTipo());
                 session.setAttribute("user", bean);
-                
-               //direto ele funciona, mas dentro de if ou switch não ta rolando
-                response.sendRedirect("portalCliente.jsp");
-                
-      
-            /*);
-                    try ( PrintWriter out = response.getWriter()) {
-            
-                        out.println("<!DOCTYPE html>");
-                        out.println("<html>");
-                        out.println("<head>");
-                        out.println("<title>Login</title>");            
-                        out.println("</head>");
-                        out.println("<body>");
-                        out.println("antes de entrar no switch");
-                        out.println(user.getTipo());
-                        
-                    }*/
-           /*
+              
             switch (user.getTipo()) {
                 case "cliente":
                     response.sendRedirect("portalCliente.jsp");
@@ -82,7 +64,10 @@ public class LoginServlet extends HttpServlet {
                 case "gerente":
                     response.sendRedirect("portalGerente.jsp");
                     break;
-            }*/
+                default:
+                    response.sendRedirect("Vai para erro");
+                    break;
+            }
             
         } else {
               

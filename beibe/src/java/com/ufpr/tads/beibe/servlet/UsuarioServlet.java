@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -131,7 +132,6 @@ public class UsuarioServlet extends HttpServlet {
                     String cpf = request.getParameter("cpf");
                     String nome = request.getParameter("nome");
                     String email = request.getParameter("email");
-                    String telefone = request.getParameter("telefone");
                     String cep = request.getParameter("cep");
                     String rua = request.getParameter("rua");
                     int nr = Integer.parseInt(request.getParameter("numero"));
@@ -146,7 +146,6 @@ public class UsuarioServlet extends HttpServlet {
                     c.setCpf(cpf);
                     c.setNome(nome);
                     c.setEmail(email);
-                    c.setTelefone(telefone);
                     c.setCep(cep);
                     c.setRua(rua);
                     c.setNr(nr);
@@ -162,7 +161,27 @@ public class UsuarioServlet extends HttpServlet {
                     break;  
                     
                    case "showC":
-                    int id = Integer.parseInt(request.getParameter("id"));
+                    Usuario user = (Usuario)request.getAttribute("usuario");
+                    int id = user.getId();
+                    
+                    response.setContentType("text/html;charset=UTF-8");
+                     try ( PrintWriter out = response.getWriter()) {
+                        /* TODO output your page here. You may use following sample code. */
+                        out.println("<!DOCTYPE html>");
+                        out.println("<html>");
+                        out.println("<head>");
+                        out.println("<title>Servlet NewServlet</title>");            
+                        out.println("</head>");
+                        out.println("<body>");
+                        out.println(user.getId());
+                        out.println("</body>");
+                        out.println("</html>");
+                    }
+                    
+                    
+                    
+                    
+                    /*
                     //BUSCA OBJETO NO BD via Facade
                      Usuario cliente = UsuarioFacade.buscaPorID(id);
                     //ADD OB NA REQUISIÇÃO
@@ -170,6 +189,7 @@ public class UsuarioServlet extends HttpServlet {
                     //ENVIA VIA FOWARD
                     RequestDispatcher rd = request.getRequestDispatcher("/dadosCliente.jsp");
                     rd.forward(request, response);
+                    */
                     break;
             }
        

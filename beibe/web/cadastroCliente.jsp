@@ -57,7 +57,6 @@
                     <i class="fa fa-phone-square-alt"></i>
                   </span>
                 </div>
-                <input type="number" class="form-control" name="telefone" placeholder="(00) 0 0000 -0000" />
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
