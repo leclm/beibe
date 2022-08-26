@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Servlets;
+package com.ufpr.tads.beibe.servlet;
 
-import Classes.Usuario;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,14 +13,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 
 /**
  *
- * @author Clau
+ * @author grupo2
  */
-@WebServlet(name = "CadastrarUsuarioServlet", urlPatterns = {"/CadastrarUsuarioServlet"})
-public class CadastrarUsuarioServlet extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,40 +32,17 @@ public class CadastrarUsuarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        HttpSession lista = request.getSession();
-        ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>)request.getAttribute("lista");
-        
-        if(listaUsuarios == null){
-            listaUsuarios = new ArrayList<>();
-            listaUsuarios.add(new Usuario("admin","admin","admin"));
-            listaUsuarios.add(new Usuario("teste","teste","teste"));
+        HttpSession session = request.getSession(false);
+        if(session!= null) {
+            session.removeAttribute("nome");
+            session.invalidate();
+            request.setAttribute("msg", " Usuário desconectado com sucesso");
+            request.setAttribute("page", request.getContextPath() + "/");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
         }
-        
-        String nome = request.getParameter("nome");
-        String id = request.getParameter("id");
-        String senha = request.getParameter("senha");
-        Usuario usuario = new Usuario(nome,id,senha);
-        listaUsuarios.add(usuario);
-        lista.setAttribute("lista", listaUsuarios);
-        
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Cadastro</title>");            
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>Usuário cadastrado com sucesso</h1>");
-        out.println("Nome: " + usuario.getNome());
-        out.println("<br>Usuario: " + usuario.getId());
-        out.println("<br>Senha: " + usuario.getSenha());
-        out.println("<br><button><a href=\"PortalServlet\">Tela de cadastro</a></button>");
-        out.println("</body>");
-        out.println("</html>");
+
         
     }
 
