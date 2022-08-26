@@ -45,7 +45,7 @@
             <a class="nav-link active" href="portalCliente.jsp">Meus Atendimentos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="dadosCliente.jsp">Meus Dados</a>
+            <a class="nav-link" href="UsuarioServlet?action=showC">Meus Dados</a>
           </li>
         </ul>
       </div>
