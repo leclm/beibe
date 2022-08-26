@@ -16,9 +16,13 @@ import java.sql.ResultSet;
  * @author grupo2
  */
 public class UsuarioDAO implements DAO<Usuario>{
-    private static final String QUERY_INSERIR_CLIENTE = "INSERT INTO tb_usuario(nome, email, cpf, telefone, cep, rua, nr, complemento, bairro, cidade, uf, senha, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
+   private static final String QUERY_INSERIR_CLIENTE = "INSERT INTO tb_usuario(nome, email, cpf, telefone, cep, rua, nr, complemento, bairro, cidade, uf, senha, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
+   
+   private static final String QUERY_BUSCAR_LOGIN= "SELECT * FROM tb_usuario WHERE email = ? AND senha = ? ";
     
-    private static final String QUERY_BUSCAR_LOGIN= "SELECT * FROM tb_usuario WHERE email = ? AND senha = ? ";
+   private static final String QUERY_BUSCAR_POR_ID= "SELECT id, nome, email, cpf, telefone, cep, rua, nr, complemento, bairro, cidade, uf, senha, tipo FROM tb_usuario WHERE id= ? ;";
+    
+    private static final String QUERY_ATUALIZAR_POR_ID= "UPDATE tb_usuario SET nome=?, telefone=?, cep=?, rua=?, nr=?, complemento=?, bairro=?, cidade=?, uf=? WHERE  id= ?;";
     
     /*private static final String QUERY_BUSCAR_TODOS= 
             "SELECT id_cliente, cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, cidade_cliente, uf_cliente"+
@@ -107,7 +111,51 @@ public class UsuarioDAO implements DAO<Usuario>{
             return null;
         }
     }
+    
+     public static Usuario buscaPorId(int id) {
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Usuario u = new Usuario();
+        
+        try{
+            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
+            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
+            st = con.prepareStatement(QUERY_BUSCAR_POR_ID);
+            st.setInt(1,id);
+            rs = st.executeQuery();
+           if (rs.next()) {
+                u = new Usuario(rs.getInt("id"), 
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        rs.getString("cep"),
+                        rs.getString("rua"),
+                        rs.getInt("nr"),
+                        rs.getString("complemento"),
+                        rs.getString("bairro"),
+                        rs.getString("cidade"),
+                        rs.getString("uf"),
+                        rs.getString("senha"),
+                        rs.getString("tipo"));
+               
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return u;
+    }
+    
+    
+    
 }
+
+
+
+
 
 
     

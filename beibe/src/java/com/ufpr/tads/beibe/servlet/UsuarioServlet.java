@@ -159,7 +159,18 @@ public class UsuarioServlet extends HttpServlet {
                     UsuarioFacade.adicionarCliente(c);
                     //redireciona
                     response.sendRedirect("index.jsp");
-                    break;                          
+                    break;  
+                    
+                   case "showC":
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    //BUSCA OBJETO NO BD via Facade
+                     Usuario cliente = UsuarioFacade.buscaPorID(id);
+                    //ADD OB NA REQUISIÇÃO
+                    request.setAttribute("cliente", cliente);
+                    //ENVIA VIA FOWARD
+                    RequestDispatcher rd = request.getRequestDispatcher("/dadosCliente.jsp");
+                    rd.forward(request, response);
+                    break;
             }
        
         

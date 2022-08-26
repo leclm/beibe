@@ -20,5 +20,9 @@ public class UsuarioFacade {
     public static Usuario login(String email, String senha) {
          return UsuarioDAO.login(email,senha);
     }
+    
+    public static Usuario buscaPorID(int id) {
+         return UsuarioDAO.buscaPorId(id);
+    }
      
 }

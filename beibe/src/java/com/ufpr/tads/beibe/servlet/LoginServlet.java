@@ -36,11 +36,11 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
        //Valores pegos do formulario
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         Usuario user = UsuarioFacade.login(email,senha);
-        //Usuario user = UsuarioDAO.login(email,senha);
         
                   
        
@@ -55,10 +55,10 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("user", bean);
                 
                //direto ele funciona, mas dentro de if ou switch não ta rolando
-               response.sendRedirect("portalCliente.jsp");
+                response.sendRedirect("portalCliente.jsp");
                 
       
-            /*response.setContentType("text/html;charset=UTF-8");
+            /*);
                     try ( PrintWriter out = response.getWriter()) {
             
                         out.println("<!DOCTYPE html>");
@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
                         
                     }*/
            /*
-            switch (tipo) {
+            switch (user.getTipo()) {
                 case "cliente":
                     response.sendRedirect("portalCliente.jsp");
                     break;
@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("portalGerente.jsp");
                     break;
             }*/
-                
+            
         } else {
               
                 request.setAttribute("msg", " Usuário/Senha inválidos.");
