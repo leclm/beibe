@@ -3,7 +3,7 @@
     Created on : 7 de ago de 2022, 21:19:28
     Author     : grupo2
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -57,11 +57,6 @@
                   </span>
                 </div>
                 <input type="number" class="form-control" name="cep" placeholder="CEP" />
-                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary text-light" type="button" id="buscar-cep">
-                    Buscar CEP
-                  </button>
-                </div>
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -87,8 +82,20 @@
                     <i class="fas fa-globe-americas"></i>
                   </span>
                 </div>
-                <input type="text" class="form-control" name="cidade" placeholder="Cidade" />
-                <input type="text" class="form-control" name="estado" placeholder="Estado"  />
+                  
+                <select  id="clienteEstado" class="form-control" name="estado">    
+                   <c:forEach items="${estados}" var="estado">
+                     <option value="${estado.sigla}"  ${param.estado == estado.id ? 'selected="true"' : '' } >${estado.sigla}</option>
+                    </c:forEach>
+                </select>
+                
+                <select  id="clienteCidade" class="form-control" name="cidade"> 
+                   <c:forEach items="${cidades}" var="cidade">
+                     <option value="${cidade.nome}"  ${param.cidade == cidade.id ? 'selected="true"' : '' } >${cidade.nome}</option>
+                    </c:forEach>
+                </select>
+ 
+                
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">

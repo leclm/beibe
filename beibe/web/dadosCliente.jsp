@@ -74,9 +74,9 @@
 
     <!-- Formulário dos dados do usuário -->
     <form action="UsuarioServlet?action=alterarCadastro" method="POST" class="mt-5">
-      <h3 class="mb-3 h4">Alterar Senha</h3>
+      
           <div class="form-group">
-            <input type="text" id="clienteTipo" class="form-control" name="tipo" value="${cliente.tipo}"/>
+            <input type="hidden" id="clienteTipo" class="form-control" name="tipo" value="${cliente.tipo}"/>
           </div>
       <div class="row">
         <div class="col-12 jsutify-content-between">
@@ -169,13 +169,23 @@
           </div>  
           <div class="form-group">
             <label for="clienteCidade">Cidade:</label>
-            <input type="text" id="clienteCidade" class="form-control" name="cidade" value="${cliente.cidade}" />   
+            <select  id="clienteCidade" class="form-control" name="cidade">
+                    <option value="">Selecione</option>
+                        <c:forEach items="${cidades}" var="city">
+                            <option value="${city.nome}"<c:if test="${cliente.cidade == city.nome}">selected</c:if>>${city.nome}</option>
+                        </c:forEach>
+            </select>
           </div>
           <div class="row">
             <div class="col-6">
               <div class="form-group">
                 <label for="clienteEstado">Estado:</label>
-                <input type="text" id="clienteEstado" class="form-control" name="estado" value="${cliente.uf}"/>
+                <select  id="clienteEstado" class="form-control" name="estado">
+                    <option value="">Selecione</option>
+                        <c:forEach items="${estados}" var="e">
+                            <option value="${e.sigla}"<c:if test="${cliente.uf == e.sigla}">selected</c:if>>${e.sigla}</option>
+                        </c:forEach>
+                </select>
               </div>
             </div>
           </div>           
