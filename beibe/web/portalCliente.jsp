@@ -5,6 +5,7 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%--Validar se usuário está logado--%>
 <c:if test="${sessionScope.user == null}" >
@@ -22,7 +23,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>
-    SAC - Sistema de Atendimento ao Cliente :: Trabalho Web 2 - Protótipo
+    SAC - Sistema de Atendimento ao Cliente :: Trabalho Web 2
   </title>
   <link rel="stylesheet" href="./css/bootstrap.min.css" />
   <link rel="stylesheet" href="./css/fontawesome.min.css" />
@@ -45,7 +46,7 @@
             <a class="nav-link active" href="portalCliente.jsp">Meus Atendimentos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="UsuarioServlet?action=showC">Meus Dados</a>
+            <a class="nav-link" href="UsuarioServlet?action=mostrarCliente">Meus Dados</a>
           </li>
         </ul>
       </div>

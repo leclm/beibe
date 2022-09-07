@@ -4,6 +4,7 @@
  */
 package com.ufpr.tads.beibe.servlet;
 
+import com.ufpr.tads.beibe.beans.LoginBean;
 import com.ufpr.tads.beibe.beans.Usuario;
 import com.ufpr.tads.beibe.facade.UsuarioFacade;
 import jakarta.servlet.RequestDispatcher;
@@ -40,10 +41,7 @@ public class UsuarioServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String action = request.getParameter("action");
-       
-        
-        
-        
+              
         if(action==null || action.equals("list")){
            /* List<Cliente> clientes = ClientesFacade.listarTodos();
             request.setAttribute("listaClientes", clientes);
@@ -127,7 +125,7 @@ public class UsuarioServlet extends HttpServlet {
                     break;
              */
              //Parte já pronta para teste------------------------------------------------------------------------
-                case "newC":
+                case "autocadastro":
                     //Valores pegos do formulario, já no formato para BD
                     String cpf = request.getParameter("cpf");
                     String nome = request.getParameter("nome");
@@ -139,7 +137,7 @@ public class UsuarioServlet extends HttpServlet {
                     String bairro = request.getParameter("bairro");
                     String cidade = request.getParameter("cidade");
                     String uf = request.getParameter("estado");
-                    String senha = request.getParameter("senha1");
+                    String senha = request.getParameter("senha");
                     //cria um novo objeto cliente
                     Usuario c = new Usuario();
                     //adiciona os valores a esse objeto
@@ -160,37 +158,35 @@ public class UsuarioServlet extends HttpServlet {
                     response.sendRedirect("index.jsp");
                     break;  
                     
-                   case "showC":
-                    Usuario user = (Usuario)request.getAttribute("usuario");
+                   case "mostrarCliente":
+                    HttpSession session = request.getSession();
+                    LoginBean user = (LoginBean)session.getAttribute("user");
                     int id = user.getId();
-                    
-                    response.setContentType("text/html;charset=UTF-8");
-                     try ( PrintWriter out = response.getWriter()) {
-                        /* TODO output your page here. You may use following sample code. */
-                        out.println("<!DOCTYPE html>");
-                        out.println("<html>");
-                        out.println("<head>");
-                        out.println("<title>Servlet NewServlet</title>");            
-                        out.println("</head>");
-                        out.println("<body>");
-                        out.println(user.getId());
-                        out.println("</body>");
-                        out.println("</html>");
-                    }
-                    
-                    
-                    
-                    
-                    /*
                     //BUSCA OBJETO NO BD via Facade
-                     Usuario cliente = UsuarioFacade.buscaPorID(id);
+                    Usuario cliente = UsuarioFacade.buscaPorID(id);
                     //ADD OB NA REQUISIÇÃO
                     request.setAttribute("cliente", cliente);
                     //ENVIA VIA FOWARD
                     RequestDispatcher rd = request.getRequestDispatcher("/dadosCliente.jsp");
                     rd.forward(request, response);
-                    */
                     break;
+                    
+                    /*response.setContentType("text/html;charset=UTF-8");
+                     try ( PrintWriter out = response.getWriter()) {
+                        /* TODO output your page here. You may use following sample code. */
+                      /*  out.println("<!DOCTYPE html>");
+                        out.println("<html>");
+                        out.println("<head>");
+                        out.println("<title>Servlet NewServlet</title>");            
+                        out.println("</head>");
+                        out.println("<body>");
+                        out.println("Entrou");
+                        out.println(id);
+                        out.println(cliente.getNome());
+                        out.println("</body>");
+                        out.println("</html>");
+                    }*/
+        
             }
        
         

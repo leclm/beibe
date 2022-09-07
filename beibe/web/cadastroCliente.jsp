@@ -1,7 +1,7 @@
 <%-- 
     Document   : cadastroCliente
     Created on : 7 de ago de 2022, 21:19:28
-    Author     : nicol
+    Author     : grupo2
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,12 +18,11 @@
     <link rel="icon" type="image/x-icon" href="assets/images/phone-solid.svg">
   </head>
   <body>
- 
-    
+   
     <div class=" d-flex justify-content-center">
       <!-- Formulário de cadastro -->
       <div class="col-6 p-3 d-flex align-items-stretch">
-          <form action="UsuarioServlet?action=newC" method="POST" class="card text-center bg-info">
+          <form action="UsuarioServlet?action=autocadastro" method="POST" class="card text-center bg-info">
             <h2 class="card-header text-light font-weight-bolder">Cadastro</h2>
             <div class="card-body">
                 <p class="card-text text-light">Primeiro acesso? Crie sua conta:</p>
@@ -50,13 +49,6 @@
                   </span>
                 </div>
                 <input type="email" class="form-control" name="email" placeholder="email@email.com" />
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-phone-square-alt"></i>
-                  </span>
-                </div>
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -104,22 +96,8 @@
                     <i class="fas fa-unlock-alt"></i>
                   </span>
                 </div>
-                <input type="password" class="form-control" name="senha1" placeholder="Senha" />
+                <input type="password" class="form-control" name="senha" placeholder="Senha" />
               </div>
-              <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-unlock-alt"></i>
-                  </span>
-                </div>
-                <input type="password" class="form-control" name="senha2" placeholder="Repetir senha" />
-              </div>
-            <%--   <div class="custom-control custom-switch mb-2">
-                <input type="checkbox" class="custom-control-input" id="termos-de-uso" name="termos" />
-               <label class="custom-control-label" for="termos-de-uso">
-                  Aceito os <a href="#">Termos de Uso</a> do serviço <strong>SAC - Sistema de Atendimento ao Cliente<sup>&copy;</sup></strong>
-                </label>
-              </div>--%>
             </div>
             <div class="card-footer text-center">
                 <button type="submit" class="btn btn-lg btn-light w-75">
@@ -129,8 +107,6 @@
           </form>
       </div>
     </div>
-    
-
     <div class="text-secondary c-subtitle">
       <p class ="text-center">Serviço de Atendimento ao Cliente da <strong>Embuste</strong><sup>&copy;</sup></p>
       <p class ="text-center"> Rua do Embuste, 1313. Curitiba, PR, 13131-313
