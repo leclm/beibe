@@ -46,7 +46,7 @@
                 <a class="nav-link" href="portalCliente.jsp">Meus Atendimentos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="dadosClientes.jsp">Meus Dados</a>
+                <a class="nav-link active" href="UsuarioServlet?action=mostrarCliente">Meus Dados</a>
             </li>
         </ul>
       </div>
@@ -62,12 +62,22 @@
   <!-- Corpo da página -->
   <main class="container">
     <jsp:useBean id="cliente" class="com.ufpr.tads.beibe.beans.Usuario" scope="request" />
+    <c:if test="${requestScope.info != null || param.info != null}" >
+                <div class="alert alert-success alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <span>${requestScope.info == null ? param.info : requestScope.info}</span>
+                </div>
+    </c:if>
     <h2 class="mb-4">
       Meus Dados
     </h2>
 
     <!-- Formulário dos dados do usuário -->
-    <form action="#" method="POST" class="mt-5">
+    <form action="UsuarioServlet?action=alterarCadastro" method="POST" class="mt-5">
+      <h3 class="mb-3 h4">Alterar Senha</h3>
+          <div class="form-group">
+            <input type="text" id="clienteTipo" class="form-control" name="tipo" value="${cliente.tipo}"/>
+          </div>
       <div class="row">
         <div class="col-12 jsutify-content-between">
           <button type="submit" class="btn btn-primary float-right w-25">

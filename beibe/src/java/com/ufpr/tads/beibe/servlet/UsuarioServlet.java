@@ -158,7 +158,7 @@ public class UsuarioServlet extends HttpServlet {
                     response.sendRedirect("index.jsp");
                     break;  
                     
-                   case "mostrarCliente":
+                case "mostrarCliente":
                     HttpSession session = request.getSession();
                     LoginBean user = (LoginBean)session.getAttribute("user");
                     int id = user.getId();
@@ -171,21 +171,63 @@ public class UsuarioServlet extends HttpServlet {
                     rd.forward(request, response);
                     break;
                     
-                    /*response.setContentType("text/html;charset=UTF-8");
-                     try ( PrintWriter out = response.getWriter()) {
-                        /* TODO output your page here. You may use following sample code. */
-                      /*  out.println("<!DOCTYPE html>");
-                        out.println("<html>");
-                        out.println("<head>");
-                        out.println("<title>Servlet NewServlet</title>");            
-                        out.println("</head>");
-                        out.println("<body>");
-                        out.println("Entrou");
-                        out.println(id);
-                        out.println(cliente.getNome());
-                        out.println("</body>");
-                        out.println("</html>");
-                    }*/
+                case "alterarCadastro":
+                     //Valores pegos do formulario, já no formato para BD 
+                    session = request.getSession();
+                    user = (LoginBean)session.getAttribute("user");
+                    id = user.getId();
+                    cpf = request.getParameter("cpf");
+                    nome = request.getParameter("nome");
+                    email = request.getParameter("email");
+                    cep = request.getParameter("cep");
+                    rua = request.getParameter("rua");
+                    nr = Integer.parseInt(request.getParameter("numero"));
+                    complemento = request.getParameter("complemento");
+                    bairro = request.getParameter("bairro");
+                    cidade = request.getParameter("cidade");
+                    uf = request.getParameter("estado");
+                    senha = request.getParameter("senha");
+                    String tipo = request.getParameter("tipo");
+                    
+                    
+                    //cria um novo objeto cliente
+                    Usuario u = new Usuario();
+                    //adiciona os valores a esse objeto
+                    u.setId(id);
+                    u.setCpf(cpf);
+                    u.setNome(nome);
+                    u.setEmail(email);
+                    u.setCep(cep);
+                    u.setRua(rua);
+                    u.setNr(nr);
+                    u.setComplemento(complemento);
+                    u.setBairro(bairro);
+                    u.setCidade(cidade);
+                    u.setUf(uf);
+                    u.setSenha(senha);
+                    u.setTipo(tipo);
+                    
+                   /* try ( PrintWriter out = response.getWriter()) {
+                    /* TODO output your page here. You may use following sample code. */
+                   /* out.println("<!DOCTYPE html>");
+                    out.println("<html>");
+                    out.println("<head>");
+                    out.println("<title>Servlet NewServlet</title>");            
+                    out.println("</head>");
+                    out.println("<body>");
+                    out.println(id);
+                    out.println("</body>");
+                    out.println("</html>");
+                }*/
+                  //função para atualizar no bd via Facade
+                    UsuarioFacade.aterarUsuario(u);
+                    //redireciona
+                    request.setAttribute("info", " Usuário atualizado");
+                    request.setAttribute("page", "/portalCliente.jsp");
+                    rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
+                    rd.forward(request, response);
+                  
+                    break;
         
             }
        

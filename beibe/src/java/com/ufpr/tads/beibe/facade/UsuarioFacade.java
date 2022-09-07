@@ -24,5 +24,9 @@ public class UsuarioFacade {
     public static Usuario buscaPorID(int id) {
          return UsuarioDAO.buscaPorId(id);
     }
+
+    public static void aterarUsuario(Usuario u) {
+        UsuarioDAO.alterarUsuario(u);
+    }
      
 }
