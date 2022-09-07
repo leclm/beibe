@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS public.tb_usuario
     nome character varying(100) COLLATE pg_catalog."default" NOT NULL,
     email character varying(100) COLLATE pg_catalog."default" NOT NULL,
     cpf character(11) COLLATE pg_catalog."default" NOT NULL,
-    telefone character varying(11) COLLATE pg_catalog."default" NOT NULL,
     cep character(8) COLLATE pg_catalog."default" NOT NULL,
     rua character varying(100) COLLATE pg_catalog."default" NOT NULL,
     nr integer NOT NULL,
@@ -18,8 +17,8 @@ CREATE TABLE IF NOT EXISTS public.tb_usuario
     bairro character varying(50) COLLATE pg_catalog."default" NOT NULL,
     cidade character varying(50) COLLATE pg_catalog."default" NOT NULL,
     uf character(2) COLLATE pg_catalog."default" NOT NULL,
-    senha character(15) COLLATE pg_catalog."default" NOT NULL,
-    tipo character(15) COLLATE pg_catalog."default" NOT NULL,
+    senha character varying(15) COLLATE pg_catalog."default" NOT NULL,
+    tipo character varying(15) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT tb_usuario_pkey PRIMARY KEY (id),
     CONSTRAINT "valoresUnicos" UNIQUE (cpf, email)
 )
