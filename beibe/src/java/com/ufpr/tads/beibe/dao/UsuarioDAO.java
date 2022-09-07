@@ -22,7 +22,8 @@ public class UsuarioDAO implements DAO<Usuario>{
     
    private static final String QUERY_BUSCAR_POR_ID= "SELECT id, nome, email, cpf, cep, rua, nr, complemento, bairro, cidade, uf, senha, tipo FROM tb_usuario WHERE id= ? ;";
     
-    private static final String QUERY_ATUALIZAR_POR_ID= "UPDATE tb_usuario SET nome=?, cep=?, rua=?, nr=?, complemento=?, bairro=?, cidade=?, uf=? WHERE  id= ?;";
+   private static final String QUERY_ALTERAR= "UPDATE tb_usuario SET nome=?, email=?, cpf=?, cep=?, rua=?, nr=?, complemento=?, bairro=?, cidade=?, uf=?, senha=?, tipo=? WHERE id=?;";
+   
     
     /*private static final String QUERY_BUSCAR_TODOS= 
             "SELECT id_cliente, cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, cidade_cliente, uf_cliente"+
@@ -36,7 +37,7 @@ public class UsuarioDAO implements DAO<Usuario>{
     
     private static final String QUERY_ATUALIZAR= "UPDATE tb_cliente SET  cpf_cliente=?, nome_cliente=?, email_cliente=?, data_cliente=?, rua_cliente=?, nr_cliente=?, cep_cliente=?, cidade_cliente=?, uf_cliente=? WHERE id_cliente = (?)";
     */      
-    
+
     
     private Connection con= null;
     
@@ -146,6 +147,39 @@ public class UsuarioDAO implements DAO<Usuario>{
         return user;
     }
     
+     
+      public static void alterarUsuario(Usuario u) {
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+      
+        try{
+            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
+            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
+            st = con.prepareStatement(QUERY_ALTERAR);
+            st.setString(1, u.getNome());
+            st.setString(2, u.getEmail());
+            st.setString(3, u.getCpf());
+            st.setString(4, u.getCep());
+            st.setString(5, u.getRua());
+            st.setInt(6, u.getNr());
+            st.setString(7, u.getComplemento());
+            st.setString(8, u.getBairro());
+            st.setString(9, u.getCidade());
+            st.setString(10, u.getUf());
+            st.setString(11, u.getSenha());
+            st.setString(12, u.getTipo());
+            st.setInt(13, u.getId());
+            st.executeUpdate();
+            return;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+           return;
+        }
+    }
     
     
 }

@@ -41,6 +41,7 @@
         <span class="text-white-50 h4 c-title">SAC - Sistema de Atendimento ao Cliente</span>
       </a>
       <div class="container">
+                
         <ul class="navbar-nav text-white">
           <li class="nav-item">
             <a class="nav-link active" href="portalCliente.jsp">Meus Atendimentos</a>
@@ -61,6 +62,12 @@
 
   <!-- Corpo da página -->
   <main class="container">
+        <c:if test="${requestScope.info != null || param.info != null}" >
+                      <div class="alert alert-success alert-dismissible fade show">
+                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                          <span>${requestScope.info == null ? param.info : requestScope.info}</span>
+                      </div>
+        </c:if>
     <h2 class="mb-4">
       Meus Atendimentos
     </h2>
