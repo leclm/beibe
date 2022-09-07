@@ -4,8 +4,12 @@
  */
 package com.ufpr.tads.beibe.servlet;
 
+import com.ufpr.tads.beibe.beans.Cidade;
+import com.ufpr.tads.beibe.beans.Estado;
 import com.ufpr.tads.beibe.beans.LoginBean;
 import com.ufpr.tads.beibe.beans.Usuario;
+import com.ufpr.tads.beibe.dao.CidadeDAO;
+import com.ufpr.tads.beibe.dao.EstadoDAO;
 import com.ufpr.tads.beibe.facade.UsuarioFacade;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -39,7 +43,7 @@ public class UsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
               
         if(action==null || action.equals("list")){
@@ -152,6 +156,7 @@ public class UsuarioServlet extends HttpServlet {
                     c.setCidade(cidade);
                     c.setUf(uf);
                     c.setSenha(senha);
+                                    
                     //função para inserir no bd via Facade
                     UsuarioFacade.adicionarCliente(c);
                     //redireciona
@@ -164,8 +169,14 @@ public class UsuarioServlet extends HttpServlet {
                     int id = user.getId();
                     //BUSCA OBJETO NO BD via Facade
                     Usuario cliente = UsuarioFacade.buscaPorID(id);
+                     //Carrega a lista de estados, para apresentar na Combo
+                    List<Estado> estados = EstadoDAO.buscarTudo();
+                    List<Cidade> cidades = CidadeDAO.buscarTudo();
                     //ADD OB NA REQUISIÇÃO
                     request.setAttribute("cliente", cliente);
+                    request.setAttribute("estados", estados);
+                    request.setAttribute("cidades", cidades);
+                 
                     //ENVIA VIA FOWARD
                     RequestDispatcher rd = request.getRequestDispatcher("/dadosCliente.jsp");
                     rd.forward(request, response);
@@ -207,26 +218,31 @@ public class UsuarioServlet extends HttpServlet {
                     u.setSenha(senha);
                     u.setTipo(tipo);
                     
-                   /* try ( PrintWriter out = response.getWriter()) {
-                    /* TODO output your page here. You may use following sample code. */
-                   /* out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet NewServlet</title>");            
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println(id);
-                    out.println("</body>");
-                    out.println("</html>");
-                }*/
+
                   //função para atualizar no bd via Facade
                     UsuarioFacade.aterarUsuario(u);
+                    
+               
                     //redireciona
                     request.setAttribute("info", " Usuário atualizado");
                     request.setAttribute("page", "/portalCliente.jsp");
                     rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
                     rd.forward(request, response);
-                  
+                 
+                    break;
+                    
+                    
+                case "entrarCadastro":
+                 //Carrega a lista de estados, para apresentar na Combo
+                    estados = EstadoDAO.buscarTudo();
+                    cidades = CidadeDAO.buscarTudo();
+                    //ADD OB NA REQUISIÇÃO
+                    request.setAttribute("estados", estados);
+                    request.setAttribute("cidades", cidades);
+                 
+                    //ENVIA VIA FOWARD
+                    rd = request.getRequestDispatcher("/cadastroCliente.jsp");
+                    rd.forward(request, response);
                     break;
         
             }

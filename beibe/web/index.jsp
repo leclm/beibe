@@ -92,7 +92,7 @@
                   Ainda não é cadastrado?
                 </p>
                 <button type="button" class="btn btn-lg btn-light w-75">
-                  <a href="cadastroCliente.jsp" class="btn-light">Cadastre-se</a>
+                  <a href="UsuarioServlet?action=entrarCadastro" class="btn-light">Cadastre-se</a>
                 </button>
               </div>
             </form>
