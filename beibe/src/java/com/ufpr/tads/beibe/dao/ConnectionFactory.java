@@ -13,8 +13,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory implements AutoCloseable{
-    public static String DRIVER= "org.postgresql.Driver"; //trocar para o proprio
-    public static String URL= "jdbc:postgresql://localhost:5432/Beibe"; //trocar para o proprio
+    public static String DRIVER= "org.postgresql.Driver"; //trocar para o proprio BD
+    public static String URL= "jdbc:postgresql://localhost:5432/Beibe"; //trocar para o proprio BD
     public static String LOGIN= "postgres"; //trocar para o proprio
     public static String SENHA= "SENHA"; //trocar para o proprio
     private Connection con= null;
