@@ -49,7 +49,7 @@
                 <a class="nav-link active" href="UsuarioServlet?action=mostrarCliente">Meus Dados</a>
             </li>
         </ul>
-      </div>
+        </div>
       <div class="form-inline">
         <a href="LogoutServlet" class="alert-link text-white my-2 my-sm-0">
           <i class="fas fa-power-off"></i><br>
@@ -62,12 +62,6 @@
   <!-- Corpo da página -->
   <main class="container">
     <jsp:useBean id="cliente" class="com.ufpr.tads.beibe.beans.Usuario" scope="request" />
-    <c:if test="${requestScope.info != null || param.info != null}" >
-                <div class="alert alert-success alert-dismissible fade show">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <span>${requestScope.info == null ? param.info : requestScope.info}</span>
-                </div>
-    </c:if>
     <h2 class="mb-4">
       Meus Dados
     </h2>
