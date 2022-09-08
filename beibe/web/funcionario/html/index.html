@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>
-    SAC - Sistema de Atendimento ao Cliente :: Trabalho Web 2 - Protótipo
-
+    SAC - Funcionário
   </title>
   <link rel="stylesheet" href="../css/bootstrap.min.css" />
   <link rel="stylesheet" href="../css/fontawesome.min.css" />
@@ -42,13 +41,13 @@
       <div class="container">
         <ul class="navbar-nav text-white">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Início</a>
+            <a class="nav-link active" href="index.html">Início</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="atendimentos.html">Atendimentos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="categorias.html">Cadastro de Categorias</a>
+            <a class="nav-link" href="categorias.html">Cadastro de Categorias</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="produtos.html">Cadastro de Produtos</a>
@@ -67,28 +66,59 @@
   <!-- Corpo da página -->
   <main class="container">
     <h2 class="mb-4">
-      Nova Categoria
+      Bem-vindo(a), <strong>[Funcionário]</strong>
     </h2>
-
-    <!-- Formulário para criação de categoria -->
-    <form action="categorias.html" method="POST">
-      <div class="row">
-        <div class="col-12 jsutify-content-between">
-          <button type="submit" class="btn btn-primary float-right w-25">
-            <i class="far fa-save"></i>
-            Salvar
-          </button>
-          <h3 class="mb-3 h4">Dados Cadastrais</h3>
+    <div class="card-columns">
+      <div class="card-link">
+        <div class="text-light">
+            <div class="card bg-info" style="max-width: 18rem;">
+                <div class="card-header">Atendimento(s) em Aberto</div>
+                <div class="card-body text-center">
+                    <p class="card-text display-3">
+                        <i class="fa fa-history"></i>
+                    </p>
+                </div>
+                <a href="atendimentos.html" class="stretched-link h-0"></a>
+            </div>
         </div>
-        <div class="col-12 col-md-8">
-          <div class="form-group">
-            <label for="categoria-nome">Nome da categoria:</label>
-            <input type="text" id="categoria-nome" class="form-control" name="nome"
-              placeholder="Digite um nome entre 5 e 32 caracteres" minlengh="5" maxlengh="32" />
-          </div>
+
+        <div class="text-light">
+            <div class="card bg-info" style="max-width: 18rem;">
+                <div class="card-header">Atendimento(s) Vencido(s)</div>
+                <div class="card-body text-center">
+                    <p class="card-text display-3">
+                        <i class="fa fa-thumbs-down"></i>
+                    </p>
+                </div>
+                <a href="atendimentos.html" class="stretched-link h-0"></a>
+            </div>
+        </div>
+
+        <div class="text-light">
+            <div class="card bg-info" style="max-width: 18rem;">
+                <div class="card-header">Criar Nova Categoria</div>
+                <div class="card-body text-center">
+                    <p class="card-text display-3">
+                        <i class="fa fa-plus-square"></i>
+                    </p>
+                </div>
+                <a href="menuCategorias.html" class="stretched-link h-0"></a>
+            </div>
+        </div>
+
+        <div class="text-light">
+            <div class="card bg-info" style="max-width: 18rem;">
+                <div class="card-header">Criar Novo Produto</div>
+                <div class="card-body text-center">
+                    <p class="card-text display-3">
+                        <i class="fa fa-plus-square"></i>
+                    </p>
+                </div>
+                <a href="menuProdutos.html" class="stretched-link h-0"></a>
+            </div>
         </div>
       </div>
-    </form>
+    </div>
   </main>
 
   <script src="../js/bootstrap.min.js"></script>
