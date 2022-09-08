@@ -73,7 +73,7 @@
     </h2>
 
     <!-- Botão para abertura de novo atendimento -->
-    <a href="menuAtendimentos.html" class="btn btn-lg btn-primary">
+    <a href="AtendimentoServlet?action=mostrarNovoAtendimento" class="btn btn-lg btn-primary">
       <i class="fa fa-plus"></i>
       Solicitar Atendimento
     </a>
