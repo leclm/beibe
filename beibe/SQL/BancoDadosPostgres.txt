@@ -43,6 +43,8 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.estado
     OWNER to postgres;
+
+
 INSERT INTO estado (id, nome, sigla) VALUES
 (1, 'Acre', 'AC'),
 (2, 'Alagoas', 'AL'),
@@ -5660,3 +5662,107 @@ INSERT INTO cidade (id, nome, idestado) VALUES
 (5564, 'Xambioá', 27);
 
 -----------------------------------------------------------------------------------
+
+create table tb_categoriaProduto(
+   id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+   nome character varying(200) COLLATE pg_catalog."default" NOT NULL,
+  constraint pk_categoriaProduto primary key (id));
+
+INSERT INTO public.tb_categoriaproduto(nome)
+	VALUES ('Cabelo'), ('Maquiagem'), ('Unha'), ('Face'), ('Corpo');
+
+------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.tb_produto
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    nome character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    idcategoria integer,
+    descricao character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    peso integer,
+    CONSTRAINT pk_tb_produto PRIMARY KEY (id),
+    CONSTRAINT id_categoria FOREIGN KEY (idcategoria)
+        REFERENCES public.tb_categoriaproduto (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.tb_produto
+    OWNER to postgres;
+
+
+INSERT INTO public.tb_produto(
+    nome, idcategoria, descricao, peso)
+	VALUES ('Shampoo', 1, 'Limpeza dos cabelos', 200),
+		('Condicionador', 1, 'Cabelos hidratados', 200),
+		('Base', 2, 'Cobertura natural matte', 40),
+		('Rímel', 2, 'Cílios volumosos', 8),
+		('Esmalte', 3, 'Vermelho amor', 20),
+		('Acetona', 3, 'Removedor de esmalte', 80),
+		('Tonico', 4, 'Tônico adstringente', 150),
+		('Demaquilante', 4, 'Remove a maquiagem', 120),
+		('Hidratante', 5, 'Hidratação profunda', 150),
+		('Esfoliante', 5, 'Removedor de células', 120)
+		;
+
+------------------------------------------------------------------------
+
+create table tb_categoria_atendimento(
+   id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+   nome character varying(100) COLLATE pg_catalog."default" NOT NULL,
+  constraint pk_categoria_atendimento primary key (id));
+
+INSERT INTO public.tb_categoria_atendimento(nome)
+	VALUES ('Reclamação'), ('Elogio'), ('Troca'), ('Devolução');
+
+-------------------------------------------------------------------------
+
+create table tb_situacao_atendimento(
+   id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+   nome character varying(50) COLLATE pg_catalog."default" NOT NULL,
+  constraint pk_situacao_atendimento primary key (id));
+
+INSERT INTO public.tb_situacao_atendimento(nome)
+	VALUES ('Aberta'),('Finalizada');
+
+--------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.tb_atendimento
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    dt_hr timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    id_cliente integer,
+    id_situacao integer,
+    id_produto integer,
+    id_categoria_atendimento integer,
+    descricao character varying(250) COLLATE pg_catalog."default",
+    solucao character varying(250) COLLATE pg_catalog."default",
+    CONSTRAINT tb_atendimento_pkey PRIMARY KEY (id),
+    CONSTRAINT id_categoria_atendimentofk FOREIGN KEY (id_categoria_atendimento)
+        REFERENCES public.tb_categoria_atendimento (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT id_clientefk FOREIGN KEY (id_cliente)
+        REFERENCES public.tb_usuario (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT id_produtofk FOREIGN KEY (id_produto)
+        REFERENCES public.tb_produto (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT id_situacaofk FOREIGN KEY (id_situacao)
+        REFERENCES public.tb_situacao_atendimento (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.tb_atendimento
+    OWNER to postgres;
