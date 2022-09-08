@@ -6,7 +6,6 @@ package com.ufpr.tads.beibe.dao;
 
 
 import com.ufpr.tads.beibe.beans.CategoriaProduto;
-import com.ufpr.tads.beibe.beans.Estado;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
