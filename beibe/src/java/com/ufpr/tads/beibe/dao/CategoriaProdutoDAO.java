@@ -34,15 +34,17 @@ public class CategoriaProdutoDAO {
             con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
                                                 com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
                                                 com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-        st = con.prepareStatement(QUERY_BUSCAR);
-        rs = st.executeQuery();    
+            
+            st = con.prepareStatement(QUERY_BUSCAR);
+            rs = st.executeQuery();    
+            
             while(rs.next()){
-                    CategoriaProduto categoriaProduto = new CategoriaProduto();
-                    categoriaProduto.setId(rs.getInt(1));
-                    categoriaProduto.setNome(rs.getString(2));
-                    categoriasPrd.add(categoriaProduto);
-                    
-                }  
+                CategoriaProduto categoriaProduto = new CategoriaProduto();
+                categoriaProduto.setId(rs.getInt(1));
+                categoriaProduto.setNome(rs.getString(2));
+                categoriasPrd.add(categoriaProduto);
+
+            }  
         } catch (Exception e) {
             e.printStackTrace();
         }
