@@ -18,11 +18,8 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/fontawesome.min.css" />
     <link rel="stylesheet" href="../css/styles.css" />
-<<<<<<< HEAD
     <link rel="icon" type="image/x-icon" href="assets/images/phone-solid.svg">
-=======
     <link rel="icon" type="image/x-icon" href="../assets/images/phone-solid.svg">
->>>>>>> 84c5aefa4e2247c99482b40552d05f2f2842a133
   </head>
   
   <body>
@@ -45,11 +42,8 @@
               <a class="nav-link" href="categorias.jsp">Categorias</a>
             </li>
             <li class="nav-item">
-<<<<<<< HEAD
               <a class="nav-link active" href="/ProdutoServlet?action=listarProduto">Produtos</a>
-=======
               <a class="nav-link active" href="produtos.jsp">Produtos</a>
->>>>>>> 84c5aefa4e2247c99482b40552d05f2f2842a133
             </li>
           </ul>
         </div>
@@ -69,18 +63,14 @@
       </h2>
 
       <!-- Botão para abertura de novo atendimento -->
-<<<<<<< HEAD
       <a href="/ProdutoServlet?action=cadastroProduto" class="btn btn-lg btn-primary">
-=======
       <a href="cadastroProduto.jsp" class="btn btn-lg btn-primary">
->>>>>>> 84c5aefa4e2247c99482b40552d05f2f2842a133
         <i class="fa fa-plus"></i>
         Criar Novo Produto
       </a>
 
       <!-- Tabela com atendimentos em aberto -->
       <div class="mt-5">
-<<<<<<< HEAD
         <table id="login-table" class="table table-bordered mb-0">
             <div class="table-group">
                 <div class="row">
@@ -108,7 +98,6 @@
                     </div>
                 </div>
             </div>
-=======
         <table class="table table-hover">
           <thead class="c-thead">
             <tr class="text-center">
@@ -361,7 +350,6 @@
               </td>
             </tr>
           </tbody>
->>>>>>> 84c5aefa4e2247c99482b40552d05f2f2842a133
         </table>
       </div>
     </main>
