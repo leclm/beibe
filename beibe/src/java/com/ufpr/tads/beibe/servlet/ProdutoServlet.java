@@ -49,7 +49,7 @@ public class ProdutoServlet extends HttpServlet {
         } else{
             switch (action) {
                 case "listarProduto": {
-                    List<Produto> listProduto = ProdutoFacade.BuscarTudo();
+                    List<Produto> listProduto = ProdutoFacade.buscarProdutos();
                     request.setAttribute("listProduto", listProduto);
 
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/produtos.jsp");
@@ -83,7 +83,7 @@ public class ProdutoServlet extends HttpServlet {
 
                     ProdutoFacade.AdicionarProduto(produto);
 
-                    List<Produto> listProduto = ProdutoFacade.BuscarTudo();
+                    List<Produto> listProduto = ProdutoFacade.buscarProdutos();
                     request.setAttribute("listProduto", listProduto);
 
                     List<CategoriaProduto> listCategoriaProduto = CategoriaProdutoFacade.BuscarTudo();
@@ -112,7 +112,7 @@ public class ProdutoServlet extends HttpServlet {
 
                     ProdutoFacade.AlterarProduto(produto);
 
-                    List<Produto> listProduto = ProdutoFacade.BuscarTudo();
+                    List<Produto> listProduto = ProdutoFacade.buscarProdutos();
                     request.setAttribute("listProduto", listProduto);
 
                     List<CategoriaProduto> listCategoriaProduto = CategoriaProdutoFacade.BuscarTudo();
@@ -128,7 +128,7 @@ public class ProdutoServlet extends HttpServlet {
 
                     ProdutoFacade.RemoverProduto(id);
 
-                    List<Produto> listProduto = ProdutoFacade.BuscarTudo();
+                    List<Produto> listProduto = ProdutoFacade.buscarProdutos();
                     request.setAttribute("listProduto", listProduto);
 
                     List<CategoriaProduto> listCategoriaProduto = CategoriaProdutoFacade.BuscarTudo();

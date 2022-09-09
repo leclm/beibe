@@ -41,14 +41,6 @@ public class ProdutoFacade {
         ProdutoDAO.AlterarProduto(p);
     }
 
-    public static List<Produto> BuscarTudo() {
-        List<Produto> listProduto = new ArrayList<Produto>();
-        
-        listProduto = ProdutoDAO.buscarTudo();
-            
-        return listProduto;
-    }
-
     public static void RemoverProduto(int id) {
         ProdutoDAO.RemoverProduto(id);
     }
