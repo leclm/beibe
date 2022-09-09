@@ -3,7 +3,7 @@
     Created on : 21 de ago de 2022, 21:56:41
     Author     : grupo2
 --%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -44,7 +44,7 @@
                 
         <ul class="navbar-nav text-white">
           <li class="nav-item">
-            <a class="nav-link active" href="portalCliente.jsp">Meus Atendimentos</a>
+            <a class="nav-link active" href="AtendimentoServlet?action=mostrarPortalCliente">Meus Atendimentos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="UsuarioServlet?action=mostrarCliente">Meus Dados</a>
@@ -84,7 +84,7 @@
       <table class="table table-hover">
         <thead class="c-thead">
           <tr class="text-center">
-            <th scope="col">Ocorrência</th>
+            <th scope="col">Id do Atendimento</th>
             <th scope="col">Produto</th>
             <th scope="col">Categoria</th>
             <th scope="col">Data de Criação</th>
@@ -92,21 +92,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="c-clickable text-center table-danger" data-href="verAtendimento.html">
-            <th scope="row">000001</th>
-            <td>Sérum Antirugas La Rosé</td>
-            <td>Outros</td>
-            <td>10-jun-2022</td>
-            <td><span class="badge badge-sm badge-danger c-status">Contestado</span></td>
+          <c:forEach items="${requestScope.atendimentos}" var="a" >
+          <tr class="c-clickable text-center" data-href="verAtendimento.html">
+            <th scope="row"><c:out value="${a.id}"/></th>
+            <td><c:out value="${a.produto.nome}"/></td>
+            <td><c:out value="${a.categoriaAtendimento.nome}"/></td>
+            <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
+            <td><c:out value="${a.situacaoAtendimento.nome}"/></td>
+            <!-- comment<td><span class="badge badge-sm badge-danger c-status">Contestado</span></td> --> 
 
           </tr>
-          <tr class="c-clickable text-center" data-href="verAtendimento.html">
-            <th scope="row">000008</th>
-            <td>Batom liquido Matte VivaLaVida (NUDE)</td>
-            <td>Produto não recebido</td>
-            <td>02-jul-2022</td>
-            <td><span class="badge badge-sm badge-primary c-status">Recebido</span></td>
-          </tr>
+          </c:forEach>
         </tbody>
       </table>
     </div>
