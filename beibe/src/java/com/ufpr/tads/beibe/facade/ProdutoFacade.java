@@ -11,7 +11,7 @@ import com.ufpr.tads.beibe.dao.ConnectionFactory;
 import com.ufpr.tads.beibe.dao.ProdutoDAO;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import com.ufpr.tads.beibe.beans.Produto;
 import com.ufpr.tads.beibe.dao.ProdutoDAO;
 import java.util.List;
