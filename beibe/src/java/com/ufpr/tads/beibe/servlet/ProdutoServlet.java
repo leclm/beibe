@@ -86,7 +86,7 @@ public class ProdutoServlet extends HttpServlet {
                 String nome = (String) request.getParameter("nome");
                 String descricao = (String) request.getParameter("descricao");
                 
-                produto.setIdCategoriaProduto(ctg);
+                produto.setCategoriaProduto(ctg);
                 produto.setPeso(peso);
                 produto.setNome(nome);
                 produto.setDescricao(descricao);
@@ -115,7 +115,7 @@ public class ProdutoServlet extends HttpServlet {
                 String nome = (String) request.getParameter("nome");
                 String descricao = (String) request.getParameter("descricao");
                 
-                produto.setIdCategoriaProduto(ctg);
+                produto.setCategoriaProduto(ctg);
                 produto.setPeso(peso);
                 produto.setNome(nome);
                 produto.setDescricao(descricao);
