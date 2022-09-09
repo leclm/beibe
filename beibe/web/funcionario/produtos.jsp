@@ -5,7 +5,14 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%--Validar se usuário está logado--%>
+<c:if test="${sessionScope.user == null}" >
+    <c:redirect url="index.jsp">
+        <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+    </c:redirect>
+</c:if>
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -41,7 +48,7 @@
               <a class="nav-link" href="categorias.jsp">Categorias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/ProdutoServlet?action=listarProduto">Produtos</a>
+              <a class="nav-link active" href="${pageContext.request.contextPath}ProdutoServlet?action=listarProduto">Produtos</a>
             </li>
           </ul>
         </div>
@@ -61,7 +68,7 @@
       </h2>
 
       <!-- Botão para abertura de novo atendimento -->
-      <a href="/ProdutoServlet?action=cadastroProduto" class="btn btn-lg btn-primary">
+      <a href="${pageContext.request.contextPath}/ProdutoServlet?action=cadastroProduto" class="btn btn-lg btn-primary">
         <i class="fa fa-plus"></i>
         Criar Novo Produto
       </a>

@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
               
             switch (user.getTipo()) {
                 case "cliente":
-                    response.sendRedirect("portalCliente.jsp");
+                    response.sendRedirect("AtendimentoServlet?action=mostrarPortalCliente");
                     break;
                 case "funcionario":
                     response.sendRedirect("funcionario/atendimentos.jsp");

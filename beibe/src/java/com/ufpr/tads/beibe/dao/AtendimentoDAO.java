@@ -5,8 +5,11 @@
 package com.ufpr.tads.beibe.dao;
 
 import com.ufpr.tads.beibe.beans.Atendimento;
+import com.ufpr.tads.beibe.beans.CategoriaAtendimento;
 import com.ufpr.tads.beibe.beans.CategoriaProduto;
 import com.ufpr.tads.beibe.beans.Produto;
+import com.ufpr.tads.beibe.beans.SituacaoAtendimento;
+import com.ufpr.tads.beibe.beans.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,9 +22,9 @@ import java.util.List;
  * @author grupo2
  */
 public class AtendimentoDAO {
-    private static final String QUERY_BUSCAR = "SELECT p.id, p.nome,c.nome as categoria, p.descricao, p.peso FROM tb_produto as p INNER JOIN tb_categoriaproduto as c on  p.idcategoria= c.id;";
+    private static final String QUERY_BUSCA_TUDO_CLIENTE = "SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao FROM public.tb_atendimento as a INNER JOIN tb_usuario as u on u.id=a.id_cliente INNER JOIN tb_situacao_atendimento as s on s.id=a.id_situacao INNER JOIN tb_produto as p on p.id=a.id_produto INNER JOIN tb_categoria_atendimento as cat on cat.id=a.id_categoria_atendimento where  u.id=? order by a.dt_hr desc";
     
-    private static final String QUERY_INSERIR_ATENDIMENTO = "INSERT INTO tb_atendimento	(id_cliente, id_situacao, id_produto, id_categoria_atendimento, descricao) VALUES (?, ?, ?, ?, ?);";
+    private static final String QUERY_INSERIR_ATENDIMENTO = "INSERT INTO tb_atendimento	(id_cliente, id_situacao, id_produto, id_categoria_atendimento, descricao, solucao) VALUES (?, ?, ?, ?, ?,?);";
     
     private Connection con= null;
     
@@ -40,9 +43,10 @@ public class AtendimentoDAO {
            // st.setTimestamp(1, new java.sql.Timestamp(dt.getTime()));
             st.setInt(1, a.getId());
             st.setInt(2, 1);
-            st.setInt(3, a.getProduto());
-            st.setInt(4, a.getCategoriaAtendimento());
+            st.setInt(3, a.getProduto().getId());
+            st.setInt(4, a.getCategoriaAtendimento().getId());
             st.setString(5, a.getDescricao());
+            st.setString(6, "");
             
             
             st.executeUpdate();
@@ -55,34 +59,51 @@ public class AtendimentoDAO {
     
     
     
-    public static List<Produto> buscarTudo() {
+    public static List<Atendimento> buscarTudoCliente(int id) {
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
-        List<Produto> produtos= new ArrayList<Produto>();
+        List<Atendimento> atendimentos= new ArrayList<>();
         
         try{
             Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
             con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
                                                 com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
                                                 com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-        st = con.prepareStatement(QUERY_BUSCAR);
-        rs = st.executeQuery();    
+        st = con.prepareStatement(QUERY_BUSCA_TUDO_CLIENTE);
+        st.setInt(1,id);
+        rs = st.executeQuery();  
+        
             while(rs.next()){
+                //SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao 
+                        
+                    Atendimento atendimento = new Atendimento();
                     Produto produto = new Produto();
-                    CategoriaProduto categoria = new CategoriaProduto();
-                    produto.setId(rs.getInt(1));
-                    produto.setNome(rs.getString(2));
-                    categoria.setNome(rs.getString(3));
-                    produto.setDescricao(rs.getString(4));
-                    produto.setPeso(rs.getInt(5));
-                    produtos.add(produto);
+                    CategoriaAtendimento categoria = new CategoriaAtendimento();
+                    SituacaoAtendimento situacao = new SituacaoAtendimento();
+                    
+                    atendimento.setId(rs.getInt(1));
+                    java.util.Date dt = new java.util.Date(
+                                       rs.getTimestamp(2).getTime());
+                    atendimento.setDataHr(dt);
+                    produto.setNome(rs.getString(3));
+                    atendimento.setProduto(produto);
+                    categoria.setNome(rs.getString(4));
+                    atendimento.setCategoriaAtendimento(categoria);
+                    atendimento.setDescricao(rs.getString(5));
+                    situacao.setNome(rs.getString(6));
+                    atendimento.setSituacaoAtendimento(situacao);
+                    atendimento.setSolucao(rs.getString(7));
+                    
+                    
+                    
+                    atendimentos.add(atendimento);
                     
                 }  
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return  produtos;
+        return  atendimentos;
     }
     
     

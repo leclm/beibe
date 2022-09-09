@@ -62,16 +62,21 @@ public class AtendimentoServlet extends HttpServlet {
                     int categoriaAtendimento = Integer.parseInt(request.getParameter("categoria"));
                     String descricao = request.getParameter("descricao");
                     
-                   
-                    //cria um novo objeto cliente
+                    
+                    //cria novos objetos
                     Atendimento a = new Atendimento();
+                    
+                    CategoriaAtendimento cat = new CategoriaAtendimento();
+                    cat.setId(categoriaAtendimento);
+                    Produto prod = new Produto();
+                    prod.setId(produto);
+                    
                     //adiciona os valores a esse objeto
                     a.setId(id);
-                    a.setProduto(produto);
-                    a.setCategoriaAtendimento(categoriaAtendimento);
+                    a.setProduto(prod);
+                    a.setCategoriaAtendimento(cat);
                     a.setDescricao(descricao);
-                 
-                    
+                   
                     //função para inserir no bd via Facade
                      AtendimentoFacade.adicionarAtendimento(a);
                     //redireciona
@@ -91,6 +96,36 @@ public class AtendimentoServlet extends HttpServlet {
                     //ENVIA VIA FOWARD
                     rd = request.getRequestDispatcher("/novoAtendimento.jsp");
                     rd.forward(request, response);
+                break;
+            
+            case "mostrarPortalCliente":
+                session = request.getSession();
+                user = (LoginBean)session.getAttribute("user");
+                id = user.getId();
+                     
+    
+                 //Carrega a lista de atendimentos para apresentar
+                List<Atendimento> atendimentos = AtendimentoFacade.buscarAtendimentoPorCliente(id);
+                 
+                  //ADD OBJ NA REQUISIÇÃO
+                 request.setAttribute("atendimentos", atendimentos);
+                 
+                // try ( PrintWriter out = response.getWriter()) {
+                    /* TODO output your page here. You may use following sample code. */
+                 /*   out.println("<!DOCTYPE html>");
+                    out.println("<html>");
+                    out.println("<head>");
+                    out.println("<title>Servlet apagar</title>");          
+                    out.println("</head>");
+                    out.println("<body>");
+                    out.println(atendimentos);
+                    out.println("</body>");
+                    out.println("</html>");
+                }*/
+
+                //redireciona
+                rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
+                rd.forward(request, response);
                 break;
                 
             }

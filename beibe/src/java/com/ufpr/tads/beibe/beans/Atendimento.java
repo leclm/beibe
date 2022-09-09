@@ -15,17 +15,17 @@ import java.util.Date;
 public class Atendimento implements Serializable{
     private int id;
     private Date dataHr;
-    private String cliente;
-    private String situacaoAtendimento;
-    private int produto;
-    private int categoriaAtendimento;
+    private Usuario cliente;
+    private SituacaoAtendimento situacaoAtendimento;
+    private Produto produto;
+    private CategoriaAtendimento categoriaAtendimento;
     private String descricao;
     private String solucao;
 
     public Atendimento() {
     }
 
-    public Atendimento(int id, Date dataHr, String cliente, String situacaoAtendimento, int produto, int categoriaAtendimento, String descricao, String solucao) {
+    public Atendimento(int id, Date dataHr, Usuario cliente, SituacaoAtendimento situacaoAtendimento, Produto produto, CategoriaAtendimento categoriaAtendimento, String descricao, String solucao) {
         this.id = id;
         this.dataHr = dataHr;
         this.cliente = cliente;
@@ -52,35 +52,35 @@ public class Atendimento implements Serializable{
         this.dataHr = dataHr;
     }
 
-    public String getCliente() {
+    public Usuario getCliente() {
         return cliente;
     }
 
-    public void setCliente(String cliente) {
+    public void setCliente(Usuario cliente) {
         this.cliente = cliente;
     }
 
-    public String getSituacaoAtendimento() {
+    public SituacaoAtendimento getSituacaoAtendimento() {
         return situacaoAtendimento;
     }
 
-    public void setSituacaoAtendimento(String situacaoAtendimento) {
+    public void setSituacaoAtendimento(SituacaoAtendimento situacaoAtendimento) {
         this.situacaoAtendimento = situacaoAtendimento;
     }
 
-    public int getProduto() {
+    public Produto getProduto() {
         return produto;
     }
 
-    public void setProduto(int produto) {
+    public void  setProduto(Produto produto) {
         this.produto = produto;
     }
 
-    public int getCategoriaAtendimento() {
+    public CategoriaAtendimento getCategoriaAtendimento() {
         return categoriaAtendimento;
     }
 
-    public void setCategoriaAtendimento(int categoriaAtendimento) {
+    public void setCategoriaAtendimento(CategoriaAtendimento categoriaAtendimento) {
         this.categoriaAtendimento = categoriaAtendimento;
     }
 
