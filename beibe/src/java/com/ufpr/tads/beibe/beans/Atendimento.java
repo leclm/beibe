@@ -6,6 +6,7 @@ package com.ufpr.tads.beibe.beans;
 
 import com.sun.xml.ws.security.opt.impl.tokens.Timestamp;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -13,24 +14,24 @@ import java.io.Serializable;
  */
 public class Atendimento implements Serializable{
     private int id;
-    private Timestamp dataHr;
-    private Usuario idCliente;
-    private SituacaoAtendimento IdSituacaoAtendimento;
-    private Produto idProduto;
-    private CategoriaAtendimento idCategoriaAtendimento;
+    private Date dataHr;
+    private String cliente;
+    private String situacaoAtendimento;
+    private int produto;
+    private int categoriaAtendimento;
     private String descricao;
     private String solucao;
 
     public Atendimento() {
     }
 
-    public Atendimento(int id, Timestamp dataHr, Usuario idCliente, SituacaoAtendimento IdSituacaoAtendimento, Produto idProduto, CategoriaAtendimento idCategoriaAtendimento, String descricao, String solucao) {
+    public Atendimento(int id, Date dataHr, String cliente, String situacaoAtendimento, int produto, int categoriaAtendimento, String descricao, String solucao) {
         this.id = id;
         this.dataHr = dataHr;
-        this.idCliente = idCliente;
-        this.IdSituacaoAtendimento = IdSituacaoAtendimento;
-        this.idProduto = idProduto;
-        this.idCategoriaAtendimento = idCategoriaAtendimento;
+        this.cliente = cliente;
+        this.situacaoAtendimento = situacaoAtendimento;
+        this.produto = produto;
+        this.categoriaAtendimento = categoriaAtendimento;
         this.descricao = descricao;
         this.solucao = solucao;
     }
@@ -43,44 +44,44 @@ public class Atendimento implements Serializable{
         this.id = id;
     }
 
-    public Timestamp getDataHr() {
+    public Date getDataHr() {
         return dataHr;
     }
 
-    public void setDataHr(Timestamp dataHr) {
+    public void setDataHr(Date dataHr) {
         this.dataHr = dataHr;
     }
 
-    public Usuario getIdCliente() {
-        return idCliente;
+    public String getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(Usuario idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
-    public SituacaoAtendimento getIdSituacaoAtendimento() {
-        return IdSituacaoAtendimento;
+    public String getSituacaoAtendimento() {
+        return situacaoAtendimento;
     }
 
-    public void setIdSituacaoAtendimento(SituacaoAtendimento IdSituacaoAtendimento) {
-        this.IdSituacaoAtendimento = IdSituacaoAtendimento;
+    public void setSituacaoAtendimento(String situacaoAtendimento) {
+        this.situacaoAtendimento = situacaoAtendimento;
     }
 
-    public Produto getIdProduto() {
-        return idProduto;
+    public int getProduto() {
+        return produto;
     }
 
-    public void setIdProduto(Produto idProduto) {
-        this.idProduto = idProduto;
+    public void setProduto(int produto) {
+        this.produto = produto;
     }
 
-    public CategoriaAtendimento getIdCategoriaAtendimento() {
-        return idCategoriaAtendimento;
+    public int getCategoriaAtendimento() {
+        return categoriaAtendimento;
     }
 
-    public void setIdCategoriaAtendimento(CategoriaAtendimento idCategoriaAtendimento) {
-        this.idCategoriaAtendimento = idCategoriaAtendimento;
+    public void setCategoriaAtendimento(int categoriaAtendimento) {
+        this.categoriaAtendimento = categoriaAtendimento;
     }
 
     public String getDescricao() {
@@ -99,6 +100,6 @@ public class Atendimento implements Serializable{
         this.solucao = solucao;
     }
 
-    
+     
     
 }

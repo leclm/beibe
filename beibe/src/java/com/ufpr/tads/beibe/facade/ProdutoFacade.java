@@ -11,7 +11,10 @@ import com.ufpr.tads.beibe.dao.ConnectionFactory;
 import com.ufpr.tads.beibe.dao.ProdutoDAO;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import com.ufpr.tads.beibe.beans.Produto;
+import com.ufpr.tads.beibe.dao.ProdutoDAO;
+import java.util.List;
 
 /**
  *
@@ -38,15 +41,11 @@ public class ProdutoFacade {
         ProdutoDAO.AlterarProduto(p);
     }
 
-    public static List<Produto> BuscarTudo() {
-        List<Produto> listProduto = new ArrayList<Produto>();
-        
-        listProduto = ProdutoDAO.buscarTudo();
-            
-        return listProduto;
-    }
-
     public static void RemoverProduto(int id) {
         ProdutoDAO.RemoverProduto(id);
+    }
+    
+    public static List<Produto> buscarProdutos() {
+        return ProdutoDAO.buscarTudo();
     }
 }

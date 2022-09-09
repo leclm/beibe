@@ -12,16 +12,17 @@ import java.io.Serializable;
  */
 public class Produto implements Serializable{
     private int id;
-    private CategoriaProduto idCategoriaProduto;
+    private CategoriaProduto categoriaProduto;
     private String nome;
     private String descricao;
     private int peso;
-    
-    public Produto() {}
 
-    public Produto(int id, CategoriaProduto idCategoriaProduto, String nome, String descricao, int peso) {
+    public Produto() {
+    }
+
+    public Produto(int id, CategoriaProduto categoriaProduto, String nome, String descricao, int peso) {
         this.id = id;
-        this.idCategoriaProduto = idCategoriaProduto;
+        this.categoriaProduto = categoriaProduto;
         this.nome = nome;
         this.descricao = descricao;
         this.peso = peso;
@@ -35,12 +36,12 @@ public class Produto implements Serializable{
         this.id = id;
     }
 
-    public CategoriaProduto getIdCategoriaProduto() {
-        return idCategoriaProduto;
+    public CategoriaProduto getCategoriaProduto() {
+        return categoriaProduto;
     }
 
-    public void setIdCategoriaProduto(CategoriaProduto idCategoriaProduto) {
-        this.idCategoriaProduto = idCategoriaProduto;
+    public void setCategoriaProduto(CategoriaProduto categoriaProduto) {
+        this.categoriaProduto = categoriaProduto;
     }
 
     public String getNome() {
@@ -66,6 +67,7 @@ public class Produto implements Serializable{
     public void setPeso(int peso) {
         this.peso = peso;
     }
+ 
 
    
     
