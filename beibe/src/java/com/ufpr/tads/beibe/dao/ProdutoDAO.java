@@ -42,7 +42,7 @@ public class ProdutoDAO {
             st = con.prepareStatement(QUERY_ADICIONAR);
                     
             st.setString(1, p.getNome());
-            st.setInt(2, p.getIdCategoriaProduto().getId());
+            st.setInt(2, p.getCategoriaProduto().getId());
             st.setString(3, p.getDescricao());
             st.setInt(4, p.getPeso());
             
@@ -65,7 +65,7 @@ public class ProdutoDAO {
             st = con.prepareStatement(QUERY_ALTERAR);
             
             st.setString(1, p.getNome());
-            st.setInt(2, p.getIdCategoriaProduto().getId());
+            st.setInt(2, p.getCategoriaProduto().getId());
             st.setString(3, p.getDescricao());
             st.setInt(4, p.getPeso());
             st.setInt(5, p.getId());
