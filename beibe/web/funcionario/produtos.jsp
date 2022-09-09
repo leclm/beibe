@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/fontawesome.min.css" />
     <link rel="stylesheet" href="../css/styles.css" />
-    <link rel="icon" type="image/x-icon" href="../assets/images/phone-solid.svg">
+    <link rel="icon" type="image/x-icon" href="assets/images/phone-solid.svg">
   </head>
   
   <body>
@@ -41,7 +41,7 @@
               <a class="nav-link" href="categorias.jsp">Categorias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="produtos.jsp">Produtos</a>
+              <a class="nav-link active" href="/ProdutoServlet?action=listarProduto">Produtos</a>
             </li>
           </ul>
         </div>
@@ -61,265 +61,40 @@
       </h2>
 
       <!-- Botão para abertura de novo atendimento -->
-      <a href="cadastroProduto.jsp" class="btn btn-lg btn-primary">
+      <a href="/ProdutoServlet?action=cadastroProduto" class="btn btn-lg btn-primary">
         <i class="fa fa-plus"></i>
         Criar Novo Produto
       </a>
 
       <!-- Tabela com atendimentos em aberto -->
       <div class="mt-5">
-        <table class="table table-hover">
-          <thead class="c-thead">
-            <tr class="text-center">
-              <th scope="col">#</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Categoria</th>
-              <th scope="col">Peso</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="text-center">
-              <th scope="row">50001</th>
-              <td class="text-left">Sabonete (sabor lavanda)</td>
-              <td class="text-left">Sabonetes</td>
-              <td class="text-left">50g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50002</th>
-              <td class="text-left">Sabonete (sabor erva-doce)</td>
-              <td class="text-left">Sabonetes</td>
-              <td class="text-left">50g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50003</th>
-              <td class="text-left">Base (sabor cereja)</td>
-              <td class="text-left">Maquiagens</td>
-              <td class="text-left">80g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50004</th>
-              <td class="text-left">Batom Cacatua Raivosa</td>
-              <td class="text-left">Batons</td>
-              <td class="text-left">15g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50005</th>
-              <td class="text-left">Creme Hidratante Ar & Baba</td>
-              <td class="text-left">Hidratantes</td>
-              <td class="text-left">180g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50006</th>
-              <td class="text-left">Sabonete (sabor lavanda)</td>
-              <td class="text-left">Sabonetes</td>
-              <td class="text-left">50g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50007</th>
-              <td class="text-left">Sabonete (sabor erva-doce)</td>
-              <td class="text-left">Sabonetes</td>
-              <td class="text-left">50g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50008</th>
-              <td class="text-left">Base (sabor cereja)</td>
-              <td class="text-left">Maquiagens</td>
-              <td class="text-left">80g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50009</th>
-              <td class="text-left">Batom Cacatua Raivosa</td>
-              <td class="text-left">Batons</td>
-              <td class="text-left">15g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50010</th>
-              <td class="text-left">Creme Hidratante Ar & Baba</td>
-              <td class="text-left">Hidratantes</td>
-              <td class="text-left">180g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50011</th>
-              <td class="text-left">Sabonete (sabor lavanda)</td>
-              <td class="text-left">Sabonetes</td>
-              <td class="text-left">50g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50012</th>
-              <td class="text-left">Sabonete (sabor erva-doce)</td>
-              <td class="text-left">Sabonetes</td>
-              <td class="text-left">50g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50013</th>
-              <td class="text-left">Base (sabor cereja)</td>
-              <td class="text-left">Maquiagens</td>
-              <td class="text-left">80g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50014</th>
-              <td class="text-left">Batom Cacatua Raivosa</td>
-              <td class="text-left">Batons</td>
-              <td class="text-left">15g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50015</th>
-              <td class="text-left">Creme Hidratante Ar & Baba</td>
-              <td class="text-left">Hidratantes</td>
-              <td class="text-left">180g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50016</th>
-              <td class="text-left">Sabonete (sabor lavanda)</td>
-              <td class="text-left">Sabonetes</td>
-              <td class="text-left">50g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50017</th>
-              <td class="text-left">Sabonete (sabor erva-doce)</td>
-              <td class="text-left">Sabonetes</td>
-              <td class="text-left">50g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50018</th>
-              <td class="text-left">Base (sabor cereja)</td>
-              <td class="text-left">Maquiagens</td>
-              <td class="text-left">80g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50019</th>
-              <td class="text-left">Batom Cacatua Raivosa</td>
-              <td class="text-left">Batons</td>
-              <td class="text-left">15g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">50020</th>
-              <td class="text-left">Creme Hidratante Ar & Baba</td>
-              <td class="text-left">Hidratantes</td>
-              <td class="text-left">180g</td>
-              <td>
-                <a href="menuProdutos.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuProdutos.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-          </tbody>
+        <table id="login-table" class="table table-bordered mb-0">
+            <div class="table-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <thead for="categoria">
+                            <tr>
+                                <th scope="col" class="table-dark align-middle">Produto</th>
+                                <th scope="col" class="table-light align-middle">Categoria</th>
+                                <th scope="col" class="table-dark align-middle">Visualizar</th>
+                                <th scope="col" class="table-light align-middle">Alterar</th>
+                                <th scope="col" class="table-dark align-middle">Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${produtos}" var="produto">
+                                <tr>
+                                    <td>${produto.nome}</td>
+                                    <td>${produto.tipoProduto.descricao}</td>
+                                    <td><a href="${pageContext.request.contextPath}/ProdutoServlet?acao=visualizar&id=${produto.id}" class="btn btn-info" style="width: 100%;">Visualizar</button></td>
+                                    <td><a href="${pageContext.request.contextPath}/ProdutoServlet?acao=alterar&id=${produto.id}" class="btn btn-info" style="width: 100%;">Alterar</a></td>
+                                    <td><button type="button" class="btn btn-danger" onclick="removerProduto(${produto.id})" style="width: 100%;">Excluir</button></td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </div>
+                </div>
+            </div>
         </table>
       </div>
     </main>

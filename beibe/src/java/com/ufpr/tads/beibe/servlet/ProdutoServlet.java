@@ -7,11 +7,9 @@ package com.ufpr.tads.beibe.servlet;
 import com.ufpr.tads.beibe.beans.CategoriaProduto;
 import com.ufpr.tads.beibe.beans.LoginBean;
 import com.ufpr.tads.beibe.beans.Produto;
-import com.ufpr.tads.beibe.beans.Usuario;
 import com.ufpr.tads.beibe.facade.CategoriaProdutoFacade;
 import com.ufpr.tads.beibe.facade.ProdutoFacade;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,36 +38,39 @@ public class ProdutoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
         
-        LoginBean login = (LoginBean) session.getAttribute("login");
+        HttpSession session = request.getSession();
+        LoginBean bean = (LoginBean) session.getAttribute("user");
 
         if (session == null) {
             request.setAttribute("msg", "Usuário deve se autenticar para acessar o sistema!");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
-        } else if (!"Funcionário".equalsIgnoreCase(login.getTipo())) {
+        } else if (!"funcionario".equalsIgnoreCase(bean.getTipo())) {
             request.setAttribute("msg", "Usuário não possui permissão para acessar a página.");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
-            return;
         }
 
         String action = "";
         if (request.getParameter("action") != null) {
             action = request.getParameter("action");
         }
-           
         
         switch (action) {
             case "listarProduto": {
                 List<Produto> listProduto = ProdutoFacade.BuscarTudo();
                 request.setAttribute("listProduto", listProduto);
                 
-                List<CategoriaProduto> listCategoriaProduto = CategoriaProdutoFacade.BuscarTudo();
-                request.setAttribute("listCategoriaProduto", listCategoriaProduto);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/produtos.jsp");
+                rd.forward(request, response);
                 
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastrarproduto.jsp");
+                break;
+            }
+            case "cadastroProduto": {
+                ProdutoFacade.ApresentarCategorias(request);
+
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastroProduto.jsp");
                 rd.forward(request, response);
                 
                 break;
@@ -98,7 +99,7 @@ public class ProdutoServlet extends HttpServlet {
                 List<CategoriaProduto> listCategoriaProduto = CategoriaProdutoFacade.BuscarTudo();
                 request.setAttribute("listCategoriaProduto", listCategoriaProduto);
                 
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastrarproduto.jsp");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/produtos.jsp");
                 rd.forward(request, response);
                 
                 break;
