@@ -61,7 +61,11 @@
       </h2>
 
       <!-- Formulário para criação de produto -->
+<<<<<<< HEAD
       <form action="${pageContext.request.contextPath}/ProdutoServlet?action=adicionarProduto" method="POST">
+=======
+      <form action="produtos.jsp" method="POST">
+>>>>>>> 84c5aefa4e2247c99482b40552d05f2f2842a133
         <div class="row">
           <div class="col-12 jsutify-content-between">
             <button type="submit" class="btn btn-primary float-right w-25">
