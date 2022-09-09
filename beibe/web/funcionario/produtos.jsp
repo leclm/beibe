@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/fontawesome.min.css" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="icon" type="image/x-icon" href="assets/images/phone-solid.svg">
     <link rel="icon" type="image/x-icon" href="../assets/images/phone-solid.svg">
   </head>
   
@@ -41,6 +42,7 @@
               <a class="nav-link" href="categorias.jsp">Categorias</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link active" href="/ProdutoServlet?action=listarProduto">Produtos</a>
               <a class="nav-link active" href="produtos.jsp">Produtos</a>
             </li>
           </ul>
@@ -61,6 +63,7 @@
       </h2>
 
       <!-- Botão para abertura de novo atendimento -->
+      <a href="/ProdutoServlet?action=cadastroProduto" class="btn btn-lg btn-primary">
       <a href="cadastroProduto.jsp" class="btn btn-lg btn-primary">
         <i class="fa fa-plus"></i>
         Criar Novo Produto
@@ -68,6 +71,33 @@
 
       <!-- Tabela com atendimentos em aberto -->
       <div class="mt-5">
+        <table id="login-table" class="table table-bordered mb-0">
+            <div class="table-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <thead for="categoria">
+                            <tr>
+                                <th scope="col" class="table-dark align-middle">Produto</th>
+                                <th scope="col" class="table-light align-middle">Categoria</th>
+                                <th scope="col" class="table-dark align-middle">Visualizar</th>
+                                <th scope="col" class="table-light align-middle">Alterar</th>
+                                <th scope="col" class="table-dark align-middle">Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${produtos}" var="produto">
+                                <tr>
+                                    <td>${produto.nome}</td>
+                                    <td>${produto.tipoProduto.descricao}</td>
+                                    <td><a href="${pageContext.request.contextPath}/ProdutoServlet?acao=visualizar&id=${produto.id}" class="btn btn-info" style="width: 100%;">Visualizar</button></td>
+                                    <td><a href="${pageContext.request.contextPath}/ProdutoServlet?acao=alterar&id=${produto.id}" class="btn btn-info" style="width: 100%;">Alterar</a></td>
+                                    <td><button type="button" class="btn btn-danger" onclick="removerProduto(${produto.id})" style="width: 100%;">Excluir</button></td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </div>
+                </div>
+            </div>
         <table class="table table-hover">
           <thead class="c-thead">
             <tr class="text-center">
