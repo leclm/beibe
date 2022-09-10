@@ -51,13 +51,26 @@
                 <input type="email" class="form-control" name="email" placeholder="email@email.com" />
               </div>
               <div class="input-group mb-3">
+                
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fas fa-mobile-alt"></i>
+                  </span>
+                    </div>  
+                <input type="number" name="telefone" class="form-control" placeholder="(41) 99999-9999" />
+              </div>
+            </div>
+             
+                  
+            <div class="form-group">
+               <div class="input-group-prepend">
                   <span class="input-group-text">
                     <i class="fas fa-map-marker-alt"></i>
                   </span>
-                </div>
                 <input type="number" class="form-control" name="cep" placeholder="CEP" />
-              </div>
+            </div>
+            </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text">

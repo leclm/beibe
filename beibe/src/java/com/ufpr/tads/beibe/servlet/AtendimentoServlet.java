@@ -82,7 +82,7 @@ public class AtendimentoServlet extends HttpServlet {
                     //redireciona
                     request.setAttribute("info", " Atendimento adicionado com sucesso!");
                     request.setAttribute("page", "portalCliente.jsp");
-                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/AtendimentoServlet?action=mostrarPortalCliente");
                     rd.forward(request, response);
                     break;  
  

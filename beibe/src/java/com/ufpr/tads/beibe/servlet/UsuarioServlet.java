@@ -134,6 +134,7 @@ public class UsuarioServlet extends HttpServlet {
                     String cpf = request.getParameter("cpf");
                     String nome = request.getParameter("nome");
                     String email = request.getParameter("email");
+                    String telefone = request.getParameter("telefone");
                     String cep = request.getParameter("cep");
                     String rua = request.getParameter("rua");
                     int nr = Integer.parseInt(request.getParameter("numero"));
@@ -148,6 +149,7 @@ public class UsuarioServlet extends HttpServlet {
                     c.setCpf(cpf);
                     c.setNome(nome);
                     c.setEmail(email);
+                    c.setTelefone(telefone);
                     c.setCep(cep);
                     c.setRua(rua);
                     c.setNr(nr);
@@ -189,6 +191,7 @@ public class UsuarioServlet extends HttpServlet {
                     id = user.getId();
                     cpf = request.getParameter("cpf");
                     nome = request.getParameter("nome");
+                    telefone = request.getParameter("telefone");
                     email = request.getParameter("email");
                     cep = request.getParameter("cep");
                     rua = request.getParameter("rua");
@@ -208,6 +211,7 @@ public class UsuarioServlet extends HttpServlet {
                     u.setCpf(cpf);
                     u.setNome(nome);
                     u.setEmail(email);
+                    u.setTelefone(telefone);
                     u.setCep(cep);
                     u.setRua(rua);
                     u.setNr(nr);

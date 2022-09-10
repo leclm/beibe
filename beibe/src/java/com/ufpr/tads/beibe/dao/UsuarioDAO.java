@@ -16,13 +16,13 @@ import java.sql.ResultSet;
  * @author grupo2
  */
 public class UsuarioDAO implements DAO<Usuario>{
-   private static final String QUERY_INSERIR_CLIENTE = "INSERT INTO tb_usuario(nome, email, cpf, cep, rua, nr, complemento, bairro, cidade, uf, senha, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
+   private static final String QUERY_INSERIR_CLIENTE = "INSERT INTO tb_usuario(nome, email, cpf, cep, rua, nr, complemento, bairro, cidade, uf, senha, tipo, telefone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);";
    
    private static final String QUERY_BUSCAR_LOGIN= "SELECT * FROM tb_usuario WHERE email = ? AND senha = ? ";
     
-   private static final String QUERY_BUSCAR_POR_ID= "SELECT id, nome, email, cpf, cep, rua, nr, complemento, bairro, cidade, uf, senha, tipo FROM tb_usuario WHERE id= ? ;";
+   private static final String QUERY_BUSCAR_POR_ID= "SELECT id, nome, email, telefone, cpf, cep, rua, nr, complemento, bairro, cidade, uf, senha, tipo FROM tb_usuario WHERE id= ? ;";
     
-   private static final String QUERY_ALTERAR= "UPDATE tb_usuario SET nome=?, email=?, cpf=?, cep=?, rua=?, nr=?, complemento=?, bairro=?, cidade=?, uf=?, senha=?, tipo=? WHERE id=?;";
+   private static final String QUERY_ALTERAR= "UPDATE tb_usuario SET nome=?, email=?, cpf=?, cep=?, rua=?, nr=?, complemento=?, bairro=?, cidade=?, uf=?, senha=?, tipo=?, telefone=? WHERE id=?;";
    
     
     /*private static final String QUERY_BUSCAR_TODOS= 
@@ -65,6 +65,7 @@ public class UsuarioDAO implements DAO<Usuario>{
             st.setString(10, c.getUf());
             st.setString(11, c.getSenha());
             st.setString(12, "cliente");
+            st.setString(13, c.getTelefone());
             st.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -92,6 +93,7 @@ public class UsuarioDAO implements DAO<Usuario>{
                         rs.getString("nome"),
                         rs.getString("cpf"),
                         rs.getString("email"),
+                        rs.getString("telefone"),
                         rs.getString("cep"),
                         rs.getString("rua"),
                         rs.getInt("nr"),
@@ -130,6 +132,7 @@ public class UsuarioDAO implements DAO<Usuario>{
                         rs.getString("nome"),
                         rs.getString("cpf"),
                         rs.getString("email"),
+                        rs.getString("telefone"),
                         rs.getString("cep"),
                         rs.getString("rua"),
                         rs.getInt("nr"),
@@ -171,7 +174,9 @@ public class UsuarioDAO implements DAO<Usuario>{
             st.setString(10, u.getUf());
             st.setString(11, u.getSenha());
             st.setString(12, u.getTipo());
-            st.setInt(13, u.getId());
+            st.setString(13, u.getTelefone());
+            st.setInt(14, u.getId());
+            
             st.executeUpdate();
             return;
             
