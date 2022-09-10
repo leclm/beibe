@@ -26,6 +26,12 @@ public class AtendimentoDAO {
     
     private static final String QUERY_INSERIR_ATENDIMENTO = "INSERT INTO tb_atendimento	(id_cliente, id_situacao, id_produto, id_categoria_atendimento, descricao, solucao) VALUES (?, ?, ?, ?, ?,?);";
     
+    private static final String QUERY_BUSCA_TUDO_ATENDIMENTO = "SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao FROM public.tb_atendimento as a INNER JOIN tb_usuario as u on u.id=a.id_cliente INNER JOIN tb_situacao_atendimento as s on s.id=a.id_situacao INNER JOIN tb_produto as p on p.id=a.id_produto INNER JOIN tb_categoria_atendimento as cat on cat.id=a.id_categoria_atendimento where  u.id=?  and a.id=?";
+    
+    private static final String QUERY_REMOVER_ATENDIMENTO ="DELETE FROM tb_atendimento WHERE id=?";
+    
+    
+    
     private Connection con= null;
     
     public static boolean adicionarAtendimento(Atendimento a) {
@@ -106,5 +112,68 @@ public class AtendimentoDAO {
         return  atendimentos;
     }
     
+     public static List<Atendimento> buscarTudoIdAtendimento(int idu, int ida) {
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        List<Atendimento> atendimentos= new ArrayList<>();
+        
+        try{
+            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
+            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
+        st = con.prepareStatement(QUERY_BUSCA_TUDO_ATENDIMENTO);
+        st.setInt(1,idu);
+        st.setInt(2,ida);
+        rs = st.executeQuery();  
+        
+            while(rs.next()){
+                //SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao 
+                        
+                    Atendimento atendimento = new Atendimento();
+                    Produto produto = new Produto();
+                    CategoriaAtendimento categoria = new CategoriaAtendimento();
+                    SituacaoAtendimento situacao = new SituacaoAtendimento();
+                    
+                    atendimento.setId(rs.getInt(1));
+                    java.util.Date dt = new java.util.Date(
+                                       rs.getTimestamp(2).getTime());
+                    atendimento.setDataHr(dt);
+                    produto.setNome(rs.getString(3));
+                    atendimento.setProduto(produto);
+                    categoria.setNome(rs.getString(4));
+                    atendimento.setCategoriaAtendimento(categoria);
+                    atendimento.setDescricao(rs.getString(5));
+                    situacao.setNome(rs.getString(6));
+                    atendimento.setSituacaoAtendimento(situacao);
+                    atendimento.setSolucao(rs.getString(7));       
+                    atendimentos.add(atendimento);
+                    
+                }  
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  atendimentos;
+    }
+     
+    public static boolean removerAtendimento(int id) {
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
+            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
+            st = con.prepareStatement(QUERY_REMOVER_ATENDIMENTO);
+            st.setInt(1, id);
+            rs = st.executeQuery();
+            return true;
+         } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     
 }
