@@ -22,9 +22,9 @@
     <title>
       SAC - Cadastro Produtos
     </title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/fontawesome.min.css" />
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/fontawesome.min.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
     <link rel="icon" type="image/x-icon" href="assets/images/phone-solid.svg">
   </head>
   
@@ -33,7 +33,7 @@
     <header class="container-fluid bg-info mb-4">
       <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
         <a class="navbar-brand" href="funcionario.jsp">
-          <img src="../assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
+          <img src="./assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
           <span class="text-white-50 h4 c-title">SAC - Sistema de Atendimento ao Cliente</span>
         </a>
         <div class="container">
@@ -48,12 +48,12 @@
               <a class="nav-link" href="categorias.jsp">Categorias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="${pageContext.request.contextPath}ProdutoServlet?action=listarProduto">Produtos</a>
+              <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>
             </li>
           </ul>
         </div>
         <div class="form-inline">
-          <a href="../index.jsp" class="alert-link text-white my-2 my-sm-0">
+          <a href="./index.jsp" class="alert-link text-white my-2 my-sm-0">
             <i class="fas fa-power-off"></i><br>
             Sair
           </a>
@@ -68,7 +68,7 @@
       </h2>
 
       <!-- Botão para abertura de novo atendimento -->
-      <a href="${pageContext.request.contextPath}/ProdutoServlet?action=cadastroProduto" class="btn btn-lg btn-primary">
+      <a href="ProdutoServlet?action=cadastroProduto" class="btn btn-lg btn-primary">
         <i class="fa fa-plus"></i>
         Criar Novo Produto
       </a>
@@ -106,7 +106,7 @@
       </div>
     </main>
 
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/scripts.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/scripts.js"></script>
   </body>
 </html>
