@@ -4,9 +4,10 @@
     Author     : lelim
 --%>
 
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%--Validar se usuário está logado--%>
 <c:if test="${sessionScope.user == null}" >
     <c:redirect url="index.jsp">
@@ -35,7 +36,7 @@
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="icon" type="image/x-icon" href="./assets/images/phone-solid.svg">
   </head>
-  
+
   <body>
     <!-- Cabeçalho da página -->
     <header class="container-fluid bg-info mb-4">
@@ -47,10 +48,10 @@
         <div class="container">
           <ul class="navbar-nav text-white">
             <li class="nav-item">
-              <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
+              <a class="nav-link" href="FuncionarioServlet?action=listarAtendimento">Atendimentos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="categorias.jsp">Categorias</a>
+              <a class="nav-link" href="CategoriaProdutoServlet?action=listarCategoriaProduto">Categorias</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>
@@ -65,7 +66,7 @@
         </div>
       </nav>
     </header>
-    
+
     <!-- Corpo da página -->
     <main class="container">
       <h2 class="mb-4">
@@ -75,24 +76,24 @@
       <!-- Filtro de visualização de atendimentos -->
       <jsp:useBean id="dataBean" class="java.util.Date"/>
       <div class="mt-3">
-        <div class="form-inline p-2">
-          <label for="filtro-atendimentos">
-            <i class="fas fa-filter"></i>
-            <span class="mx-2">Visualizar:</span>
-          </label>
-          <select id="filtro-atendimentos" class="form-control">
-            <option value="todos">Todos</option>
-            <option value="abertos">Abertos</option>
-            <option value="vencidos">Vencidos</option>
-            <option value="fechados">Fechados</option>
-          </select>
+        <div class="form-inline p-2 text-center">
+          <div class="mr-3 form-inline">
+            <label for="filtro-atendimentos">
+              <i class="fas fa-filter"></i>
+              <span class="mx-2">Visualizar:</span>
+            </label>
+            <select id="filtro-atendimentos" class="form-control">
+              <option value="todos">Todos</option>
+              <option value="abertos">Abertos</option>
+            </select>
+          </div>
         </div>
 
         <!-- Tabela de atendimentos -->
         <table class="table table-hover">
           <thead class="c-thead">
             <tr class="text-center">
-              <th scope="col">#</th>
+              <th scope="col">ID</th>
               <th scope="col">Produto</th>
               <th scope="col">Categoria</th>
               <th scope="col">Data de Criação</th>
@@ -100,7 +101,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
+            <c:forEach items="${atendimentos}" var="a" >
+                <tr class="c-clickable text-center" data-href="FuncionarioServlet?action=mostrarAtendimento&id=<c:out value="${a.id}"/>">
+                  <td><c:out value="${a.id}"/></td>
+                  <td><c:out value="${a.produto.nome}"/></td>
+                  <td><c:out value="${a.categoriaAtendimento.nome}"/></td>
+                  <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
+                  <td><c:out value="${a.solucao}"/></td>
+                </tr>
+            </c:forEach>
+            <!-- <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
               <th scope="row">100123</th>
               <td>Shampoo Ass-Hair (para cachos ruivos)</td>
               <td>Produto não recebido</td>
@@ -120,103 +130,12 @@
               <td>Produto não recebido</td>
               <td>15-jul-2022</td>
               <td><span class="badge badge-sm badge-success c-status">Encerrado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Sabonete SOAP (aroma lavanda)</td>
-              <td>Produto com defeito</td>
-              <td>8-jul-2022</td>
-              <td><span class="badge badge-sm badge-success c-status">Encerrado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Shampoo Ass-Hair (para cachos ruivos)</td>
-              <td>Produto não recebido</td>
-              <td>15-jul-2022</td>
-              <td><span class="badge badge-sm badge-primary c-status">Recebido</span></td>
-            </tr>
-            <tr class="c-clickable text-center table-danger" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Sabonete SOAP (aroma lavanda)</td>
-              <td>Produto com defeito</td>
-              <td>8-jul-2022</td>
-              <td><span class="badge badge-sm badge-danger c-status">Contestado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Shampoo Ass-Hair (para cachos ruivos)</td>
-              <td>Produto não recebido</td>
-              <td>15-jul-2022</td>
-              <td><span class="badge badge-sm badge-success c-status">Encerrado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Sabonete SOAP (aroma lavanda)</td>
-              <td>Produto com defeito</td>
-              <td>8-jul-2022</td>
-              <td><span class="badge badge-sm badge-success c-status">Encerrado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Shampoo Ass-Hair (para cachos ruivos)</td>
-              <td>Produto não recebido</td>
-              <td>15-jul-2022</td>
-              <td><span class="badge badge-sm badge-warning c-status">Sob Análise</span></td>
-            </tr>
-            <tr class="c-clickable text-center table-danger" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Sabonete SOAP (aroma lavanda)</td>
-              <td>Produto com defeito</td>
-              <td>8-jul-2022</td>
-              <td><span class="badge badge-sm badge-danger c-status">Contestado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Shampoo Ass-Hair (para cachos ruivos)</td>
-              <td>Produto não recebido</td>
-              <td>15-jul-2022</td>
-              <td><span class="badge badge-sm badge-success c-status">Encerrado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Sabonete SOAP (aroma lavanda)</td>
-              <td>Produto com defeito</td>
-              <td>8-jul-2022</td>
-              <td><span class="badge badge-sm badge-success c-status">Encerrado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Shampoo Ass-Hair (para cachos ruivos)</td>
-              <td>Produto não recebido</td>
-              <td>15-jul-2022</td>
-              <td><span class="badge badge-sm badge-primary c-status">Recebido</span></td>
-            </tr>
-            <tr class="c-clickable text-center table-danger" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Sabonete SOAP (aroma lavanda)</td>
-              <td>Produto com defeito</td>
-              <td>8-jul-2022</td>
-              <td><span class="badge badge-sm badge-danger c-status">Contestado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Shampoo Ass-Hair (para cachos ruivos)</td>
-              <td>Produto não recebido</td>
-              <td>15-jul-2022</td>
-              <td><span class="badge badge-sm badge-success c-status">Encerrado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Sabonete SOAP (aroma lavanda)</td>
-              <td>Produto com defeito</td>
-              <td>8-jul-2022</td>
-              <td><span class="badge badge-sm badge-success c-status">Encerrado</span></td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
     </main>
-    
+
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/scripts.js"></script>
   </body>

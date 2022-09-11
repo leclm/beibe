@@ -1,6 +1,3 @@
-
-
-
 // Adicionar eventos em formulário
 $('#buscar-cep').click(() => {
   const cep = $('input[name="cep"]').val();
@@ -47,8 +44,16 @@ $('a[title="Excluir"]').click(function(e) {
 // Adicionar evento para filtro de tabelas
 $('#filtro-atendimentos').change(function() {
   $('tr').show();
+  if ($(this).val() === 'abertos') {
+    $('td span.badge-success').parent().parent().hide();
+  }
+});
+
+// Adicionar evento para ordenar por data
+$('#data-sorting').change(function() {
+  $('tr').show();
   switch ($(this).val()) {
-    case 'abertos':
+    case 'crescente':
       $('td span.badge-success').parent().parent().hide();
       break;
     case 'vencidos':
