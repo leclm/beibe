@@ -15,10 +15,10 @@
     <title>
       SAC - Categorias
     </title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/fontawesome.min.css" />
-    <link rel="stylesheet" href="../css/styles.css" />
-    <link rel="icon" type="image/x-icon" href="../assets/images/phone-solid.svg">
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/fontawesome.min.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="icon" type="image/x-icon" href="./assets/images/phone-solid.svg">
   </head>
   
   <body>
@@ -26,27 +26,24 @@
     <header class="container-fluid bg-info mb-4">
       <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
         <a class="navbar-brand" href="funcionario.jsp">
-          <img src="../assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
+          <img src="./assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
           <span class="text-white-50 h4 c-title">SAC - Sistema de Atendimento ao Cliente</span>
         </a>
         <div class="container">
           <ul class="navbar-nav text-white">
             <li class="nav-item">
-              <a class="nav-link" href="funcionario.jsp">Início</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="categorias.jsp">Categorias</a>
+              <a class="nav-link" href="categorias.jsp">Categorias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="produtos.jsp">Produtos</a>
+              <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>
             </li>
           </ul>
         </div>
         <div class="form-inline">
-          <a href="../index.jsp" class="alert-link text-white my-2 my-sm-0">
+          <a href="./index.jsp" class="alert-link text-white my-2 my-sm-0">
             <i class="fas fa-power-off"></i><br>
             Sair
           </a>
@@ -81,8 +78,6 @@
               <th scope="row">2001</th>
               <td>Sabonetes</td>
               <td>
-                <a href="menuCategorias.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
                 <a href="menuCategorias.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
                 <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
               </td>
@@ -91,8 +86,6 @@
               <th scope="row">2002</th>
               <td>Maquiagens</td>
               <td>
-                <a href="menuCategorias.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
                 <a href="menuCategorias.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
                 <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
               </td>
@@ -101,8 +94,6 @@
               <th scope="row">2003</th>
               <td>Batons</td>
               <td>
-                <a href="menuCategorias.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
                 <a href="menuCategorias.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
                 <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
               </td>
@@ -111,8 +102,6 @@
               <th scope="row">2004</th>
               <td>Xampus Femininos</td>
               <td>
-                <a href="menuCategorias.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
                 <a href="menuCategorias.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
                 <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
               </td>
@@ -121,8 +110,6 @@
               <th scope="row">2005</th>
               <td>Xampus Masculinos</td>
               <td>
-                <a href="menuCategorias.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
                 <a href="menuCategorias.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
                 <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
               </td>
@@ -134,7 +121,7 @@
     
   
 
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/scripts.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/scripts.js"></script>
   </body>
 </html>
