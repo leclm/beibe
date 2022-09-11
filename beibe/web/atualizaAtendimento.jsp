@@ -20,6 +20,7 @@
         </c:redirect>
     </c:if>
 </c:if>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
