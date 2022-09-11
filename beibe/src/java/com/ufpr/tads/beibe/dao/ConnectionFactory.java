@@ -8,6 +8,8 @@ package com.ufpr.tads.beibe.dao;
  *
  * @author grupo2
  */
+import com.ufpr.tads.beibe.exception.DAOException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,7 +21,7 @@ public class ConnectionFactory implements AutoCloseable{
     public static String SENHA= "SENHA"; //trocar para o proprio
     private Connection con= null;
     
-    public Connection getConnection() {
+    public Connection getConnection() throws DAOException{
         if(con== null) {
             try{Class.forName(DRIVER);
             con= DriverManager.getConnection(URL, LOGIN, SENHA);
@@ -37,13 +39,13 @@ public class ConnectionFactory implements AutoCloseable{
     }
     
     @Override
-        public void close() {
+        public void close() throws DAOException{
             if(con!=null) {
                 try{ con.close();
                 con= null;
                 }
-                catch(Exception e) { 
-                    System.out.println("Errofechandoa conexão. IGNORADO");
+                catch(SQLException e) { 
+                    System.out.println("Erro fechando a conexão. IGNORADO");
                     e.printStackTrace();
                 }
             }
