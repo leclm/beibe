@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
        //Valores pegos do formulario
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
+
          if(email ==  null || senha == null){
              request.setAttribute("msg", "Favor preencher todos os campos!");
              request.setAttribute("page", "index.jsp");
@@ -85,6 +86,7 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("msg", " Usuário/Senha inválidos.");
             request.setAttribute("page", "index.jsp");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+
         }
                   
        
