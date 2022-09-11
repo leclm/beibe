@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./css/fontawesome.min.css" />
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="icon" type="image/x-icon" href="assets/images/phone-solid.svg">
+
   </head>
   <body>
    
@@ -32,7 +33,7 @@
                     <i class="fa fa-address-card"></i>
                   </span>
                 </div>
-                <input type="number" class="form-control" name="cpf" placeholder="CPF"/>
+                <input type="number" class="form-control" id="cpf" name="cpf" placeholder="CPF"/>
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -58,11 +59,10 @@
                     <i class="fas fa-mobile-alt"></i>
                   </span>
                     </div>  
-                <input type="number" name="telefone" class="form-control" placeholder="(41) 99999-9999" />
+                <input type="number" name="telefone" class="form-control" id="telefone" placeholder="(41) 99999-9999" />
               </div>
             </div>
-             
-                  
+       
             <div class="form-group">
                <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -135,4 +135,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
   </body>
+  
+ 
+
 </html>
