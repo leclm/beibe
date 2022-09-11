@@ -4,9 +4,22 @@
     Author     : lelim
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%--Validar se usuário está logado--%>
+<c:if test="${sessionScope.user == null}" >
+    <c:redirect url="index.jsp">
+        <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+    </c:redirect>
+</c:if>
+<c:if test="${ sessionScope.user != null }" >
+    <c:if test="${ sessionScope.user.tipo != 'funcionario' }" >
+        <c:redirect url="index.jsp">
+            <c:param name="msg" value="Usuário não possui permissão para acessar essa página."/>
+        </c:redirect>
+    </c:if>
+</c:if>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
