@@ -15,6 +15,7 @@ public class Usuario  implements Serializable{
     private String nome;
     private String cpf;
     private String email;
+    private String telefone;
     private String cep;
     private String rua;
     private int nr;
@@ -25,30 +26,15 @@ public class Usuario  implements Serializable{
     private String senha;
     private String tipo;
 
-    public Usuario(int id, String nome, String cpf, String email, String cep, String rua, int nr, String complemento, String bairro, String cidade, String uf, String senha, String tipo) {
+    public Usuario() {
+    }
+
+    public Usuario(int id, String nome, String cpf, String email, String telefone, String cep, String rua, int nr, String complemento, String bairro, String cidade, String uf, String senha, String tipo) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
-        this.cep = cep;
-        this.rua = rua;
-        this.nr = nr;
-        this.complemento = complemento;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.uf = uf;
-        this.senha = senha;
-        this.tipo = tipo;
-    }
-    
-
-    public Usuario() {
-    }
-
-    public Usuario(String nome, String cpf, String email, String cep, String rua, int nr, String complemento, String bairro, String cidade, String uf, String senha, String tipo) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
+        this.telefone = telefone;
         this.cep = cep;
         this.rua = rua;
         this.nr = nr;
@@ -90,6 +76,14 @@ public class Usuario  implements Serializable{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getCep() {
@@ -163,6 +157,7 @@ public class Usuario  implements Serializable{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
-
+    
+    
+    
 }

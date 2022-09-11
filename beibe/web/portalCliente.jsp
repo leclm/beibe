@@ -80,7 +80,6 @@
 
     <!-- Tabela com atendimentos em aberto -->
     <div class="mt-5">
-      <h3 class="mb-3 h4">Atendimentos em aberto</h3>
       <table class="table table-hover">
         <thead class="c-thead">
           <tr class="text-center">
@@ -89,16 +88,18 @@
             <th scope="col">Categoria</th>
             <th scope="col">Data de Criação</th>
             <th scope="col">Status</th>
+            <th scope="col">Visualizar</th>
           </tr>
         </thead>
         <tbody>
           <c:forEach items="${requestScope.atendimentos}" var="a" >
-          <tr class="c-clickable text-center" data-href="verAtendimento.html">
+          <tr class="c-clickable text-center" data-href="AtendimentoServlet?action=mostrarAtendimento&id=<c:out value="${a.id}"/>">
             <th scope="row"><c:out value="${a.id}"/></th>
             <td><c:out value="${a.produto.nome}"/></td>
             <td><c:out value="${a.categoriaAtendimento.nome}"/></td>
             <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
             <td><c:out value="${a.situacaoAtendimento.nome}"/></td>
+            <td><a href="AtendimentoServlet?action=mostrarAtendimento&id=<c:out value="${a.id}"/>">Ver</td>
             <!-- comment<td><span class="badge badge-sm badge-danger c-status">Contestado</span></td> --> 
 
           </tr>
@@ -107,26 +108,6 @@
       </table>
     </div>
 
-    <!-- Tabela com atendimentos encerrados -->
-    <div class="mt-5">
-      <h3 class="h4">Atendimentos encerrados</h3>
-      <table class="table table-hover">
-        <thead class="c-thead">
-          <tr>
-            <th scope="col" class="text-center">Ocorrência</th>
-            <th scope="col">Produto</th>
-            <th scope="col" class="text-center">Categoria</th>
-            <th scope="col" class="text-center">Data de Criação</th>
-            <th scope="col" class="text-center">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th colspan="5" class="py-3 h5 text-center">Nenhum atendimento encerrado</th>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </main>
 
   <script src="../js/bootstrap.min.js"></script>

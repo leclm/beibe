@@ -12,6 +12,7 @@ import java.util.List;
  *
  * @author grupo2
  */
+
 public class AtendimentoFacade {
      public static void adicionarAtendimento(Atendimento a) {
         AtendimentoDAO.adicionarAtendimento(a);
@@ -19,6 +20,14 @@ public class AtendimentoFacade {
      
      public static List<Atendimento> buscarAtendimentoPorCliente(int id) {
          return AtendimentoDAO.buscarTudoCliente(id);
+    }
+     
+     public static List<Atendimento> buscarAtendimentoPorIdAtendimento(int idu, int ida) {
+         return AtendimentoDAO.buscarTudoIdAtendimento(idu, ida);
+    }
+     
+    public static void removerAtendimento(int id) {
+        AtendimentoDAO.removerAtendimento(id);
     }
    
 }

@@ -82,7 +82,7 @@ public class AtendimentoServlet extends HttpServlet {
                     //redireciona
                     request.setAttribute("info", " Atendimento adicionado com sucesso!");
                     request.setAttribute("page", "portalCliente.jsp");
-                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/AtendimentoServlet?action=mostrarPortalCliente");
                     rd.forward(request, response);
                     break;  
  
@@ -98,7 +98,42 @@ public class AtendimentoServlet extends HttpServlet {
                     rd.forward(request, response);
                 break;
             
-            case "mostrarPortalCliente":
+            case "mostrarAtendimento":
+                session = request.getSession();
+                user = (LoginBean)session.getAttribute("user");
+                int idu = user.getId();
+                String nomeu = user.getNome();
+                int ida = Integer.parseInt(request.getParameter("id"));     
+                 //Carrega a lista de atendimentos para apresentar
+                List<Atendimento> atd = AtendimentoFacade.buscarAtendimentoPorIdAtendimento(idu, ida);
+                 
+                //ADD OBJ NA REQUISIÇÃO
+                request.setAttribute("atd", atd);
+                request.setAttribute("nomeu", nomeu);
+                 
+                //redireciona
+                rd = getServletContext().getRequestDispatcher("/verAtendimento.jsp");
+                rd.forward(request, response);
+ /*
+                 try ( PrintWriter out = response.getWriter()) {
+                    /* TODO output your page here. You may use following sample code. */
+                /*    out.println("<!DOCTYPE html>");
+                    out.println("<html>");
+                    out.println("<head>");
+                    out.println("<title>Servlet apagar</title>");          
+                    out.println("</head>");
+                    out.println("<body>");
+                    out.println(idu);
+                    out.println(ida);
+                    out.println("</body>");
+                    out.println("</html>");
+                } */
+ 
+                break;
+               
+                
+                
+                case "mostrarPortalCliente":
                 session = request.getSession();
                 user = (LoginBean)session.getAttribute("user");
                 id = user.getId();
@@ -110,23 +145,28 @@ public class AtendimentoServlet extends HttpServlet {
                   //ADD OBJ NA REQUISIÇÃO
                  request.setAttribute("atendimentos", atendimentos);
                  
-                // try ( PrintWriter out = response.getWriter()) {
-                    /* TODO output your page here. You may use following sample code. */
-                 /*   out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet apagar</title>");          
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println(atendimentos);
-                    out.println("</body>");
-                    out.println("</html>");
-                }*/
-
                 //redireciona
                 rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
                 rd.forward(request, response);
                 break;
+                
+                
+                case "removeAtendimento":
+                 
+                ida = Integer.parseInt(request.getParameter("ida"));
+    
+            
+                 //remove atendimento
+                 AtendimentoFacade.removerAtendimento(ida);
+                 
+                 //redireciona
+                request.setAttribute("info", " Atendimento removido com sucesso!");
+                request.setAttribute("page", "portalCliente.jsp");
+                rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
+                rd.forward(request, response);
+                break;
+                
+                
                 
             }
   

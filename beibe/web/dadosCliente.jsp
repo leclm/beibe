@@ -115,6 +115,17 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="clienteTelefone">Telefone:</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-at"></i>
+                </span>
+              </div>
+                <input type="text" id="clienteTelefone" name="telefone" class="form-control" value="${cliente.telefone}" />
+            </div>
+          </div>
+          <div class="form-group">
             <label for="clienteCep">CEP:</label>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
