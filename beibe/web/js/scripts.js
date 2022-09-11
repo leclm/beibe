@@ -48,21 +48,3 @@ $('#filtro-atendimentos').change(function() {
     $('td span.badge-success').parent().parent().hide();
   }
 });
-
-// Adicionar evento para ordenar por data
-$('#data-sorting').change(function() {
-  $('tr').show();
-  switch ($(this).val()) {
-    case 'crescente':
-      $('td span.badge-success').parent().parent().hide();
-      break;
-    case 'vencidos':
-      $('tbody tr').hide();
-      $('tr.table-danger').show();
-      break;
-    case 'fechados':
-      $('tbody tr').hide();
-      $('td span.badge-success').parent().parent().show();
-      break;
-  }
-});
