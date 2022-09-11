@@ -28,8 +28,9 @@ public class ProdutoDAO {
             + "FROM tb_produto as p INNER JOIN tb_categoriaproduto as c on  p.idcategoria= c.id;";
     private static final String QUERY_REMOVER
             = "DELETE FROM tb_produto WHERE id = ?";
+    private static final String QUERY_PRODUTO = "SELECT id, idcategoria, nome, descricao, peso FROM tb_produto WHERE id = ?";
     
-    public static void AdicionarProduto(Produto p) {
+    public static boolean AdicionarProduto(Produto p) {
         Connection con = null;
         PreparedStatement st = null;
         
@@ -47,8 +48,10 @@ public class ProdutoDAO {
             st.setInt(4, p.getPeso());
             
             st.executeUpdate();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
     
@@ -94,11 +97,13 @@ public class ProdutoDAO {
             while(rs.next()){
                     Produto produto = new Produto();
                     CategoriaProduto categoria = new CategoriaProduto();
+                    
                     produto.setId(rs.getInt(1));
                     produto.setNome(rs.getString(2));
                     categoria.setNome(rs.getString(3));
                     produto.setDescricao(rs.getString(4));
                     produto.setPeso(rs.getInt(5));
+                    produto.setCategoriaProduto(categoria);
                     produtos.add(produto);
             }
         } catch (Exception e) {
@@ -125,5 +130,44 @@ public class ProdutoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public static Produto buscarProdutoPorId(int id) {
+        Connection con = null;
+        PreparedStatement st = null;
+        Produto produto = null;
+        
+        try {
+            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
+            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
+            
+            st = con.prepareStatement(QUERY_PRODUTO);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            
+            try {
+                while(rs.next()){
+                    CategoriaProduto ctg = new CategoriaProduto();
+                    produto = new Produto();
+                    
+                    produto.setId(rs.getInt(1));
+                    
+                    ctg.setId(rs.getInt(2));
+                    
+                    produto.setCategoriaProduto(ctg);
+                    produto.setNome(rs.getString(3));
+                    produto.setDescricao(rs.getString(4));
+                    produto.setPeso(rs.getInt(5));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return produto;
     }
 }

@@ -27,7 +27,14 @@
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="icon" type="image/x-icon" href="assets/images/phone-solid.svg">
   </head>
-  
+  <script type="text/javascript">
+    function removerProduto(id) {
+        excluir = confirm('Tem certeza que deseja excluir a categoria?');
+        if (excluir) {
+            document.location.href= "ProdutoServlet?action=removerProduto&id=" + id;
+        }
+    }
+  </script>
   <body>
     <!-- Cabeçalho da página -->
     <header class="container-fluid bg-info mb-4">
@@ -39,13 +46,10 @@
         <div class="container">
           <ul class="navbar-nav text-white">
             <li class="nav-item">
-              <a class="nav-link" href="funcionario.jsp">Início</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="categorias.jsp">Categorias</a>
+              <a class="nav-link" href="CategoriaProdutoServlet?action=listarCategoriaProduto">Categorias</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>
@@ -75,27 +79,35 @@
 
       <!-- Tabela com atendimentos em aberto -->
       <div class="mt-5">
-        <table id="login-table" class="table table-bordered mb-0">
+        <table id="login-table" class="table table-hover mb-0">
             <div class="table-group">
                 <div class="row">
                     <div class="col-md-6">
-                        <thead for="categoria">
-                            <tr>
+                        <thead for="categoria" class="c-thead">
+                            <tr class="text-center">
                                 <th scope="col" class="table-dark align-middle">Produto</th>
-                                <th scope="col" class="table-light align-middle">Categoria</th>
-                                <th scope="col" class="table-dark align-middle">Visualizar</th>
-                                <th scope="col" class="table-light align-middle">Alterar</th>
-                                <th scope="col" class="table-dark align-middle">Excluir</th>
+                                <th scope="col" class="table-dark align-middle">Categoria</th>
+                                <th scope="col" class="table-dark align-middle">Peso</th>
+                                <th scope="col" class="table-dark align-middle"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${produtos}" var="produto">
-                                <tr>
+                            <c:forEach items="${listProduto}" var="produto">
+                                <tr class="text-center">
                                     <td>${produto.nome}</td>
-                                    <td>${produto.tipoProduto.descricao}</td>
-                                    <td><a href="${pageContext.request.contextPath}/ProdutoServlet?acao=visualizar&id=${produto.id}" class="btn btn-info" style="width: 100%;">Visualizar</button></td>
-                                    <td><a href="${pageContext.request.contextPath}/ProdutoServlet?acao=alterar&id=${produto.id}" class="btn btn-info" style="width: 100%;">Alterar</a></td>
-                                    <td><button type="button" class="btn btn-danger" onclick="removerProduto(${produto.id})" style="width: 100%;">Excluir</button></td>
+                                    <td>${produto.categoriaProduto.nome}</td>
+                                    <td>${produto.peso}</td>
+                                    <td>
+                                        <a href="ProdutoServlet?action=visualizarProduto&id=${produto.id}&categoria=${produto.categoriaProduto.nome}" class="btn btn-sm btn-success" title="Visualizar">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="ProdutoServlet?action=alteraProduto&id=${produto.id}&categoria=${produto.categoriaProduto.nome}" class="btn btn-sm btn-info" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="removerProduto(${produto.id})" title="Excluir">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>

@@ -1,10 +1,11 @@
 <%-- 
     Document   : index
-    Created on : 8 de set de 2022, 13:55:28
+    Created on : 10 de set de 2022, 17:55:28
     Author     : lelim
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%--Validar se usuário está logado--%>
 <c:if test="${sessionScope.user == null}" >
@@ -19,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-      SAC - Cadastro Produtos
+      SAC - Atualiza Produto
     </title>
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link rel="stylesheet" href="./css/fontawesome.min.css" />
@@ -59,12 +60,13 @@
     
     <!-- Corpo da página -->
     <main class="container">
+      <jsp:useBean id="produto" class="com.ufpr.tads.beibe.beans.Produto" scope="request" />
       <h2 class="mb-4">
-        Novo Produto
+        Alterar Produto
       </h2>
 
-      <!-- Formulário para criação de produto -->
-      <form action="ProdutoServlet?action=adicionarProduto" method="POST">
+      <!-- Formulário para alteração de produto -->
+      <form action="ProdutoServlet?action=salvarAlteraProduto&id=${produto.id}" method="POST">
         <div class="row">
           <div class="col-12 jsutify-content-between">
             <button type="submit" class="btn btn-primary float-right w-25">
@@ -77,12 +79,11 @@
             <div class="form-group">
               <label for="nome">Nome do produto:</label>
               <input type="text" id="nome" class="form-control" name="nome"
-                placeholder="Digite um nome entre 5 e 32 caracteres" minlengh="5" maxlengh="32" />
+                value="${produto.nome}" minlengh="5" maxlengh="32" />
             </div>
             <div class="form-group">
               <label for="descricao">Descrição:</label>
-              <textarea id="descricao" class="form-control" name="descricao" rows="4"
-                placeholder="Escreva informações que qualifiquem o produto (ex.: marca, cor, modelo...)"></textarea>
+              <textarea id="descricao" class="form-control" name="descricao" rows="4">${produto.descricao}</textarea>
             </div>
           </div>
           <div class="col-12 col-md-6">
@@ -96,7 +97,7 @@
                 </div>
                 <select name="idcategoria" id="idcategoria" class="form-control" ${(requestScope.permiteAlterar || requestScope.permiteAlterar == null)  ? '' : 'disabled="disabled"'}>
                     <c:forEach items="${categorias}" var="categoria">
-                        <option value="${categoria.id}" ${param.categoria == categoria.id ? 'selected="true"' : '' }>${categoria.nome}</option>
+                        <option value="${categoria.id}" ${param.categoria == categoria.nome ? 'selected="true"' : '' }>${categoria.nome}</option>
                     </c:forEach>
                 </select>
               </div>
@@ -109,13 +110,15 @@
                     <i class="fas fa-weight"></i>
                   </span>
                 </div>
-                <input type="number" id="peso" class="form-control" name="peso" placeholder="Peso em gramas" />
+                <input type="number" id="peso" class="form-control" name="peso" value="${produto.peso}" />
               </div>
             </div>
           </div>
         </div>
       </form>
     </main>
+
+ 
 
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/scripts.js"></script>

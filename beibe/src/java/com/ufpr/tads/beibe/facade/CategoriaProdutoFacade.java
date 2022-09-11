@@ -6,6 +6,8 @@ package com.ufpr.tads.beibe.facade;
 
 import com.ufpr.tads.beibe.beans.CategoriaProduto;
 import com.ufpr.tads.beibe.dao.CategoriaProdutoDAO;
+import com.ufpr.tads.beibe.dao.ConnectionFactory;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +17,22 @@ import java.util.List;
  */
 public class CategoriaProdutoFacade {
     public static List<CategoriaProduto> BuscarTudo() {
-        List<CategoriaProduto> listCategoriaProduto = new ArrayList<CategoriaProduto>();
-        
-        listCategoriaProduto = CategoriaProdutoDAO.buscarTudo();
-            
-        return listCategoriaProduto;
+        return CategoriaProdutoDAO.buscarTudo();
+    }
+    
+    public static void AdicionarCategoriaProduto(CategoriaProduto p) {
+        CategoriaProdutoDAO.AdicionarCategoriaProduto(p);
+    }
+
+    public static void AlterarCategoriaProduto(CategoriaProduto p) {
+        CategoriaProdutoDAO.AlterarCategoriaProduto(p);
+    }
+
+    public static void RemoverCategoriaProduto(int id) {
+        CategoriaProdutoDAO.RemoverCategoriaProduto(id);
+    }
+    
+    public static CategoriaProduto buscarCategoriaPorId(int id) {
+        return CategoriaProdutoDAO.buscarCategoriaPorId(id);
     }
 }

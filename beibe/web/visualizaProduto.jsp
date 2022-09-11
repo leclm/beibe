@@ -1,6 +1,6 @@
 <%-- 
     Document   : index
-    Created on : 8 de set de 2022, 13:55:28
+    Created on : 10 de set de 2022, 18:55:28
     Author     : lelim
 --%>
 
@@ -12,6 +12,7 @@
         <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
     </c:redirect>
 </c:if>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -19,12 +20,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-      SAC - Cadastro Produtos
+      SAC - Atualiza Produto
     </title>
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link rel="stylesheet" href="./css/fontawesome.min.css" />
     <link rel="stylesheet" href="./css/styles.css" />
-    <link rel="icon" type="image/x-icon" href="./assets/images/phone-solid.svg">
+    <link rel="icon" type="image/x-icon" href="../assets/images/phone-solid.svg">
   </head>
   
   <body>
@@ -60,62 +61,55 @@
     <!-- Corpo da página -->
     <main class="container">
       <h2 class="mb-4">
-        Novo Produto
+        Visualizar Produto
       </h2>
 
-      <!-- Formulário para criação de produto -->
+ 
+
+      <!-- Formulário para alteração de produto -->
       <form action="ProdutoServlet?action=adicionarProduto" method="POST">
         <div class="row">
           <div class="col-12 jsutify-content-between">
-            <button type="submit" class="btn btn-primary float-right w-25">
-              <i class="far fa-save"></i>
-              Salvar
-            </button>
             <h3 class="mb-3 h4">Dados Cadastrais</h3>
           </div>
           <div class="col-12 col-md-6">
             <div class="form-group">
-              <label for="nome">Nome do produto:</label>
-              <input type="text" id="nome" class="form-control" name="nome"
-                placeholder="Digite um nome entre 5 e 32 caracteres" minlengh="5" maxlengh="32" />
+              <p>Nome do produto:</p>
+              <p id="nome" class="form-control" name="nome">
+                ${produto.nome}
+              </p>
             </div>
             <div class="form-group">
-              <label for="descricao">Descrição:</label>
-              <textarea id="descricao" class="form-control" name="descricao" rows="4"
-                placeholder="Escreva informações que qualifiquem o produto (ex.: marca, cor, modelo...)"></textarea>
+              <p>Descrição:</p>
+              <p id="descricao" name="descricao" class="form-control">
+                ${produto.descricao}
+              </p>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="form-group">
-              <label for="idcategoria">Categoria:</label>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-puzzle-piece"></i>
-                  </span>
-                </div>
-                <select name="idcategoria" id="idcategoria" class="form-control" ${(requestScope.permiteAlterar || requestScope.permiteAlterar == null)  ? '' : 'disabled="disabled"'}>
-                    <c:forEach items="${categorias}" var="categoria">
-                        <option value="${categoria.id}" ${param.categoria == categoria.id ? 'selected="true"' : '' }>${categoria.nome}</option>
-                    </c:forEach>
-                </select>
-              </div>
+              <p>Categoria:</p>
+              <p id="idcategoria" name="idcategoria" class="form-control">
+                ${param.categoria}
+              </p>
             </div>
             <div class="form-group">
-              <label for="peso">Peso bruto:</label>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-weight"></i>
-                  </span>
-                </div>
-                <input type="number" id="peso" class="form-control" name="peso" placeholder="Peso em gramas" />
-              </div>
+              <p>Peso:</p>
+              <p id="peso" name="peso" class="form-control">
+                ${produto.peso}
+              </p>
             </div>
           </div>
         </div>
       </form>
+      <a class="w-25" href="ProdutoServlet?action=listarProduto">
+        <button type="submit" class="btn btn-primary w-25">
+            Voltar
+        </button>
+      </a>
     </main>
+
+ 
 
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/scripts.js"></script>

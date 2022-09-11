@@ -66,9 +66,9 @@ public class ProdutoServlet extends HttpServlet {
                 case "adicionarProduto":
                     Produto produto = new Produto();
 
-                    int idCtg = Integer.parseInt(request.getParameter("idCategoriaProduto"));
-                    String nomeCtg = (String) request.getParameter("nomeCategoriaProduto");
-                    CategoriaProduto ctg = new CategoriaProduto(idCtg, nomeCtg);
+                    int idcategoria = Integer.parseInt(request.getParameter("idcategoria"));
+                    CategoriaProduto ctg = new CategoriaProduto();
+                    ctg.setId(idcategoria);
 
                     int peso = Integer.parseInt(request.getParameter("peso"));
                     String nome = (String) request.getParameter("nome");
@@ -83,25 +83,36 @@ public class ProdutoServlet extends HttpServlet {
 
                     listProduto = ProdutoFacade.buscarProdutos();
                     request.setAttribute("listProduto", listProduto);
-
-                    List<CategoriaProduto> listCategoriaProduto = CategoriaProdutoFacade.BuscarTudo();
-                    request.setAttribute("listCategoriaProduto", listCategoriaProduto);
-
+                    
                     rd = getServletContext().getRequestDispatcher("/produtos.jsp");
                     rd.forward(request, response);
 
                     break;
-                case "alterarProduto": 
-                    produto = new Produto();
+                case "alteraProduto":
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    
+                    produto = ProdutoFacade.buscarProdutoPorId(id);
+                    ProdutoFacade.ApresentarCategorias(request);
 
-                    idCtg = Integer.parseInt(request.getParameter("idCategoriaProduto"));
-                    nomeCtg = (String) request.getParameter("nomeCategoriaProduto");
-                    ctg = new CategoriaProduto(idCtg, nomeCtg);
+                    request.setAttribute("produto", produto);
+                    rd = getServletContext().getRequestDispatcher("/atualizaProduto.jsp");
+                    rd.forward(request, response);
+
+                    break;
+                case "salvarAlteraProduto":
+                    produto = new Produto();
+                    
+                    id = Integer.parseInt(request.getParameter("id"));
+                    
+                    idcategoria = Integer.parseInt(request.getParameter("idcategoria"));
+                    ctg = new CategoriaProduto();
+                    ctg.setId(idcategoria);
 
                     peso = Integer.parseInt(request.getParameter("peso"));
                     nome = (String) request.getParameter("nome");
                     descricao = (String) request.getParameter("descricao");
 
+                    produto.setId(id);
                     produto.setCategoriaProduto(ctg);
                     produto.setPeso(peso);
                     produto.setNome(nome);
@@ -111,28 +122,33 @@ public class ProdutoServlet extends HttpServlet {
 
                     listProduto = ProdutoFacade.buscarProdutos();
                     request.setAttribute("listProduto", listProduto);
-
-                    listCategoriaProduto = CategoriaProdutoFacade.BuscarTudo();
-                    request.setAttribute("listCategoriaProduto", listCategoriaProduto);
-
-                    rd = getServletContext().getRequestDispatcher("/cadastrarproduto.jsp");
+                    
+                    rd = getServletContext().getRequestDispatcher("/produtos.jsp");
                     rd.forward(request, response);
-
+                    
                     break;
                 case "removerProduto":
-                    int id = Integer.parseInt(request.getParameter("idProduto"));
+                    id = Integer.parseInt(request.getParameter("id"));
 
                     ProdutoFacade.RemoverProduto(id);
 
                     listProduto = ProdutoFacade.buscarProdutos();
                     request.setAttribute("listProduto", listProduto);
 
-                    listCategoriaProduto = CategoriaProdutoFacade.BuscarTudo();
-                    request.setAttribute("listCategoriaProduto", listCategoriaProduto);
-
-                    rd = getServletContext().getRequestDispatcher("/cadastrarproduto.jsp");
+                    rd = getServletContext().getRequestDispatcher("/produtos.jsp");
                     rd.forward(request, response);
 
+                    break;
+                case "visualizarProduto":
+                    id = Integer.parseInt(request.getParameter("id"));
+                    
+                    produto = ProdutoFacade.buscarProdutoPorId(id);
+                    ProdutoFacade.ApresentarCategorias(request);
+                    
+                    request.setAttribute("produto", produto);
+                    rd = getServletContext().getRequestDispatcher("/visualizaProduto.jsp");
+                    rd.forward(request, response);
+                    
                     break;
             }
         }
