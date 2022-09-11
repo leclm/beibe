@@ -32,16 +32,13 @@
         <div class="container">
           <ul class="navbar-nav text-white">
             <li class="nav-item">
-              <a class="nav-link" href="funcionario.jsp">Início</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="categorias.jsp">Categorias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="produtos.jsp">Produtos</a>
+              <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>
             </li>
           </ul>
         </div>

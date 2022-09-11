@@ -17,10 +17,10 @@
     <title>
       SAC - Atendimentos
     </title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/fontawesome.min.css" />
-    <link rel="stylesheet" href="../css/styles.css" />
-    <link rel="icon" type="image/x-icon" href="../assets/images/phone-solid.svg">
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/fontawesome.min.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="icon" type="image/x-icon" href="./assets/images/phone-solid.svg">
   </head>
   
   <body>
@@ -28,27 +28,24 @@
     <header class="container-fluid bg-info mb-4">
       <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
         <a class="navbar-brand" href="funcionario.jsp">
-          <img src="../assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
+          <img src="./assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
           <span class="text-white-50 h4 c-title">SAC - Sistema de Atendimento ao Cliente</span>
         </a>
         <div class="container">
           <ul class="navbar-nav text-white">
             <li class="nav-item">
-              <a class="nav-link" href="funcionario.jsp">Início</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="atendimentos.jsp">Atendimentos</a>
+              <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="categorias.jsp">Categorias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="produtos.jsp">Produtos</a>
+              <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>
             </li>
           </ul>
         </div>
         <div class="form-inline">
-          <a href="../index.jsp" class="alert-link text-white my-2 my-sm-0">
+          <a href="./index.jsp" class="alert-link text-white my-2 my-sm-0">
             <i class="fas fa-power-off"></i><br>
             Sair
           </a>
@@ -207,7 +204,7 @@
       </div>
     </main>
     
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/scripts.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/scripts.js"></script>
   </body>
 </html>

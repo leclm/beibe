@@ -48,4 +48,8 @@ public class ProdutoFacade {
     public static List<Produto> buscarProdutos() {
         return ProdutoDAO.buscarTudo();
     }
+    
+    public static Produto buscarProdutoPorId(int id) {
+        return ProdutoDAO.buscarProdutoPorId(id);
+    }
 }
