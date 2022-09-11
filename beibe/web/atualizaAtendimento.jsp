@@ -5,6 +5,7 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%--Validar se usuário está logado--%>
@@ -35,7 +36,7 @@
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="icon" type="image/x-icon" href="./assets/images/phone-solid.svg">
   </head>
-  
+
   <body>
     <!-- Cabeçalho da página -->
     <header class="container-fluid bg-info mb-4">
@@ -65,63 +66,42 @@
         </div>
       </nav>
     </header>
-    
+
     <!-- Corpo da página -->
     <main class="container">
+      <jsp:useBean id="atd" class="com.ufpr.tads.beibe.beans.Atendimento" scope="request" />
       <h2 class="mb-4">
-      Atendimento #[ID do atendimento]
+        Atendimento [ID#${atd.id}]
       </h2>
 
       <!-- Dados do atendimento -->
-      <form action="atendimentos.jsp" method="POST">
-        <button type="submit" class="btn btn-primary float-right w-25">
-          <i class="far fa-save"></i>
-          Salvar Alterações
-        </button>
-        <div class="form-group row">
-          <label for="atendimento-id" class="col-2 col-form-label">Atendimento:</label>
-          <div class="col-10">
-            <input type="text" id="atendimento-id" class="form-control-plaintext" readonly value="#100123" />
-          </div>
+      <form action="FuncionarioServlet?action=salvarAtendimento" method="POST">
+        <div class="form-group form-inline row ml-1">
+          <p class="font-weight-bold mr-1">ID Usuário:</p>
+          <p>${atd.id}</p>
+        </div>
+        <div class="form-group form-inline row ml-1">
+          <p class="font-weight-bold mr-1">Nome Usuário: </p>
+          <p>${nomeu}</p>
+        </div>
+        <div class="form-group form-inline row ml-1">
+          <p class="font-weight-bold mr-1">Produto: </p>
+          <p>${atd.produto.nome}</p>
         </div>
         <div class="form-group row">
-          <label for="atendimento-cliente" class="col-2 col-form-label">Cliente:</label>
-          <div class="col-10">
-            <input type="text" id="atendimento-cliente" class="form-control-plaintext" readonly value="#666 (Josnei)" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="atendimento-produto" class="col-2 col-form-label">Produto:</label>
-          <div class="col-10">
-            <input type="text" id="atendimento-produto" class="form-control-plaintext" readonly
-              value="#50004 (Batom Cacatua Raivosa)" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="atendimento-tipo" class="col-2 col-form-label">Tipo do atendimento:</label>
-          <div class="col-6">
-            <select id="atendimento-tipo" class="form-control" name="tipo">
-              <option>Selecione...</option>
-              <option value="1">Financeiro</option>
-              <option value="2" selected>Produto com defeito</option>
-              <option value="3">Produto não recebido</option>
-              <option value="4">Sugestões / Reclamações</option>
-              <option value="0">Outros</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="atendimento-status" class="col-2 col-form-label">Status:</label>
+          <label for="atendimento-status" class="col-2 col-form-label font-weight-bold">Status:</label>
           <div class="col-6">
             <select id="atendimento-status" class="form-control" name="status">
-              <option value="1">Recebido</option>
-              <option value="2">Sob Análise</option>
-              <option value="3" selected>Contestado</option>
-              <option value="4">Encerrado</option>
+              <option value="1">Aberto</option>
+              <option value="2">Encerrado</option>
             </select>
           </div>
         </div>
       </form>
+      <button type="submit" class="btn btn-primary float-left w-25 mt-4">
+        <i class="far fa-save"></i>
+        Salvar Alterações
+      </button>
     </main>
 
     <script src="./js/bootstrap.min.js"></script>

@@ -25,6 +25,10 @@ public class AtendimentoFacade {
     public static List<Atendimento> buscarAtendimentoPorIdAtendimento(int idu, int ida) {
          return AtendimentoDAO.buscarTudoIdAtendimento(idu, ida);
     }
+    
+    public static Atendimento buscarAtendimentoPorIdAtd(int idu, int ida) {
+         return AtendimentoDAO.buscarTudoIdAtd(idu, ida);
+    }
      
     public static List<Atendimento> buscarTudo() {
          return AtendimentoDAO.buscarTudo();

@@ -72,8 +72,8 @@ public class FuncionarioServlet extends HttpServlet {
                     String nomeu = user.getNome();
                     int ida = Integer.parseInt(request.getParameter("id"));
                     
-                     //Carrega a lista de atendimentos para apresentar
-                    List<Atendimento> atd = AtendimentoFacade.buscarAtendimentoPorIdAtendimento(idu, ida);
+                    //Carrega o atendimento de atendimentos para apresentar
+                    Atendimento atd = AtendimentoFacade.buscarAtendimentoPorIdAtd(idu, ida);
 
                     //ADD OBJ NA REQUISIÇÃO
                     request.setAttribute("atd", atd);

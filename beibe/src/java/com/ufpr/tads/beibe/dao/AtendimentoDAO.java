@@ -180,6 +180,49 @@ public class AtendimentoDAO {
         return  atendimentos;
     }
     
+     public static Atendimento buscarTudoIdAtd(int idu, int ida) {
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Atendimento atendimento = null;
+        
+        try{
+            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
+            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
+        st = con.prepareStatement(QUERY_BUSCA_TUDO_ATENDIMENTO);
+        st.setInt(1,idu);
+        st.setInt(2,ida);
+        rs = st.executeQuery();  
+        
+            while(rs.next()){
+                //SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao 
+                        
+                    atendimento = new Atendimento();
+                    Produto produto = new Produto();
+                    CategoriaAtendimento categoria = new CategoriaAtendimento();
+                    SituacaoAtendimento situacao = new SituacaoAtendimento();
+                    
+                    atendimento.setId(rs.getInt(1));
+                    java.util.Date dt = new java.util.Date(
+                                       rs.getTimestamp(2).getTime());
+                    atendimento.setDataHr(dt);
+                    produto.setNome(rs.getString(3));
+                    atendimento.setProduto(produto);
+                    categoria.setNome(rs.getString(4));
+                    atendimento.setCategoriaAtendimento(categoria);
+                    atendimento.setDescricao(rs.getString(5));
+                    situacao.setNome(rs.getString(6));
+                    atendimento.setSituacaoAtendimento(situacao);
+                    atendimento.setSolucao(rs.getString(7));
+                }  
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  atendimento;
+    }
+    
     public static List<Atendimento> buscarTudo() {
         Connection con = null;
         PreparedStatement st = null;
