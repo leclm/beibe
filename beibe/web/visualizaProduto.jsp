@@ -4,8 +4,6 @@
     Author     : lelim
 --%>
 
- 
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%--Validar se usuário está logado--%>
@@ -14,8 +12,6 @@
         <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
     </c:redirect>
 </c:if>
-
- 
 
 <!DOCTYPE html>
 <html lang="pt-BR">

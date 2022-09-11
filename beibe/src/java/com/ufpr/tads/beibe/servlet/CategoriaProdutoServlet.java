@@ -77,7 +77,7 @@ public class CategoriaProdutoServlet extends HttpServlet {
                     ctg = CategoriaProdutoFacade.buscarCategoriaPorId(id);
 
                     request.setAttribute("categoria", ctg);
-                    rd = getServletContext().getRequestDispatcher("/alteraCategoria.jsp");
+                    rd = getServletContext().getRequestDispatcher("/atualizaCategoria.jsp");
                     rd.forward(request, response);
 
                     break;

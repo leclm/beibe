@@ -5,7 +5,14 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%--Validar se usuário está logado--%>
+<c:if test="${sessionScope.user == null}" >
+    <c:redirect url="index.jsp">
+        <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+    </c:redirect>
+</c:if>
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -20,7 +27,15 @@
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="icon" type="image/x-icon" href="./assets/images/phone-solid.svg">
   </head>
-  
+  <script type="text/javascript">
+      function removerProduto(id) {
+          excluir = confirm('Tem certeza que deseja excluir a categoria?');
+          if (excluir) {
+              document.location.href = "CategoriaProdutoServlet?action=removerCategoriaProduto&id=" + id;
+          }
+      }
+  </script>
+
   <body>
     <!-- Cabeçalho da página -->
     <header class="container-fluid bg-info mb-4">
@@ -35,10 +50,10 @@
               <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="categorias.jsp">Categorias</a>
+              <a class="nav-link active" href="CategoriaProdutoServlet?action=listarCategoriaProduto">Categorias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>
+              <a class="nav-link" href="ProdutoServlet?action=listarProduto">Produtos</a>
             </li>
           </ul>
         </div>
@@ -50,7 +65,7 @@
         </div>
       </nav>
     </header>
-    
+
     <!-- Corpo da página -->
     <main class="container">
       <h2 class="mb-4">
@@ -58,68 +73,46 @@
       </h2>
 
       <!-- Botão para abertura de novo atendimento -->
-      <a href="cadastroCategoria.jsp" class="btn btn-lg btn-primary">
+      <a href="CategoriaProdutoServlet?action=cadastroCategoriaProduto" class="btn btn-lg btn-primary">
         <i class="fa fa-plus"></i>
         Criar Nova Categoria
       </a>
 
       <!-- Tabela com atendimentos em aberto -->
       <div class="mt-5">
-        <table class="table table-hover">
-          <thead class="c-thead">
-            <tr class="text-center">
-              <th scope="col">#</th>
-              <th scope="col">Descrição</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="text-center">
-              <th scope="row">2001</th>
-              <td>Sabonetes</td>
-              <td>
-                <a href="menuCategorias.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">2002</th>
-              <td>Maquiagens</td>
-              <td>
-                <a href="menuCategorias.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">2003</th>
-              <td>Batons</td>
-              <td>
-                <a href="menuCategorias.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">2004</th>
-              <td>Xampus Femininos</td>
-              <td>
-                <a href="menuCategorias.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <th scope="row">2005</th>
-              <td>Xampus Masculinos</td>
-              <td>
-                <a href="menuCategorias.html" class="btn btn-sm btn-info" title="Editar"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-          </tbody>
+        <table id="login-table" class="table table-hover mb-0">
+          <div class="table-group">
+            <div class="row">
+              <div class="col-md-6">
+                <thead for="categoria" class="c-thead">
+                  <tr>
+                    <th scope="col" class="table-dark align-middle text-center">ID</th>
+                    <th scope="col" class="table-dark align-middle text-center">Nome</th>
+                    <th scope="col" class="table-dark align-middle text-center"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <c:forEach items="${listCategorias}" var="categoria">
+                      <tr class="text-center">
+                        <td>${categoria.id}</td>
+                        <td>${categoria.nome}</td>
+                        <td>
+                          <a href="CategoriaProdutoServlet?action=alteraCategoriaProduto&id=${categoria.id}&categoria=${categoria.nome}" class="btn btn-sm btn-info" title="Editar">
+                            <i class="fas fa-edit"></i>
+                          </a>
+                          <button type="button" class="btn btn-sm btn-danger" onclick="removerProduto(${categoria.id})" title="Excluir">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </td>
+                      </tr>
+                  </c:forEach>
+                </tbody>
+              </div>
+            </div>
+          </div>
         </table>
       </div>
     </main>
-    
-  
 
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/scripts.js"></script>

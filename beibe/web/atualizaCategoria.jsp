@@ -1,6 +1,6 @@
 <%-- 
     Document   : index
-    Created on : 10 de set de 2022, 18:55:28
+    Created on : 8 de set de 2022, 13:55:28
     Author     : lelim
 --%>
 
@@ -20,12 +20,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-      SAC - Categorias
+      Atualiza Categoria
     </title>
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link rel="stylesheet" href="./css/fontawesome.min.css" />
     <link rel="stylesheet" href="./css/styles.css" />
-    <link rel="icon" type="image/x-icon" href="../assets/images/phone-solid.svg">
+    <link rel="icon" type="image/x-icon" href="./assets/images/phone-solid.svg">
   </head>
   
   <body>
@@ -42,10 +42,10 @@
               <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="categorias.jsp">Categorias</a>
+              <a class="nav-link active" href="CategoriaProdutoServlet?action=listarCategoriaProduto">Categorias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="produtos.jsp">Produtos</a>
+              <a class="nav-link" href="ProdutoServlet?action=listarProduto">Produtos</a>
             </li>
           </ul>
         </div>
@@ -60,14 +60,13 @@
     
     <!-- Corpo da página -->
     <main class="container">
+      <jsp:useBean id="categoria" class="com.ufpr.tads.beibe.beans.CategoriaProduto" scope="request" />
       <h2 class="mb-4">
         Nova Categoria
       </h2>
 
- 
-
       <!-- Formulário para criação de categoria -->
-      <form action="ProdutoServlet?action=alteraCategoria" method="POST">
+      <form action="CategoriaProdutoServlet?action=salvarAlteraCategoriaProduto&id=${categoria.id}" method="POST">
         <div class="row">
           <div class="col-12 jsutify-content-between">
             <button type="submit" class="btn btn-primary float-right w-25">
@@ -86,8 +85,6 @@
         </div>
       </form>
     </main>
-
- 
 
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/scripts.js"></script>

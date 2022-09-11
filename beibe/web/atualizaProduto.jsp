@@ -65,8 +65,6 @@
         Alterar Produto
       </h2>
 
- 
-
       <!-- Formulário para alteração de produto -->
       <form action="ProdutoServlet?action=salvarAlteraProduto&id=${produto.id}" method="POST">
         <div class="row">

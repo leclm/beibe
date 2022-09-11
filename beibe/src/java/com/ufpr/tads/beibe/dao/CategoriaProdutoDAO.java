@@ -33,7 +33,7 @@ public class CategoriaProdutoDAO {
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
-        List<CategoriaProduto> categoriasPrd= new ArrayList<CategoriaProduto>();
+        List<CategoriaProduto> categoriasPrd = new ArrayList<CategoriaProduto>();
         
         try{
             Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);

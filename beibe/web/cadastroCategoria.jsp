@@ -6,6 +6,12 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%--Validar se usuário está logado--%>
+<c:if test="${sessionScope.user == null}" >
+    <c:redirect url="index.jsp">
+        <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+    </c:redirect>
+</c:if>
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -13,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-      SAC - Categorias
+      Cadastrar Categoria
     </title>
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link rel="stylesheet" href="./css/fontawesome.min.css" />
@@ -35,10 +41,10 @@
               <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="categorias.jsp">Categorias</a>
+              <a class="nav-link active" href="CategoriaProdutoServlet?action=listarCategoriaProduto">Categorias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>
+              <a class="nav-link" href="ProdutoServlet?action=listarProduto">Produtos</a>
             </li>
           </ul>
         </div>
@@ -58,7 +64,7 @@
       </h2>
 
       <!-- Formulário para criação de categoria -->
-      <form action="categorias.jsp" method="POST">
+      <form action="CategoriaProdutoServlet?action=adicionarCategoriaProduto" method="POST">
         <div class="row">
           <div class="col-12 jsutify-content-between">
             <button type="submit" class="btn btn-primary float-right w-25">

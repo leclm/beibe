@@ -49,7 +49,7 @@
               <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="categorias.jsp">Categorias</a>
+              <a class="nav-link" href="CategoriaProdutoServlet?action=listarCategoriaProduto">Categorias</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>
@@ -84,7 +84,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <thead for="categoria" class="c-thead">
-                            <tr>
+                            <tr class="text-center">
                                 <th scope="col" class="table-dark align-middle">Produto</th>
                                 <th scope="col" class="table-dark align-middle">Categoria</th>
                                 <th scope="col" class="table-dark align-middle">Peso</th>
@@ -93,7 +93,7 @@
                         </thead>
                         <tbody>
                             <c:forEach items="${listProduto}" var="produto">
-                                <tr>
+                                <tr class="text-center">
                                     <td>${produto.nome}</td>
                                     <td>${produto.categoriaProduto.nome}</td>
                                     <td>${produto.peso}</td>
