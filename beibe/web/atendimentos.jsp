@@ -129,6 +129,10 @@
                 </c:choose>
                 
                        
+                       
+                       
+                       
+                       
             </c:forEach>
             <!-- <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
               <th scope="row">100123</th>
