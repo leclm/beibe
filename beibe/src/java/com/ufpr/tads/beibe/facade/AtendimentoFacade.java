@@ -14,16 +14,28 @@ import java.util.List;
  */
 
 public class AtendimentoFacade {
-     public static void adicionarAtendimento(Atendimento a) {
+    public static void adicionarAtendimento(Atendimento a) {
         AtendimentoDAO.adicionarAtendimento(a);
     }
      
-     public static List<Atendimento> buscarAtendimentoPorCliente(int id) {
+    public static List<Atendimento> buscarAtendimentoPorCliente(int id) {
          return AtendimentoDAO.buscarTudoCliente(id);
     }
      
-     public static List<Atendimento> buscarAtendimentoPorIdAtendimento(int idu, int ida) {
+    public static List<Atendimento> buscarAtendimentoPorIdAtendimento(int idu, int ida) {
          return AtendimentoDAO.buscarTudoIdAtendimento(idu, ida);
+    }
+    
+    public static Atendimento buscarAtendimentoPorIdAtd(int idu, int ida) {
+         return AtendimentoDAO.buscarTudoIdAtd(idu, ida);
+    }
+     
+    public static List<Atendimento> buscarTudo() {
+         return AtendimentoDAO.buscarTudo();
+    }
+    
+    public static void alterarAtendimento(Atendimento a) {
+         AtendimentoDAO.alterarAtendimento(a);
     }
      
     public static void removerAtendimento(int id) {

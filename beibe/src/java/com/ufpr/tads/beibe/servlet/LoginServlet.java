@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
                                 response.sendRedirect("AtendimentoServlet?action=mostrarPortalCliente");
                                 break;
                             case "funcionario":
-                                response.sendRedirect("atendimentos.jsp");
+                                response.sendRedirect("FuncionarioServlet?action=mostrarPortalFuncionario");
                                 break;
                             case "gerente":
                                 response.sendRedirect("portalGerente.jsp");

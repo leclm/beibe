@@ -4,13 +4,21 @@
  */
 package com.ufpr.tads.beibe.servlet;
 
+import com.ufpr.tads.beibe.beans.Atendimento;
+import com.ufpr.tads.beibe.beans.LoginBean;
+import com.ufpr.tads.beibe.beans.SituacaoAtendimento;
+import com.ufpr.tads.beibe.beans.Usuario;
+import com.ufpr.tads.beibe.facade.AtendimentoFacade;
+import com.ufpr.tads.beibe.facade.UsuarioFacade;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -31,17 +39,71 @@ public class FuncionarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FuncionarioServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FuncionarioServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action");
+              
+        if(action==null || action.equals("list")){
+           /* List<Cliente> clientes = ClientesFacade.listarTodos();
+            request.setAttribute("listaClientes", clientes);
+            RequestDispatcher rd = request.getRequestDispatcher("/clientesListar.jsp");
+            rd.forward(request, response);*/
+        } else{            
+            switch (action) {
+                case "salvarAtendimento":
+                    //Valores pegos do formulario, já no formato para BD
+                    int status = Integer.parseInt(request.getParameter("status"));
+                    SituacaoAtendimento sa = new SituacaoAtendimento();
+                    sa.setId(status);
+                    
+                    String solucao = request.getParameter("solucao");
+                    
+                    int idu = Integer.parseInt(request.getParameter("idu"));
+                    int ida = Integer.parseInt(request.getParameter("ida"));
+                    
+                    Atendimento atd = AtendimentoFacade.buscarAtendimentoPorIdAtd(idu, ida);
+                    
+                    //adiciona os valores a esse objeto
+                    atd.setSituacaoAtendimento(sa);
+                    atd.setSolucao(solucao);
+                   
+                    //função para inserir no bd via Facade
+                    AtendimentoFacade.alterarAtendimento(atd);
+                    
+                    //redireciona
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/FuncionarioServlet?action=mostrarPortalFuncionario");
+                    rd.forward(request, response);
+                    
+                    break;
+                case "mostrarAtendimento":
+                    idu = Integer.parseInt(request.getParameter("idu"));
+                    ida = Integer.parseInt(request.getParameter("id"));
+                    Usuario user = UsuarioFacade.buscaPorID(idu);
+                    
+                    //Carrega o atendimento de atendimentos para apresentar
+                    atd = AtendimentoFacade.buscarAtendimentoPorIdAtd(idu, ida);
+
+                    //ADD OBJ NA REQUISIÇÃO
+                    request.setAttribute("atd", atd);
+                    request.setAttribute("user", user);
+
+                    //redireciona
+                    rd = getServletContext().getRequestDispatcher("/atualizaAtendimento.jsp");
+                    rd.forward(request, response);
+
+                    break;
+                case "mostrarPortalFuncionario":
+                    //Carrega a lista de atendimentos para apresentar
+                    List<Atendimento> atendimentos = AtendimentoFacade.buscarTudo();
+
+                    //ADD OBJ NA REQUISIÇÃO
+                    request.setAttribute("atendimentos", atendimentos);
+
+                    //redireciona
+                    rd = getServletContext().getRequestDispatcher("/atendimentos.jsp");
+                    rd.forward(request, response);
+
+                    break;
+            }
         }
     }
 

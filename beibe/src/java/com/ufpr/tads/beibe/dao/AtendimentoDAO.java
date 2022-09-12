@@ -24,11 +24,15 @@ import java.util.List;
 public class AtendimentoDAO {
     private static final String QUERY_BUSCA_TUDO_CLIENTE = "SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao FROM public.tb_atendimento as a INNER JOIN tb_usuario as u on u.id=a.id_cliente INNER JOIN tb_situacao_atendimento as s on s.id=a.id_situacao INNER JOIN tb_produto as p on p.id=a.id_produto INNER JOIN tb_categoria_atendimento as cat on cat.id=a.id_categoria_atendimento where  u.id=? order by a.dt_hr desc";
     
+    private static final String QUERY_BUSCA_TUDO = "SELECT a.id, a.dt_hr, a.id_cliente, p.nome, cat.nome, a.descricao, s.nome, a.solucao FROM public.tb_atendimento as a INNER JOIN tb_usuario as u on u.id=a.id_cliente INNER JOIN tb_situacao_atendimento as s on s.id=a.id_situacao INNER JOIN tb_produto as p on p.id=a.id_produto INNER JOIN tb_categoria_atendimento as cat on cat.id=a.id_categoria_atendimento order by a.dt_hr asc";
+    
     private static final String QUERY_INSERIR_ATENDIMENTO = "INSERT INTO tb_atendimento	(id_cliente, id_situacao, id_produto, id_categoria_atendimento, descricao, solucao) VALUES (?, ?, ?, ?, ?,?);";
     
     private static final String QUERY_BUSCA_TUDO_ATENDIMENTO = "SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao FROM public.tb_atendimento as a INNER JOIN tb_usuario as u on u.id=a.id_cliente INNER JOIN tb_situacao_atendimento as s on s.id=a.id_situacao INNER JOIN tb_produto as p on p.id=a.id_produto INNER JOIN tb_categoria_atendimento as cat on cat.id=a.id_categoria_atendimento where  u.id=?  and a.id=?";
     
     private static final String QUERY_REMOVER_ATENDIMENTO ="DELETE FROM tb_atendimento WHERE id=?";
+    
+    private static final String QUERY_ALTERAR_ATENDIMENTO = "UPDATE tb_atendimento SET id_situacao=?,solucao=? WHERE id=?";
     
     
     
@@ -63,7 +67,27 @@ public class AtendimentoDAO {
         }
     }
     
-    
+    public static void alterarAtendimento(Atendimento a) {
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+      
+        try{
+            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
+            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
+            st = con.prepareStatement(QUERY_ALTERAR_ATENDIMENTO);
+            
+            st.setInt(1, a.getSituacaoAtendimento().getId());
+            st.setString(2, a.getSolucao());
+            st.setInt(3, a.getId());
+            
+            st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     public static List<Atendimento> buscarTudoCliente(int id) {
         Connection con = null;
@@ -154,6 +178,93 @@ public class AtendimentoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return  atendimentos;
+    }
+    
+     public static Atendimento buscarTudoIdAtd(int idu, int ida) {
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Atendimento atendimento = new Atendimento();
+        
+        try{
+            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
+            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
+            st = con.prepareStatement(QUERY_BUSCA_TUDO_ATENDIMENTO);
+            st.setInt(1,idu);
+            st.setInt(2,ida);
+            rs = st.executeQuery();
+        
+            while(rs.next()){
+                //SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao 
+                Produto produto = new Produto();
+                CategoriaAtendimento categoria = new CategoriaAtendimento();
+                SituacaoAtendimento situacao = new SituacaoAtendimento();
+
+                atendimento.setId(rs.getInt(1));
+                java.util.Date dt = new java.util.Date(rs.getTimestamp(2).getTime());
+                atendimento.setDataHr(dt);
+                produto.setNome(rs.getString(3));
+                atendimento.setProduto(produto);
+                categoria.setNome(rs.getString(4));
+                atendimento.setCategoriaAtendimento(categoria);
+                atendimento.setDescricao(rs.getString(5));
+                situacao.setNome(rs.getString(6));
+                atendimento.setSituacaoAtendimento(situacao);
+                atendimento.setSolucao(rs.getString(7));
+            }  
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return  atendimento;
+    }
+    
+    public static List<Atendimento> buscarTudo() {
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        List<Atendimento> atendimentos= new ArrayList<>();
+        
+        try{
+            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
+            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
+                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
+            st = con.prepareStatement(QUERY_BUSCA_TUDO);
+            rs = st.executeQuery();  
+        
+            while(rs.next()){
+                //SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao 
+                        
+                Atendimento atendimento = new Atendimento();
+                Produto produto = new Produto();
+                CategoriaAtendimento categoria = new CategoriaAtendimento();
+                SituacaoAtendimento situacao = new SituacaoAtendimento();
+                Usuario user = new Usuario();
+
+                atendimento.setId(rs.getInt(1));
+                java.util.Date dt = new java.util.Date(rs.getTimestamp(2).getTime());
+                atendimento.setDataHr(dt);
+                user.setId(rs.getInt(3));
+                atendimento.setCliente(user);
+                produto.setNome(rs.getString(4));
+                atendimento.setProduto(produto);
+                categoria.setNome(rs.getString(5));
+                atendimento.setCategoriaAtendimento(categoria);
+                atendimento.setDescricao(rs.getString(6));
+                situacao.setNome(rs.getString(7));
+                atendimento.setSituacaoAtendimento(situacao);
+                atendimento.setSolucao(rs.getString(8));
+                
+                atendimentos.add(atendimento);
+            }  
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         return  atendimentos;
     }
      
