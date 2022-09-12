@@ -52,14 +52,16 @@ public class FuncionarioServlet extends HttpServlet {
                     //Valores pegos do formulario, já no formato para BD
                     String status = request.getParameter("status");
                     
-                    //cria novos objetos
-                    Atendimento a = (Atendimento) request.getAttribute("atd");
+                    int idu = Integer.parseInt(request.getParameter("idu"));
+                    int ida = Integer.parseInt(request.getParameter("ida"));
+                    
+                    Atendimento atd = AtendimentoFacade.buscarAtendimentoPorIdAtd(idu, ida);
                     
                     //adiciona os valores a esse objeto
-                    a.setSolucao(status);
+                    atd.setSolucao(status);
                    
                     //função para inserir no bd via Facade
-                    AtendimentoFacade.alterarAtendimento(a);
+                    AtendimentoFacade.alterarAtendimento(atd);
                     
                     //redireciona
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/FuncionarioServlet?action=mostrarPortalFuncionario");
@@ -67,12 +69,12 @@ public class FuncionarioServlet extends HttpServlet {
                     
                     break;
                 case "mostrarAtendimento":
-                    int idu = Integer.parseInt(request.getParameter("idu"));
-                    int ida = Integer.parseInt(request.getParameter("id"));
+                    idu = Integer.parseInt(request.getParameter("idu"));
+                    ida = Integer.parseInt(request.getParameter("id"));
                     Usuario user = UsuarioFacade.buscaPorID(idu);
                     
                     //Carrega o atendimento de atendimentos para apresentar
-                    Atendimento atd = AtendimentoFacade.buscarAtendimentoPorIdAtd(idu, ida);
+                    atd = AtendimentoFacade.buscarAtendimentoPorIdAtd(idu, ida);
 
                     //ADD OBJ NA REQUISIÇÃO
                     request.setAttribute("atd", atd);
