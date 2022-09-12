@@ -6,7 +6,9 @@ package com.ufpr.tads.beibe.servlet;
 
 import com.ufpr.tads.beibe.beans.Atendimento;
 import com.ufpr.tads.beibe.beans.LoginBean;
+import com.ufpr.tads.beibe.beans.Usuario;
 import com.ufpr.tads.beibe.facade.AtendimentoFacade;
+import com.ufpr.tads.beibe.facade.UsuarioFacade;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -65,12 +67,10 @@ public class FuncionarioServlet extends HttpServlet {
                     
                     break;
                 case "mostrarAtendimento":
-                    HttpSession session = request.getSession();
-                    LoginBean user = (LoginBean)session.getAttribute("user");
-                    
-                    int idu = user.getId();
-                    String nomeu = user.getNome();
+                    int idu = Integer.parseInt(request.getParameter("idu"));
                     int ida = Integer.parseInt(request.getParameter("id"));
+                    Usuario user = UsuarioFacade.buscaPorID(idu);
+                    String nomeu = user.getNome();
                     
                     //Carrega o atendimento de atendimentos para apresentar
                     Atendimento atd = AtendimentoFacade.buscarAtendimentoPorIdAtd(idu, ida);
