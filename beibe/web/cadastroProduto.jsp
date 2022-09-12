@@ -5,12 +5,20 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%--Validar se usuário está logado--%>
 <c:if test="${sessionScope.user == null}" >
     <c:redirect url="index.jsp">
         <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
     </c:redirect>
+</c:if>
+<c:if test="${ sessionScope.user != null }" >
+    <c:if test="${ sessionScope.user.tipo != 'funcionario' }" >
+        <c:redirect url="index.jsp">
+            <c:param name="msg" value="Usuário não possui permissão para acessar essa página."/>
+        </c:redirect>
+    </c:if>
 </c:if>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -38,10 +46,10 @@
         <div class="container">
           <ul class="navbar-nav text-white">
             <li class="nav-item">
-              <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
+              <a class="nav-link" href="FuncionarioServlet?action=mostrarPortalFuncionario">Atendimentos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="categorias.jsp">Categorias</a>
+              <a class="nav-link" href="CategoriaProdutoServlet?action=listarCategoriaProduto">Categorias</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>

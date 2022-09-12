@@ -5,7 +5,23 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%--Validar se usuário está logado--%>
+<c:if test="${sessionScope.user == null}" >
+    <c:redirect url="index.jsp">
+        <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+    </c:redirect>
+</c:if>
+<c:if test="${ sessionScope.user != null }" >
+    <c:if test="${ sessionScope.user.tipo != 'funcionario' }" >
+        <c:redirect url="index.jsp">
+            <c:param name="msg" value="Usuário não possui permissão para acessar essa página."/>
+        </c:redirect>
+    </c:if>
+</c:if>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -15,101 +31,84 @@
     <title>
       SAC - Atendimentos
     </title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/fontawesome.min.css" />
-    <link rel="stylesheet" href="../css/styles.css" />
-    <link rel="icon" type="image/x-icon" href="../assets/images/phone-solid.svg">
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/fontawesome.min.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="icon" type="image/x-icon" href="./assets/images/phone-solid.svg">
   </head>
-  
+
   <body>
     <!-- Cabeçalho da página -->
     <header class="container-fluid bg-info mb-4">
       <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
         <a class="navbar-brand" href="funcionario.jsp">
-          <img src="../assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
+          <img src="./assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
           <span class="text-white-50 h4 c-title">SAC - Sistema de Atendimento ao Cliente</span>
         </a>
         <div class="container">
           <ul class="navbar-nav text-white">
             <li class="nav-item">
-              <a class="nav-link" href="atendimentos.jsp">Atendimentos</a>
+              <a class="nav-link active" href="FuncionarioServlet?action=mostrarPortalFuncionario">Atendimentos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="categorias.jsp">Categorias</a>
+              <a class="nav-link" href="CategoriaProdutoServlet?action=listarCategoriaProduto">Categorias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="ProdutoServlet?action=listarProduto">Produtos</a>
+              <a class="nav-link" href="ProdutoServlet?action=listarProduto">Produtos</a>
             </li>
           </ul>
         </div>
         <div class="form-inline">
-          <a href="../index.jsp" class="alert-link text-white my-2 my-sm-0">
+          <a href="./index.jsp" class="alert-link text-white my-2 my-sm-0">
             <i class="fas fa-power-off"></i><br>
             Sair
           </a>
         </div>
       </nav>
     </header>
-    
+
     <!-- Corpo da página -->
     <main class="container">
+      <jsp:useBean id="atd" class="com.ufpr.tads.beibe.beans.Atendimento" scope="request" />
       <h2 class="mb-4">
-      Atendimento #[ID do atendimento]
+        Atendimento [ID#${atd.id}]
       </h2>
 
       <!-- Dados do atendimento -->
-      <form action="atendimentos.jsp" method="POST">
-        <button type="submit" class="btn btn-primary float-right w-25">
+      <form action="FuncionarioServlet?action=salvarAtendimento&ida=<c:out value="${atd.id}"/>&idu=<c:out value="${user.id}"/>" method="POST">
+        <div class="form-group form-inline row ml-1">
+          <p class="font-weight-bold mr-1">ID Usuário:</p>
+          <p>${user.id}</p>
+        </div>
+        <div class="form-group form-inline row ml-1">
+          <p class="font-weight-bold mr-1">Nome Usuário: </p>
+          <p>${user.nome}</p>
+        </div>
+        <div class="form-group form-inline row ml-1">
+          <p class="font-weight-bold mr-1">Produto: </p>
+          <p>${atd.produto.nome}</p>
+        </div>
+        <div class="form-group row">
+          <label for="status" class="col-2 col-form-label font-weight-bold">Status:</label>
+          <div class="col-6">
+            <select id="status" class="form-control" name="status">
+              <option value="1">Aberto</option>
+              <option value="2">Encerrado</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold mr-1" for="solucao">Solução:</label>
+          <textarea id="solucao" class="form-control" name="solucao" rows="4" placeholder="Digite uma mensagem para a solução do problema.">${produto.descricao}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary float-left w-25 mt-4">
           <i class="far fa-save"></i>
           Salvar Alterações
         </button>
-        <div class="form-group row">
-          <label for="atendimento-id" class="col-2 col-form-label">Atendimento:</label>
-          <div class="col-10">
-            <input type="text" id="atendimento-id" class="form-control-plaintext" readonly value="#100123" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="atendimento-cliente" class="col-2 col-form-label">Cliente:</label>
-          <div class="col-10">
-            <input type="text" id="atendimento-cliente" class="form-control-plaintext" readonly value="#666 (Josnei)" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="atendimento-produto" class="col-2 col-form-label">Produto:</label>
-          <div class="col-10">
-            <input type="text" id="atendimento-produto" class="form-control-plaintext" readonly
-              value="#50004 (Batom Cacatua Raivosa)" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="atendimento-tipo" class="col-2 col-form-label">Tipo do atendimento:</label>
-          <div class="col-6">
-            <select id="atendimento-tipo" class="form-control" name="tipo">
-              <option>Selecione...</option>
-              <option value="1">Financeiro</option>
-              <option value="2" selected>Produto com defeito</option>
-              <option value="3">Produto não recebido</option>
-              <option value="4">Sugestões / Reclamações</option>
-              <option value="0">Outros</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="atendimento-status" class="col-2 col-form-label">Status:</label>
-          <div class="col-6">
-            <select id="atendimento-status" class="form-control" name="status">
-              <option value="1">Recebido</option>
-              <option value="2">Sob Análise</option>
-              <option value="3" selected>Contestado</option>
-              <option value="4">Encerrado</option>
-            </select>
-          </div>
-        </div>
       </form>
     </main>
 
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/scripts.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/scripts.js"></script>
   </body>
 </html>
