@@ -212,8 +212,7 @@
     </form>
   </main>
 
-  <script src="../js/bootstrap.min.js"></script>
-  <script src="../js/scripts.js"></script>
+  <jsp:include page="footer.jsp" />
 </body>
 
 </html>

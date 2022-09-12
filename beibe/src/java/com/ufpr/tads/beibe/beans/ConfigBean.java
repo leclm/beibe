@@ -12,6 +12,9 @@ import java.io.Serializable;
  */
 public class ConfigBean implements Serializable{
     private String emailAdm;
+    private String endereco;
+    private String telefone;
+    
 
     public ConfigBean() {
     }
@@ -23,6 +26,24 @@ public class ConfigBean implements Serializable{
     public void setEmailAdm(String emailAdm) {
         this.emailAdm = emailAdm;
     }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereço(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    
         
     
 }
