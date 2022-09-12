@@ -190,7 +190,7 @@ public class UsuarioServlet extends HttpServlet {
             } 
         } catch(FacadeException ex) {
             request.setAttribute("msg", " Falha de conexão com o Banco de Dados");
-            request.setAttribute("page", "erro.jsp");
+            request.setAttribute("page", "LogoutServlet");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
             rd.forward(request, response);
         }        
