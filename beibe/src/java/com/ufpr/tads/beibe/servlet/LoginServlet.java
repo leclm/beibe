@@ -7,6 +7,7 @@ package com.ufpr.tads.beibe.servlet;
 import com.ufpr.tads.beibe.beans.LoginBean;
 import com.ufpr.tads.beibe.beans.Usuario;
 import com.ufpr.tads.beibe.dao.UsuarioDAO;
+import com.ufpr.tads.beibe.exception.FacadeException;
 import com.ufpr.tads.beibe.facade.UsuarioFacade;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
@@ -17,6 +18,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,49 +38,59 @@ public class LoginServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
        //Valores pegos do formulario
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-        Usuario user = UsuarioFacade.login(email,senha);
-        
-                  
-       
-         boolean isValid = user.getId() > 0 ? true : false;
-         if (isValid) {
-           //Armazena o nome do usuário na sessão (indicando que o usuário está logado)
-                HttpSession session = request.getSession();
-                LoginBean bean = new LoginBean();
-                bean.setId(user.getId());
-                bean.setNome(user.getNome());
-                bean.setTipo(user.getTipo());
-                session.setAttribute("user", bean);
-              
-            switch (user.getTipo()) {
-                case "cliente":
-                    response.sendRedirect("AtendimentoServlet?action=mostrarPortalCliente");
-                    break;
-                case "funcionario":
-                    response.sendRedirect("FuncionarioServlet?action=mostrarPortalFuncionario");
-                    break;
-                case "gerente":
-                    response.sendRedirect("portalGerente.jsp");
-                    break;
-                default:
-                    response.sendRedirect("Vai para erro");
-                    break;
-            }
-            
-        } else {
-              
+         
+        if( email ==  null || senha == null || email.isEmpty() || senha.isEmpty()){
+             request.setAttribute("msg", "Favor preencher todos os campos!");
+             request.setAttribute("page", "index.jsp");
+             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+             rd.forward(request, response); 
+         } 
+                Usuario user;
+        try {
+            user = UsuarioFacade.login(email,senha);
+            boolean isValid = user.getId() > 0 ? true : false;
+                if (isValid) {
+                   //Armazena o nome do usuário na sessão (indicando que o usuário está logado)
+                        HttpSession session = request.getSession();
+                        LoginBean bean = new LoginBean();
+                        bean.setId(user.getId());
+                        bean.setNome(user.getNome());
+                        bean.setTipo(user.getTipo());
+                        session.setAttribute("user", bean);
+
+                        switch (user.getTipo()) {
+                            case "cliente":
+                                response.sendRedirect("AtendimentoServlet?action=mostrarPortalCliente");
+                                break;
+                            case "funcionario":
+                                response.sendRedirect("FuncionarioServlet?action=mostrarPortalFuncionario");
+                                break;
+                            case "gerente":
+                                response.sendRedirect("portalGerente.jsp");
+                                break;
+                            default:
+                               request.setAttribute("msg", " Usuário/Senha inválidos.");
+                               request.setAttribute("page", "erro.jsp");
+                               RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                               break;
+                        }    
+                    } 
+        }catch (FacadeException ex) {
                 request.setAttribute("msg", " Usuário/Senha inválidos.");
                 request.setAttribute("page", "index.jsp");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-                rd.forward(request, response);
         }
-       
+                
+            
+           
+
+        
     }
     
 

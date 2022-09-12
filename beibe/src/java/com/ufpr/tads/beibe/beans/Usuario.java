@@ -46,6 +46,24 @@ public class Usuario  implements Serializable{
         this.tipo = tipo;
     }
 
+    public Usuario(int id, String nome, String cpf, String email, String telefone, String cep, String rua, int nr, String complemento, String bairro, String cidade, String uf, String tipo) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.telefone = telefone;
+        this.cep = cep;
+        this.rua = rua;
+        this.nr = nr;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.tipo = tipo;
+    }
+
+    
+
     public int getId() {
         return id;
     }

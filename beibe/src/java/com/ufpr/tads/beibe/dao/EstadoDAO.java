@@ -6,10 +6,12 @@ package com.ufpr.tads.beibe.dao;
 
 import com.ufpr.tads.beibe.beans.Cidade;
 import com.ufpr.tads.beibe.beans.Estado;
+import com.ufpr.tads.beibe.exception.DAOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,30 +26,32 @@ public class EstadoDAO {
     
     private Connection con= null;
   
+    
+    public EstadoDAO(Connection con) throws DAOException {
+        if (con == null) {
+            throw new DAOException("Falha na Conexão com o Banco de Dados.");
+        }
+        this.con = con;
+    }
    
-    public static List<Estado> buscarTudo() {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
+    public List<Estado> buscarTudo()throws DAOException {
+        
         List<Estado> estados = new ArrayList<Estado>();
         
-        try{
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-        st = con.prepareStatement(QUERY_BUSCAR);
-        rs = st.executeQuery();    
-            while(rs.next()){
-                    Estado estado = new Estado();
-                    estado.setId(rs.getInt(1));
-                    estado.setNome(rs.getString(2));
-                    estado.setSigla(rs.getString(3));  
-                    estados.add(estado);
-                    
+        try(PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)){
+
+            try(ResultSet rs = st.executeQuery()){   
+                while(rs.next()){
+                        Estado estado = new Estado();
+                        estado.setId(rs.getInt(1));
+                        estado.setNome(rs.getString(2));
+                        estado.setSigla(rs.getString(3));  
+                        estados.add(estado);
+
                 }  
-        } catch (Exception e) {
-            e.printStackTrace();
+            }    
+        } catch (SQLException e) {
+            throw new DAOException("Erro ao inserir Cliente: " + QUERY_BUSCAR,e); 
         }
         return  estados;
     }

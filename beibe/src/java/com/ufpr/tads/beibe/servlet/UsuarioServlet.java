@@ -10,6 +10,8 @@ import com.ufpr.tads.beibe.beans.LoginBean;
 import com.ufpr.tads.beibe.beans.Usuario;
 import com.ufpr.tads.beibe.dao.CidadeDAO;
 import com.ufpr.tads.beibe.dao.EstadoDAO;
+import com.ufpr.tads.beibe.exception.FacadeException;
+import com.ufpr.tads.beibe.facade.LocalidadeFacade;
 import com.ufpr.tads.beibe.facade.UsuarioFacade;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -45,215 +47,153 @@ public class UsuarioServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-              
-        if(action==null || action.equals("list")){
-           /* List<Cliente> clientes = ClientesFacade.listarTodos();
-            request.setAttribute("listaClientes", clientes);
-            RequestDispatcher rd = request.getRequestDispatcher("/clientesListar.jsp");
-            rd.forward(request, response);*/
-        } else{            
-            switch (action) {
+        try{      
+            if(action==null){
+                //redireciona
+                response.sendRedirect("LogoutServlet");
+            } else{
+                switch (action) {
 
-                /*case "show":
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    //BUSCA OBJETO NO BD via Facade
-                    Cliente cliente = ClientesFacade.buscaId(id);
-                    //ADD OB NA REQUISIÇÃO
-                    request.setAttribute("cliente", cliente);
-                    //ENVIA VIA FOWARD
-                    RequestDispatcher rd = request.getRequestDispatcher("/clientesVisualizar.jsp");
-                    rd.forward(request, response);
-                    break;
+                    case "autocadastro":
+                        //Valores pegos do formulario, já no formato para BD
+                        String cpf = request.getParameter("cpf");
+                        String nome = request.getParameter("nome");
+                        String email = request.getParameter("email");
+                        String telefone = request.getParameter("telefone");
+                        String cep = request.getParameter("cep");
+                        String rua = request.getParameter("rua");
+                        int nr = Integer.parseInt(request.getParameter("numero"));
+                        String complemento = request.getParameter("complemento");
+                        String bairro = request.getParameter("bairro");
+                        String cidade = request.getParameter("cidade");
+                        String uf = request.getParameter("estado");
+                        String senha = request.getParameter("senha");
+                        //cria um novo objeto cliente
+                        Usuario c = new Usuario();
+                        //adiciona os valores a esse objeto
+                        c.setCpf(cpf);
+                        c.setNome(nome);
+                        c.setEmail(email);
+                        c.setTelefone(telefone);
+                        c.setCep(cep);
+                        c.setRua(rua);
+                        c.setNr(nr);
+                        c.setComplemento(complemento);
+                        c.setBairro(bairro);
+                        c.setCidade(cidade);
+                        c.setUf(uf);
+                        c.setSenha(senha);
 
-                case "formUpdate":
-                    //PEGA O PARAMETRO PASSADO PELA PAGINA
-                    id = Integer.parseInt(request.getParameter("id"));
-                    //BUSCA OBJETO NO BD via Facade
-                    cliente = ClientesFacade.buscaId(id);
-                    //ADD OB NA REQUISIÇÃO
-                    request.setAttribute("cliente", cliente);
-                    //ENVIA VIA FOWARD
-                    rd = request.getRequestDispatcher("/clientesAlterar.jsp");
-                    rd.forward(request, response);
-                    break;
-                case "remove":
-                    //PEGA O PARAMETRO PASSADO PELA PAGINA
-                    id = Integer.parseInt(request.getParameter("id"));
-                    //REMOVE OBJETO NO BD via Facade
-                    ClientesFacade.remover(id);
-                    //ENVIA VIA FOWARD
-                    rd = request.getRequestDispatcher("/ClientesServlet?action=list");
-                    rd.forward(request, response);
-                    break;
-                case "update":
-                     //Valores pegos do formulario, já no formato para BD
-                    id = Integer.parseInt(request.getParameter("cId"));
-                    String cpf = request.getParameter("cCpf");
-                    String nome = request.getParameter("cNome");
-                    String email = request.getParameter("cEmail");
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                    Date data=null;
-                    try {
-                     data = format.parse(request.getParameter("cData"));
-                    } catch(Exception e) {
-                        System.out.println("Data no formato errado");
-                        e.printStackTrace();
-                    }
-                    String rua = request.getParameter("cRua");
-                    int nr = Integer.parseInt(request.getParameter("cNumero"));
-                    String cep = request.getParameter("cCep");
-                    String cidade = request.getParameter("cCidade");
-                    String uf = request.getParameter("cUf");
-                    //cria um novo objeto cliente
-                    Cliente c = new Cliente();
-                    //adiciona os valores a esse objeto
-                    c.setId(id);
-                    c.setCpf(cpf);
-                    c.setNome(nome);
-                    c.setEmail(email);
-                    c.setData(data);
-                    c.setRua(rua);
-                    c.setNr(nr);
-                    c.setCep(cep);
-                    c.setCidade(cidade);
-                    c.setUf(uf);
 
-                    //função para atualizar no bd via Facade
-                    ClientesFacade.atualizarCliente(c);
-                    //redireciona
-                    response.sendRedirect("ClientesServlet");
-                    break;
+                        //função para inserir no bd via Facade
+                        UsuarioFacade.adicionarCliente(c);
+                        //redireciona
+                        response.sendRedirect("index.jsp");
+                        break;  
 
-                case "formNew":
-                    response.sendRedirect("clientesNovo.jsp");
-                    break;
-             */
-             //Parte já pronta para teste------------------------------------------------------------------------
-                case "autocadastro":
-                    //Valores pegos do formulario, já no formato para BD
-                    String cpf = request.getParameter("cpf");
-                    String nome = request.getParameter("nome");
-                    String email = request.getParameter("email");
-                    String telefone = request.getParameter("telefone");
-                    String cep = request.getParameter("cep");
-                    String rua = request.getParameter("rua");
-                    int nr = Integer.parseInt(request.getParameter("numero"));
-                    String complemento = request.getParameter("complemento");
-                    String bairro = request.getParameter("bairro");
-                    String cidade = request.getParameter("cidade");
-                    String uf = request.getParameter("estado");
-                    String senha = request.getParameter("senha");
-                    //cria um novo objeto cliente
-                    Usuario c = new Usuario();
-                    //adiciona os valores a esse objeto
-                    c.setCpf(cpf);
-                    c.setNome(nome);
-                    c.setEmail(email);
-                    c.setTelefone(telefone);
-                    c.setCep(cep);
-                    c.setRua(rua);
-                    c.setNr(nr);
-                    c.setComplemento(complemento);
-                    c.setBairro(bairro);
-                    c.setCidade(cidade);
-                    c.setUf(uf);
-                    c.setSenha(senha);
-                                    
-                    //função para inserir no bd via Facade
-                    UsuarioFacade.adicionarCliente(c);
-                    //redireciona
-                    response.sendRedirect("index.jsp");
-                    break;  
-                    
-                case "mostrarCliente":
-                    HttpSession session = request.getSession();
-                    LoginBean user = (LoginBean)session.getAttribute("user");
-                    int id = user.getId();
-                    //BUSCA OBJETO NO BD via Facade
-                    Usuario cliente = UsuarioFacade.buscaPorID(id);
+                    case "mostrarCliente":
+                        HttpSession session = request.getSession();
+                        LoginBean user = (LoginBean)session.getAttribute("user");
+                        int id = user.getId();
+                        //BUSCA OBJETO NO BD via Facade
+                        Usuario cliente = UsuarioFacade.buscaPorID(id);
+                         //Carrega a lista de estados, para apresentar na Combo
+                        List<Estado> estados = LocalidadeFacade.bucarTudoEstado();
+                        List<Cidade> cidades = LocalidadeFacade.bucarTudoCidade();
+                        //ADD OB NA REQUISIÇÃO
+                        request.setAttribute("cliente", cliente);
+                        request.setAttribute("estados", estados);
+                        request.setAttribute("cidades", cidades);
+
+                        //ENVIA VIA FOWARD
+                        RequestDispatcher rd = request.getRequestDispatcher("/dadosCliente.jsp");
+                        rd.forward(request, response);
+                        break;
+
+                    case "alterarCadastro":
+                         //Valores pegos do formulario, já no formato para BD 
+                        session = request.getSession();
+                        user = (LoginBean)session.getAttribute("user");
+                        id = user.getId();
+                        cpf = request.getParameter("cpf");
+                        nome = request.getParameter("nome");
+                        telefone = request.getParameter("telefone");
+                        email = request.getParameter("email");
+                        cep = request.getParameter("cep");
+                        rua = request.getParameter("rua");
+                        nr = Integer.parseInt(request.getParameter("numero"));
+                        complemento = request.getParameter("complemento");
+                        bairro = request.getParameter("bairro");
+                        cidade = request.getParameter("cidade");
+                        uf = request.getParameter("estado");
+                        senha = request.getParameter("senha");
+                        String tipo = request.getParameter("tipo");
+                         
+                        if(nome ==  null || telefone==  null || cep==  null || rua==  null ||request.getParameter("numero")== null  || complemento ==  null || bairro==  null ||senha == null || nome.isEmpty() || telefone.isEmpty() || cep.isEmpty() || rua.isEmpty() || request.getParameter("numero").isEmpty() || complemento.isEmpty() || bairro.isEmpty() || senha.isEmpty()){
+                        request.setAttribute("msg", "Favor preencher todos os campos!");
+                        request.setAttribute("page", "dadosCliente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=mostrarCliente");
+                        rd.forward(request, response); 
+                        }
+                        
+
+
+                        //cria um novo objeto cliente
+                        Usuario u = new Usuario();
+                        //adiciona os valores a esse objeto
+                        u.setId(id);
+                        u.setCpf(cpf);
+                        u.setNome(nome);
+                        u.setEmail(email);
+                        u.setTelefone(telefone);
+                        u.setCep(cep);
+                        u.setRua(rua);
+                        u.setNr(nr);
+                        u.setComplemento(complemento);
+                        u.setBairro(bairro);
+                        u.setCidade(cidade);
+                        u.setUf(uf);
+                        u.setSenha(senha);
+                        u.setTipo(tipo);
+
+
+                      //função para atualizar no bd via Facade
+                        UsuarioFacade.aterarUsuario(u);
+
+                        //redireciona
+                        request.setAttribute("info", " Usuário atualizado");
+                        request.setAttribute("page", "/portalCliente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
+                        rd.forward(request, response);
+
+                        break;
+
+
+                    case "entrarCadastro":
                      //Carrega a lista de estados, para apresentar na Combo
-                    List<Estado> estados = EstadoDAO.buscarTudo();
-                    List<Cidade> cidades = CidadeDAO.buscarTudo();
-                    //ADD OB NA REQUISIÇÃO
-                    request.setAttribute("cliente", cliente);
-                    request.setAttribute("estados", estados);
-                    request.setAttribute("cidades", cidades);
-                 
-                    //ENVIA VIA FOWARD
-                    RequestDispatcher rd = request.getRequestDispatcher("/dadosCliente.jsp");
-                    rd.forward(request, response);
-                    break;
-                    
-                case "alterarCadastro":
-                     //Valores pegos do formulario, já no formato para BD 
-                    session = request.getSession();
-                    user = (LoginBean)session.getAttribute("user");
-                    id = user.getId();
-                    cpf = request.getParameter("cpf");
-                    nome = request.getParameter("nome");
-                    telefone = request.getParameter("telefone");
-                    email = request.getParameter("email");
-                    cep = request.getParameter("cep");
-                    rua = request.getParameter("rua");
-                    nr = Integer.parseInt(request.getParameter("numero"));
-                    complemento = request.getParameter("complemento");
-                    bairro = request.getParameter("bairro");
-                    cidade = request.getParameter("cidade");
-                    uf = request.getParameter("estado");
-                    senha = request.getParameter("senha");
-                    String tipo = request.getParameter("tipo");
-                    
-                    
-                    //cria um novo objeto cliente
-                    Usuario u = new Usuario();
-                    //adiciona os valores a esse objeto
-                    u.setId(id);
-                    u.setCpf(cpf);
-                    u.setNome(nome);
-                    u.setEmail(email);
-                    u.setTelefone(telefone);
-                    u.setCep(cep);
-                    u.setRua(rua);
-                    u.setNr(nr);
-                    u.setComplemento(complemento);
-                    u.setBairro(bairro);
-                    u.setCidade(cidade);
-                    u.setUf(uf);
-                    u.setSenha(senha);
-                    u.setTipo(tipo);
-                    
+                        estados = LocalidadeFacade.bucarTudoEstado();
+                        cidades = LocalidadeFacade.bucarTudoCidade();
+                        //ADD OB NA REQUISIÇÃO
+                        request.setAttribute("estados", estados);
+                        request.setAttribute("cidades", cidades);
 
-                  //função para atualizar no bd via Facade
-                    UsuarioFacade.aterarUsuario(u);
-                    
-               
-                    //redireciona
-                    request.setAttribute("info", " Usuário atualizado");
-                    request.setAttribute("page", "/portalCliente.jsp");
-                    rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
-                    rd.forward(request, response);
-                 
-                    break;
-                    
-                    
-                case "entrarCadastro":
-                 //Carrega a lista de estados, para apresentar na Combo
-                    estados = EstadoDAO.buscarTudo();
-                    cidades = CidadeDAO.buscarTudo();
-                    //ADD OB NA REQUISIÇÃO
-                    request.setAttribute("estados", estados);
-                    request.setAttribute("cidades", cidades);
-                 
-                    //ENVIA VIA FOWARD
-                    rd = request.getRequestDispatcher("/cadastroCliente.jsp");
-                    rd.forward(request, response);
-                    break;
-        
-            }
-       
-        
-       
-        } 
+                        //ENVIA VIA FOWARD
+                        rd = request.getRequestDispatcher("/cadastroCliente.jsp");
+                        rd.forward(request, response);
+                        break;
+
+                    default:
+                        //redireciona
+                        response.sendRedirect("LogoutServlet");
+
+                } 
+            } 
+        } catch(FacadeException ex) {
+            request.setAttribute("msg", " Falha de conexão com o Banco de Dados");
+            request.setAttribute("page", "erro.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
+        }        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
