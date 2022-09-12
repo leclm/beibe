@@ -6,6 +6,7 @@ package com.ufpr.tads.beibe.servlet;
 
 import com.ufpr.tads.beibe.beans.Atendimento;
 import com.ufpr.tads.beibe.beans.LoginBean;
+import com.ufpr.tads.beibe.beans.SituacaoAtendimento;
 import com.ufpr.tads.beibe.beans.Usuario;
 import com.ufpr.tads.beibe.facade.AtendimentoFacade;
 import com.ufpr.tads.beibe.facade.UsuarioFacade;
@@ -50,7 +51,9 @@ public class FuncionarioServlet extends HttpServlet {
             switch (action) {
                 case "salvarAtendimento":
                     //Valores pegos do formulario, já no formato para BD
-                    String status = request.getParameter("status");
+                    int status = Integer.parseInt(request.getParameter("status"));
+                    SituacaoAtendimento sa = new SituacaoAtendimento();
+                    sa.setId(status);
                     
                     int idu = Integer.parseInt(request.getParameter("idu"));
                     int ida = Integer.parseInt(request.getParameter("ida"));
@@ -58,7 +61,7 @@ public class FuncionarioServlet extends HttpServlet {
                     Atendimento atd = AtendimentoFacade.buscarAtendimentoPorIdAtd(idu, ida);
                     
                     //adiciona os valores a esse objeto
-                    atd.setSolucao(status);
+                    atd.setSituacaoAtendimento(sa);
                    
                     //função para inserir no bd via Facade
                     AtendimentoFacade.alterarAtendimento(atd);
