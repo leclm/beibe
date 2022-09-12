@@ -102,13 +102,32 @@
           </thead>
           <tbody>
             <c:forEach items="${atendimentos}" var="a" >
-                <tr class="c-clickable text-center" data-href="FuncionarioServlet?action=mostrarAtendimento&id=<c:out value="${a.id}"/>">
-                  <td><c:out value="${a.id}"/></td>
-                  <td><c:out value="${a.produto.nome}"/></td>
-                  <td><c:out value="${a.categoriaAtendimento.nome}"/></td>
-                  <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
-                  <td><c:out value="${a.solucao}"/></td>
-                </tr>
+                <c:choose>
+                    <c:when test = "${a.solucao.equals('encerrado')}">
+                       <tr class="text-center table-secondary">
+                        <td><c:out value="${a.id}"/></td>
+                        <td><c:out value="${a.produto.nome}"/></td>
+                        <td><c:out value="${a.categoriaAtendimento.nome}"/></td>
+                        <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
+                       <td><span class="badge badge-sm badge-secondary c-status"><c:out value="${a.solucao}"/></span></td>
+                      </tr>
+                    </c:when>
+
+                    <c:when test = "${a.solucao.equals('aberto')}">
+                       <tr class="c-clickable text-center" data-href="FuncionarioServlet?action=mostrarAtendimento&id=<c:out value="${a.id}"/>&idu=<c:out value="${a.cliente.id}"/>">
+                        <td><c:out value="${a.id}"/></td>
+                        <td><c:out value="${a.produto.nome}"/></td>
+                        <td><c:out value="${a.categoriaAtendimento.nome}"/></td>
+                        <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
+                        <td><span class="badge badge-sm badge-danger c-status"><c:out value="${a.solucao}"/></span></td>
+                       </tr>
+                    </c:when>   
+                       
+                    <c:otherwise>
+                       <p><c:out value="Ocorreu um erro..."/></p>
+                    </c:otherwise>
+                </c:choose>
+                
             </c:forEach>
             <!-- <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
               <th scope="row">100123</th>
@@ -140,4 +159,3 @@
     <script src="./js/scripts.js"></script>
   </body>
 </html>
-
