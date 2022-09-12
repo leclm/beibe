@@ -26,7 +26,9 @@ public class StartupServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config){
         ConfigBean conf = new ConfigBean();
-        conf.setEmailAdm("grupo2@ufpr.br");
+        conf.setEmailAdm("embuste@beibe.com.br");
+        conf.setEndereço("Rua do Embuste, 1313. Curitiba, PR, 13131-313");
+        conf.setTelefone("(41) 9 1313-1313");
         ServletContext ctx = config.getServletContext();
         ctx.setAttribute("configuracao", conf);
     }
