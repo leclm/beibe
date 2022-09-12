@@ -32,7 +32,7 @@ public class AtendimentoDAO {
     
     private static final String QUERY_REMOVER_ATENDIMENTO ="DELETE FROM tb_atendimento WHERE id=?";
     
-    private static final String QUERY_ALTERAR_ATENDIMENTO = "UPDATE tb_atendimento SET id_situacao=? WHERE id=?";
+    private static final String QUERY_ALTERAR_ATENDIMENTO = "UPDATE tb_atendimento SET id_situacao=?,solucao=? WHERE id=?";
     
     
     
@@ -80,7 +80,8 @@ public class AtendimentoDAO {
             st = con.prepareStatement(QUERY_ALTERAR_ATENDIMENTO);
             
             st.setInt(1, a.getSituacaoAtendimento().getId());
-            st.setInt(2, a.getId());
+            st.setString(2, a.getSolucao());
+            st.setInt(3, a.getId());
             
             st.executeUpdate();
         } catch (Exception e) {

@@ -55,6 +55,8 @@ public class FuncionarioServlet extends HttpServlet {
                     SituacaoAtendimento sa = new SituacaoAtendimento();
                     sa.setId(status);
                     
+                    String solucao = request.getParameter("solucao");
+                    
                     int idu = Integer.parseInt(request.getParameter("idu"));
                     int ida = Integer.parseInt(request.getParameter("ida"));
                     
@@ -62,6 +64,7 @@ public class FuncionarioServlet extends HttpServlet {
                     
                     //adiciona os valores a esse objeto
                     atd.setSituacaoAtendimento(sa);
+                    atd.setSolucao(solucao);
                    
                     //função para inserir no bd via Facade
                     AtendimentoFacade.alterarAtendimento(atd);
