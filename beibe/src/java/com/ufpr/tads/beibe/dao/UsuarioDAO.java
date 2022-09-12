@@ -22,7 +22,7 @@ public class UsuarioDAO implements DAO<Usuario>{
    
    private static final String QUERY_BUSCAR_LOGIN= "SELECT * FROM tb_usuario WHERE email = ? AND senha = MD5(?) ";
     
-   private static final String QUERY_BUSCAR_POR_ID= "SELECT id, nome, email, telefone, cpf, cep, rua, nr, complemento, bairro, cidade, uf, senha, tipo FROM tb_usuario WHERE id= ? ;";
+   private static final String QUERY_BUSCAR_POR_ID= "SELECT id, nome, email, telefone, cpf, cep, rua, nr, complemento, bairro, cidade, uf, tipo FROM tb_usuario WHERE id= ? ;";
     
    private static final String QUERY_ALTERAR= "UPDATE tb_usuario SET nome=?, email=?, cpf=?, cep=?, rua=?, nr=?, complemento=?, bairro=?, cidade=?, uf=?, senha=MD5(?), tipo=?, telefone=? WHERE id=?;";
    
@@ -113,7 +113,6 @@ public class UsuarioDAO implements DAO<Usuario>{
                         rs.getString("bairro"),
                         rs.getString("cidade"),
                         rs.getString("uf"),
-                        rs.getString("senha"),
                         rs.getString("tipo"));
            }
                

@@ -11,6 +11,7 @@ import com.ufpr.tads.beibe.beans.Usuario;
 import com.ufpr.tads.beibe.dao.CidadeDAO;
 import com.ufpr.tads.beibe.dao.EstadoDAO;
 import com.ufpr.tads.beibe.exception.FacadeException;
+import com.ufpr.tads.beibe.facade.LocalidadeFacade;
 import com.ufpr.tads.beibe.facade.UsuarioFacade;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -97,8 +98,8 @@ public class UsuarioServlet extends HttpServlet {
                         //BUSCA OBJETO NO BD via Facade
                         Usuario cliente = UsuarioFacade.buscaPorID(id);
                          //Carrega a lista de estados, para apresentar na Combo
-                        List<Estado> estados = EstadoDAO.buscarTudo();
-                        List<Cidade> cidades = CidadeDAO.buscarTudo();
+                        List<Estado> estados = LocalidadeFacade.bucarTudoEstado();
+                        List<Cidade> cidades = LocalidadeFacade.bucarTudoCidade();
                         //ADD OB NA REQUISIÇÃO
                         request.setAttribute("cliente", cliente);
                         request.setAttribute("estados", estados);
@@ -127,6 +128,14 @@ public class UsuarioServlet extends HttpServlet {
                         uf = request.getParameter("estado");
                         senha = request.getParameter("senha");
                         String tipo = request.getParameter("tipo");
+                         
+                        if(nome ==  null || telefone==  null || cep==  null || rua==  null ||request.getParameter("numero")== null  || complemento ==  null || bairro==  null ||senha == null || nome.isEmpty() || telefone.isEmpty() || cep.isEmpty() || rua.isEmpty() || request.getParameter("numero").isEmpty() || complemento.isEmpty() || bairro.isEmpty() || senha.isEmpty()){
+                        request.setAttribute("msg", "Favor preencher todos os campos!");
+                        request.setAttribute("page", "dadosCliente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=mostrarCliente");
+                        rd.forward(request, response); 
+                        }
+                        
 
 
                         //cria um novo objeto cliente
@@ -162,8 +171,8 @@ public class UsuarioServlet extends HttpServlet {
 
                     case "entrarCadastro":
                      //Carrega a lista de estados, para apresentar na Combo
-                        estados = EstadoDAO.buscarTudo();
-                        cidades = CidadeDAO.buscarTudo();
+                        estados = LocalidadeFacade.bucarTudoEstado();
+                        cidades = LocalidadeFacade.bucarTudoCidade();
                         //ADD OB NA REQUISIÇÃO
                         request.setAttribute("estados", estados);
                         request.setAttribute("cidades", cidades);
@@ -183,6 +192,7 @@ public class UsuarioServlet extends HttpServlet {
             request.setAttribute("msg", " Falha de conexão com o Banco de Dados");
             request.setAttribute("page", "erro.jsp");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
         }        
     }
 
