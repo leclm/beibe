@@ -45,6 +45,6 @@ $('a[title="Excluir"]').click(function(e) {
 $('#filtro-atendimentos').change(function() {
   $('tr').show();
   if ($(this).val() === 'abertos') {
-    $('td span.badge-success').parent().parent().hide();
+    $('td span.badge-secondary').parent().parent().hide();
   }
 });

@@ -92,12 +92,15 @@
           <label for="status" class="col-2 col-form-label font-weight-bold">Status:</label>
           <div class="col-6">
             <select id="status" class="form-control" name="status">
-              <option value="aberto">Aberto</option>
-              <option value="encerrado">Encerrado</option>
+              <option value="1">Aberto</option>
+              <option value="2">Encerrado</option>
             </select>
           </div>
         </div>
-        
+        <div class="form-group">
+          <label class="font-weight-bold mr-1" for="solucao">Solução:</label>
+          <textarea id="solucao" class="form-control" name="solucao" rows="4" placeholder="Digite uma mensagem para a solução do problema.">${produto.descricao}</textarea>
+        </div>
         <button type="submit" class="btn btn-primary float-left w-25 mt-4">
           <i class="far fa-save"></i>
           Salvar Alterações

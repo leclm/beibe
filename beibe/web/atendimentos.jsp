@@ -103,58 +103,33 @@
           <tbody>
             <c:forEach items="${atendimentos}" var="a" >
                 <c:choose>
-                    <c:when test = "${a.solucao.equals('encerrado')}">
-                       <tr class="text-center table-secondary">
-                        <td><c:out value="${a.id}"/></td>
-                        <td><c:out value="${a.produto.nome}"/></td>
-                        <td><c:out value="${a.categoriaAtendimento.nome}"/></td>
-                        <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
-                       <td><span class="badge badge-sm badge-secondary c-status"><c:out value="${a.solucao}"/></span></td>
-                      </tr>
+                    <c:when test = "${a.situacaoAtendimento.nome.equals('Aberta')}">
+                        <tr class="c-clickable text-center" data-href="FuncionarioServlet?action=mostrarAtendimento&id=<c:out value="${a.id}"/>&idu=<c:out value="${a.cliente.id}"/>">
+                          <td><c:out value="${a.id}"/></td>
+                          <td><c:out value="${a.produto.nome}"/></td>
+                          <td><c:out value="${a.categoriaAtendimento.nome}"/></td>
+                          <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
+                          <td><span class="badge badge-sm badge-info c-status"><c:out value="${a.situacaoAtendimento.nome}"/></span></td>
+                        </tr>
+                    </c:when>  
+
+                    <c:when test = "${a.situacaoAtendimento.nome.equals('Finalizada')}">
+                        <tr class="text-center">
+                          <td><c:out value="${a.id}"/></td>
+                          <td><c:out value="${a.produto.nome}"/></td>
+                          <td><c:out value="${a.categoriaAtendimento.nome}"/></td>
+                          <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
+                          <td><span class="badge badge-sm badge-secondary c-status"><c:out value="${a.situacaoAtendimento.nome}"/></span></td>
+                        </tr>
                     </c:when>
 
-                    <c:when test = "${a.solucao.equals('aberto')}">
-                       <tr class="c-clickable text-center" data-href="FuncionarioServlet?action=mostrarAtendimento&id=<c:out value="${a.id}"/>&idu=<c:out value="${a.cliente.id}"/>">
-                        <td><c:out value="${a.id}"/></td>
-                        <td><c:out value="${a.produto.nome}"/></td>
-                        <td><c:out value="${a.categoriaAtendimento.nome}"/></td>
-                        <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
-                        <td><span class="badge badge-sm badge-danger c-status"><c:out value="${a.solucao}"/></span></td>
-                       </tr>
-                    </c:when>   
-                       
                     <c:otherwise>
-                       <p><c:out value="Ocorreu um erro..."/></p>
+                        <tr class="text-center">
+                          <td><c:out value="Ocorreu um erro..."/></td>
+                        </tr>
                     </c:otherwise>
                 </c:choose>
-                
-                       
-                       
-                       
-                       
-                       
             </c:forEach>
-            <!-- <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Shampoo Ass-Hair (para cachos ruivos)</td>
-              <td>Produto não recebido</td>
-              <td>15-jul-2022</td>
-              <td><span class="badge badge-sm badge-warning c-status">Sob Análise</span></td>
-            </tr>
-            <tr class="c-clickable text-center table-danger" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Sabonete SOAP (aroma lavanda)</td>
-              <td>Produto com defeito</td>
-              <td>8-jul-2022</td>
-              <td><span class="badge badge-sm badge-danger c-status">Contestado</span></td>
-            </tr>
-            <tr class="c-clickable text-center" data-href="atualizaAtendimento.jsp">
-              <th scope="row">100123</th>
-              <td>Shampoo Ass-Hair (para cachos ruivos)</td>
-              <td>Produto não recebido</td>
-              <td>15-jul-2022</td>
-              <td><span class="badge badge-sm badge-success c-status">Encerrado</span></td>
-            </tr> -->
           </tbody>
         </table>
       </div>
