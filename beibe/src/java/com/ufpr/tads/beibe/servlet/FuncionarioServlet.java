@@ -70,14 +70,13 @@ public class FuncionarioServlet extends HttpServlet {
                     int idu = Integer.parseInt(request.getParameter("idu"));
                     int ida = Integer.parseInt(request.getParameter("id"));
                     Usuario user = UsuarioFacade.buscaPorID(idu);
-                    String nomeu = user.getNome();
                     
                     //Carrega o atendimento de atendimentos para apresentar
                     Atendimento atd = AtendimentoFacade.buscarAtendimentoPorIdAtd(idu, ida);
 
                     //ADD OBJ NA REQUISIÇÃO
                     request.setAttribute("atd", atd);
-                    request.setAttribute("nomeu", nomeu);
+                    request.setAttribute("user", user);
 
                     //redireciona
                     rd = getServletContext().getRequestDispatcher("/atualizaAtendimento.jsp");
