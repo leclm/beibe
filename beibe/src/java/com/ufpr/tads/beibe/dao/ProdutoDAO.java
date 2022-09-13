@@ -7,8 +7,9 @@ package com.ufpr.tads.beibe.dao;
 
 import com.ufpr.tads.beibe.beans.CategoriaProduto;
 import com.ufpr.tads.beibe.beans.Produto;
+import com.ufpr.tads.beibe.exception.DAOException;
+import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -30,43 +31,30 @@ public class ProdutoDAO {
             = "DELETE FROM tb_produto WHERE id = ?";
     private static final String QUERY_PRODUTO = "SELECT id, idcategoria, nome, descricao, peso FROM tb_produto WHERE id = ?";
     
-    public static boolean AdicionarProduto(Produto p) {
-        Connection con = null;
-        PreparedStatement st = null;
-        
-        try {
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            
-            st = con.prepareStatement(QUERY_ADICIONAR);
-                    
+    private Connection con= null;
+    
+    public ProdutoDAO(Connection con) throws DAOException {
+        if (con == null) {
+            throw new DAOException("Falha na Conexão com o Banco de Dados.");
+        }
+        this.con = con;
+    }
+    
+    public void AdicionarProduto(Produto p) throws DAOException {
+        try(PreparedStatement st = con.prepareStatement(QUERY_ADICIONAR)) {
             st.setString(1, p.getNome());
             st.setInt(2, p.getCategoriaProduto().getId());
             st.setString(3, p.getDescricao());
             st.setInt(4, p.getPeso());
             
             st.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
     }
     
-    public static void AlterarProduto(Produto p) {
-        Connection con = null;
-        PreparedStatement st = null;
-        
-        try {
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            
-            st = con.prepareStatement(QUERY_ALTERAR);
-            
+    public void AlterarProduto(Produto p) throws DAOException {
+        try(PreparedStatement st = con.prepareStatement(QUERY_ALTERAR)) {
             st.setString(1, p.getNome());
             st.setInt(2, p.getCategoriaProduto().getId());
             st.setString(3, p.getDescricao());
@@ -74,25 +62,16 @@ public class ProdutoDAO {
             st.setInt(5, p.getId());
             
             st.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
     }
     
-    public static List<Produto> buscarTudo() {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
+    public List<Produto> buscarTudo() throws DAOException {
         List<Produto> produtos= new ArrayList<Produto>();
         
-        try{
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            
-            st = con.prepareStatement(QUERY_BUSCAR);
-            rs = st.executeQuery();    
+        try(PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)) {
+            ResultSet rs = st.executeQuery();    
             
             while(rs.next()){
                     Produto produto = new Produto();
@@ -106,66 +85,43 @@ public class ProdutoDAO {
                     produto.setCategoriaProduto(categoria);
                     produtos.add(produto);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
         return  produtos;
     }
     
-    public static void RemoverProduto(int id) {
-        Connection con = null;
-        PreparedStatement st = null;
-        
-        try {
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            
-            st = con.prepareStatement(QUERY_REMOVER);
-            
+    public void RemoverProduto(int id) throws DAOException {
+        try(PreparedStatement st = con.prepareStatement(QUERY_REMOVER)) {
             st.setInt(1, id);
-            
             st.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
     }
     
-    public static Produto buscarProdutoPorId(int id) {
-        Connection con = null;
-        PreparedStatement st = null;
+    public Produto buscarProdutoPorId(int id) throws DAOException {
         Produto produto = null;
         
-        try {
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            
-            st = con.prepareStatement(QUERY_PRODUTO);
+        try(PreparedStatement st = con.prepareStatement(QUERY_PRODUTO)) {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             
-            try {
-                while(rs.next()){
-                    CategoriaProduto ctg = new CategoriaProduto();
-                    produto = new Produto();
-                    
-                    produto.setId(rs.getInt(1));
-                    
-                    ctg.setId(rs.getInt(2));
-                    
-                    produto.setCategoriaProduto(ctg);
-                    produto.setNome(rs.getString(3));
-                    produto.setDescricao(rs.getString(4));
-                    produto.setPeso(rs.getInt(5));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            while(rs.next()){
+                CategoriaProduto ctg = new CategoriaProduto();
+                produto = new Produto();
+
+                produto.setId(rs.getInt(1));
+
+                ctg.setId(rs.getInt(2));
+
+                produto.setCategoriaProduto(ctg);
+                produto.setNome(rs.getString(3));
+                produto.setDescricao(rs.getString(4));
+                produto.setPeso(rs.getInt(5));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
         
         return produto;

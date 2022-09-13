@@ -8,14 +8,13 @@ import com.ufpr.tads.beibe.beans.Atendimento;
 import com.ufpr.tads.beibe.beans.CategoriaAtendimento;
 import com.ufpr.tads.beibe.beans.LoginBean;
 import com.ufpr.tads.beibe.beans.Produto;
-import com.ufpr.tads.beibe.dao.ProdutoDAO;
+import com.ufpr.tads.beibe.exception.FacadeException;
 import com.ufpr.tads.beibe.facade.AtendimentoFacade;
 import com.ufpr.tads.beibe.facade.CategoriaAtendimentoFacade;
 import com.ufpr.tads.beibe.facade.ProdutoFacade;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -45,131 +44,115 @@ public class AtendimentoServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
               
-        if(action==null || action.equals("list")){
-           /* List<Cliente> clientes = ClientesFacade.listarTodos();
-            request.setAttribute("listaClientes", clientes);
-            RequestDispatcher rd = request.getRequestDispatcher("/clientesListar.jsp");
-            rd.forward(request, response);*/
-        } else{            
-            switch (action) {
-   
-                 case "novoAtendimento":
-                    //Valores pegos do formulario, já no formato para BD 
-                    HttpSession session = request.getSession();
-                    LoginBean user = (LoginBean)session.getAttribute("user");
-                    int id = user.getId();
-                    int produto =  Integer.parseInt(request.getParameter("produto"));   
-                    int categoriaAtendimento = Integer.parseInt(request.getParameter("categoria"));
-                    String descricao = request.getParameter("descricao");
-                    
-                    
-                    //cria novos objetos
-                    Atendimento a = new Atendimento();
-                    
-                    CategoriaAtendimento cat = new CategoriaAtendimento();
-                    cat.setId(categoriaAtendimento);
-                    Produto prod = new Produto();
-                    prod.setId(produto);
-                    
-                    //adiciona os valores a esse objeto
-                    a.setId(id);
-                    a.setProduto(prod);
-                    a.setCategoriaAtendimento(cat);
-                    a.setDescricao(descricao);
-                   
-                    //função para inserir no bd via Facade
-                     AtendimentoFacade.adicionarAtendimento(a);
-                    //redireciona
-                    request.setAttribute("info", " Atendimento adicionado com sucesso!");
-                    request.setAttribute("page", "portalCliente.jsp");
-                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/AtendimentoServlet?action=mostrarPortalCliente");
-                    rd.forward(request, response);
-                    break;  
- 
-            case "mostrarNovoAtendimento":
-                    //Carrega a lista de produto e categoria Atendimento
-                    List<Produto> produtos = ProdutoFacade.buscarProdutos();
-                    List<CategoriaAtendimento> catAtendimento = CategoriaAtendimentoFacade.buscarCategoriaAtendimento();
-                    //ADD OB NA REQUISIÇÃO
-                    request.setAttribute("produtos", produtos);
-                    request.setAttribute("categorias", catAtendimento);
-                    //ENVIA VIA FOWARD
-                    rd = request.getRequestDispatcher("/novoAtendimento.jsp");
-                    rd.forward(request, response);
-                break;
-            
-            case "mostrarAtendimento":
-                session = request.getSession();
-                user = (LoginBean)session.getAttribute("user");
-                int idu = user.getId();
-                String nomeu = user.getNome();
-                int ida = Integer.parseInt(request.getParameter("id"));     
-                 //Carrega a lista de atendimentos para apresentar
-                List<Atendimento> atd = AtendimentoFacade.buscarAtendimentoPorIdAtendimento(idu, ida);
-                 
-                //ADD OBJ NA REQUISIÇÃO
-                request.setAttribute("atd", atd);
-                request.setAttribute("nomeu", nomeu);
-                 
+        try{      
+            if(action==null){
                 //redireciona
-                rd = getServletContext().getRequestDispatcher("/verAtendimento.jsp");
-                rd.forward(request, response);
- /*
-                 try ( PrintWriter out = response.getWriter()) {
-                    /* TODO output your page here. You may use following sample code. */
-                /*    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet apagar</title>");          
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println(idu);
-                    out.println(ida);
-                    out.println("</body>");
-                    out.println("</html>");
-                } */
- 
-                break;
-               
-                
-                
-                case "mostrarPortalCliente":
-                session = request.getSession();
-                user = (LoginBean)session.getAttribute("user");
-                id = user.getId();
-                     
-    
-                 //Carrega a lista de atendimentos para apresentar
-                List<Atendimento> atendimentos = AtendimentoFacade.buscarAtendimentoPorCliente(id);
-                 
-                  //ADD OBJ NA REQUISIÇÃO
-                 request.setAttribute("atendimentos", atendimentos);
-                 
-                //redireciona
-                rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
-                rd.forward(request, response);
-                break;
-                
-                
-                case "removeAtendimento":
-                 
-                ida = Integer.parseInt(request.getParameter("ida"));
-    
-            
-                 //remove atendimento
-                 AtendimentoFacade.removerAtendimento(ida);
-                 
-                 //redireciona
-                request.setAttribute("info", " Atendimento removido com sucesso!");
-                request.setAttribute("page", "portalCliente.jsp");
-                rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
-                rd.forward(request, response);
-                break;
-                
-                
-                
+                response.sendRedirect("LogoutServlet");
+            } else{            
+                switch (action) {
+                     case "novoAtendimento":
+                        //Valores pegos do formulario, já no formato para BD 
+                        HttpSession session = request.getSession();
+                        LoginBean user = (LoginBean)session.getAttribute("user");
+                        int id = user.getId();
+                        int produto =  Integer.parseInt(request.getParameter("produto"));   
+                        int categoriaAtendimento = Integer.parseInt(request.getParameter("categoria"));
+                        String descricao = request.getParameter("descricao");
+
+                        //cria novos objetos
+                        Atendimento a = new Atendimento();
+
+                        CategoriaAtendimento cat = new CategoriaAtendimento();
+                        cat.setId(categoriaAtendimento);
+                        Produto prod = new Produto();
+                        prod.setId(produto);
+
+                        //adiciona os valores a esse objeto
+                        a.setId(id);
+                        a.setProduto(prod);
+                        a.setCategoriaAtendimento(cat);
+                        a.setDescricao(descricao);
+
+                        //função para inserir no bd via Facade
+                        AtendimentoFacade.adicionarAtendimento(a);
+                         
+                        //redireciona
+                        request.setAttribute("info", " Atendimento adicionado com sucesso!");
+                        request.setAttribute("page", "portalCliente.jsp");
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/AtendimentoServlet?action=mostrarPortalCliente");
+                        rd.forward(request, response);
+                        
+                        break;  
+
+                    case "mostrarNovoAtendimento":
+                        //Carrega a lista de produto e categoria Atendimento
+                        List<Produto> produtos = ProdutoFacade.buscarProdutos();
+                        List<CategoriaAtendimento> catAtendimento = CategoriaAtendimentoFacade.buscarCategoriaAtendimento();
+                        
+                        //ADD OB NA REQUISIÇÃO
+                        request.setAttribute("produtos", produtos);
+                        request.setAttribute("categorias", catAtendimento);
+                        
+                        //ENVIA VIA FOWARD
+                        rd = request.getRequestDispatcher("/novoAtendimento.jsp");
+                        rd.forward(request, response);
+                        
+                        break;
+
+                    case "mostrarAtendimento":
+                        session = request.getSession();
+                        user = (LoginBean)session.getAttribute("user");
+                        int idu = user.getId();
+                        String nomeu = user.getNome();
+                        int ida = Integer.parseInt(request.getParameter("id"));     
+                         //Carrega a lista de atendimentos para apresentar
+                        List<Atendimento> atd = AtendimentoFacade.buscarAtendimentoPorIdAtendimento(idu, ida);
+
+                        //ADD OBJ NA REQUISIÇÃO
+                        request.setAttribute("atd", atd);
+                        request.setAttribute("nomeu", nomeu);
+
+                        //redireciona
+                        rd = getServletContext().getRequestDispatcher("/verAtendimento.jsp");
+                        rd.forward(request, response);
+
+                        break;
+                    case "mostrarPortalCliente":
+                        session = request.getSession();
+                        user = (LoginBean)session.getAttribute("user");
+                        id = user.getId();
+
+                        //Carrega a lista de atendimentos para apresentar
+                        List<Atendimento> atendimentos = AtendimentoFacade.buscarAtendimentoPorCliente(id);
+
+                        //ADD OBJ NA REQUISIÇÃO
+                        request.setAttribute("atendimentos", atendimentos);
+
+                        //redireciona
+                        rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
+                        rd.forward(request, response);
+
+                        break;
+                    case "removeAtendimento":
+                        ida = Integer.parseInt(request.getParameter("ida"));
+
+                        //remove atendimento
+                        AtendimentoFacade.removerAtendimento(ida);
+
+                         //redireciona
+                        request.setAttribute("info", " Atendimento removido com sucesso!");
+                        request.setAttribute("page", "portalCliente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
+                        rd.forward(request, response);
+                        
+                        break;
+                }
             }
-  
+        } catch(FacadeException ex) {
+            request.setAttribute("msg", ex);
+            request.setAttribute("page", "LogoutServlet");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
         }
     }
 
