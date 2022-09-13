@@ -163,7 +163,7 @@ public class UsuarioServlet extends HttpServlet {
                         //redireciona
                         request.setAttribute("info", " Usuário atualizado");
                         request.setAttribute("page", "/portalCliente.jsp");
-                        rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/AtendimentoServlet?action=mostrarPortalCliente");
                         rd.forward(request, response);
 
                         break;

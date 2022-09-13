@@ -117,6 +117,7 @@ public class AtendimentoServlet extends HttpServlet {
                         rd.forward(request, response);
 
                         break;
+                        
                     case "mostrarPortalCliente":
                         session = request.getSession();
                         user = (LoginBean)session.getAttribute("user");
@@ -133,6 +134,7 @@ public class AtendimentoServlet extends HttpServlet {
                         rd.forward(request, response);
 
                         break;
+                        
                     case "removeAtendimento":
                         ida = Integer.parseInt(request.getParameter("ida"));
 
@@ -142,7 +144,7 @@ public class AtendimentoServlet extends HttpServlet {
                          //redireciona
                         request.setAttribute("info", " Atendimento removido com sucesso!");
                         request.setAttribute("page", "portalCliente.jsp");
-                        rd = getServletContext().getRequestDispatcher("/portalCliente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/AtendimentoServlet?action=mostrarPortalCliente");
                         rd.forward(request, response);
                         
                         break;
