@@ -1,50 +1,59 @@
 // Adicionar eventos em formulário
 $('#buscar-cep').click(() => {
-  const cep = $('input[name="cep"]').val();
-  const formatoCEP = /^[0-9]{8}$/;
-  if (cep && formatoCEP.test(cep)) {
-    $('input[name="cep"]').attr('disabled', true);
-    $('input[name="rua"]').val('');
-    $('input[name="numero"]').val('');
-    $('input[name="complemento"]').val('');
-    $('input[name="cidade"]').val('');
-    $('input[name="estado"]').val('');
-    $.ajax({
-      method: 'GET',
-      url: `https://viacep.com.br/ws/${cep}/json`,
-      success(response) {
-        console.log($('input[name="estado"]'))
-        $('input[name="rua"]').val(response.logradouro);
-        $('input[name="cidade"]').val(response.localidade);
-        $('input[name="estado"]').val(response.uf);
-        $('input[name="numero"]').focus();
-      },
-      complete() {
-        $('input[name="cep"]').attr('disabled', false);
-      }
-    });
-  }
+    const cep = $('input[name="cep"]').val();
+    const formatoCEP = /^[0-9]{8}$/;
+    if (cep && formatoCEP.test(cep)) {
+        $('input[name="cep"]').attr('disabled', true);
+        $('input[name="rua"]').val('');
+        $('input[name="bairro"]').val('');
+        $('input[name="numero"]').val('');
+        $('input[name="complemento"]').val('');
+        $('input[name="cidade"]').val('');
+        $('input[name="estado"]').val('');
+        $.ajax({
+            method: 'GET',
+            url: `https://viacep.com.br/ws/${cep}/json`,
+            success(response) {
+                console.log($('input[name="estado"]'));
+                $('input[name="rua"]').val(response.logradouro);
+                $('input[name="bairro"]').val(response.bairro);
+                $('input[name="cidade"]').val(response.localidade);
+                $('input[name="estado"]').val(response.uf);
+                $('input[name="numero"]').focus();
+            },
+            complete() {
+                $('input[name="cep"]').attr('disabled', false);
+            }
+        });
+    }
 });
 $('#buscar-produto').click(() => {
-  const produto = $('#codigo-produto').val();
-  $('#detalhes-produto').show();
+    const produto = $('#codigo-produto').val();
+    $('#detalhes-produto').show();
+});
+
+// Adiciona máscara nos inputs do cadastro
+jQuery(function ($) {
+    $("#cpf").mask("999.999.999-99");
+    $('#telefone').mask('(99) 99999-9999', {placeholder: '(41) 98888-8888'} );
+    //$('#cep').mask('99999-999', {placeholder: 'CEP'});
 });
 
 // Adicionar evento para linhas de tabelas
-$('.c-clickable').click(function() {
-  window.location = $(this).data('href');
+$('.c-clickable').click(function () {
+    window.location = $(this).data('href');
 });
-$('a[title="Excluir"]').click(function(e) {
-  e.preventDefault();
-  if (confirm('Tem certeza que quer excluir este item?')) {
-    $(this).parent().parent().remove();
-  }
+$('a[title="Excluir"]').click(function (e) {
+    e.preventDefault();
+    if (confirm('Tem certeza que quer excluir este item?')) {
+        $(this).parent().parent().remove();
+    }
 });
 
 // Adicionar evento para filtro de tabelas
-$('#filtro-atendimentos').change(function() {
-  $('tr').show();
-  if ($(this).val() === 'abertos') {
-    $('td span.badge-secondary').parent().parent().hide();
-  }
+$('#filtro-atendimentos').change(function () {
+    $('tr').show();
+    if ($(this).val() === 'abertos') {
+        $('td span.badge-secondary').parent().parent().hide();
+    }
 });
