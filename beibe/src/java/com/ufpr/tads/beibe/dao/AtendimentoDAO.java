@@ -6,12 +6,12 @@ package com.ufpr.tads.beibe.dao;
 
 import com.ufpr.tads.beibe.beans.Atendimento;
 import com.ufpr.tads.beibe.beans.CategoriaAtendimento;
-import com.ufpr.tads.beibe.beans.CategoriaProduto;
 import com.ufpr.tads.beibe.beans.Produto;
 import com.ufpr.tads.beibe.beans.SituacaoAtendimento;
 import com.ufpr.tads.beibe.beans.Usuario;
+import com.ufpr.tads.beibe.exception.DAOException;
+import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -34,23 +34,17 @@ public class AtendimentoDAO {
     
     private static final String QUERY_ALTERAR_ATENDIMENTO = "UPDATE tb_atendimento SET id_situacao=?,solucao=? WHERE id=?";
     
-    
-    
     private Connection con= null;
     
-    public static boolean adicionarAtendimento(Atendimento a) {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
-      
-        try{
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            st = con.prepareStatement(QUERY_INSERIR_ATENDIMENTO);
-           // java.util.Date dt = a.getDataHr();
-           // st.setTimestamp(1, new java.sql.Timestamp(dt.getTime()));
+    public AtendimentoDAO(Connection con) throws DAOException {
+        if (con == null) {
+            throw new DAOException("Falha na Conexão com o Banco de Dados.");
+        }
+        this.con = con;
+    }
+    
+    public void adicionarAtendimento(Atendimento a) throws DAOException {
+        try(PreparedStatement st = con.prepareStatement(QUERY_INSERIR_ATENDIMENTO)) {
             st.setInt(1, a.getId());
             st.setInt(2, 1);
             st.setInt(3, a.getProduto().getId());
@@ -58,144 +52,99 @@ public class AtendimentoDAO {
             st.setString(5, a.getDescricao());
             st.setString(6, "");
             
-            
             st.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
     }
     
-    public static void alterarAtendimento(Atendimento a) {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
-      
-        try{
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            st = con.prepareStatement(QUERY_ALTERAR_ATENDIMENTO);
-            
+    public void alterarAtendimento(Atendimento a) throws DAOException {
+        try(PreparedStatement st = con.prepareStatement(QUERY_ALTERAR_ATENDIMENTO)) {
             st.setInt(1, a.getSituacaoAtendimento().getId());
             st.setString(2, a.getSolucao());
             st.setInt(3, a.getId());
             
             st.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
     }
     
-    public static List<Atendimento> buscarTudoCliente(int id) {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
+    public List<Atendimento> buscarTudoCliente(int id) throws DAOException {
         List<Atendimento> atendimentos= new ArrayList<>();
         
-        try{
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-        st = con.prepareStatement(QUERY_BUSCA_TUDO_CLIENTE);
-        st.setInt(1,id);
-        rs = st.executeQuery();  
+        try(PreparedStatement st = con.prepareStatement(QUERY_BUSCA_TUDO_CLIENTE)) {
+            st.setInt(1,id);
+            ResultSet rs = st.executeQuery();  
         
             while(rs.next()){
                 //SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao 
-                        
-                    Atendimento atendimento = new Atendimento();
-                    Produto produto = new Produto();
-                    CategoriaAtendimento categoria = new CategoriaAtendimento();
-                    SituacaoAtendimento situacao = new SituacaoAtendimento();
-                    
-                    atendimento.setId(rs.getInt(1));
-                    java.util.Date dt = new java.util.Date(
-                                       rs.getTimestamp(2).getTime());
-                    atendimento.setDataHr(dt);
-                    produto.setNome(rs.getString(3));
-                    atendimento.setProduto(produto);
-                    categoria.setNome(rs.getString(4));
-                    atendimento.setCategoriaAtendimento(categoria);
-                    atendimento.setDescricao(rs.getString(5));
-                    situacao.setNome(rs.getString(6));
-                    atendimento.setSituacaoAtendimento(situacao);
-                    atendimento.setSolucao(rs.getString(7));
-                    
-                    
-                    
-                    atendimentos.add(atendimento);
-                    
-                }  
-        } catch (Exception e) {
-            e.printStackTrace();
+                Atendimento atendimento = new Atendimento();
+                Produto produto = new Produto();
+                CategoriaAtendimento categoria = new CategoriaAtendimento();
+                SituacaoAtendimento situacao = new SituacaoAtendimento();
+
+                atendimento.setId(rs.getInt(1));
+                java.util.Date dt = new java.util.Date(rs.getTimestamp(2).getTime());
+                atendimento.setDataHr(dt);
+                produto.setNome(rs.getString(3));
+                atendimento.setProduto(produto);
+                categoria.setNome(rs.getString(4));
+                atendimento.setCategoriaAtendimento(categoria);
+                atendimento.setDescricao(rs.getString(5));
+                situacao.setNome(rs.getString(6));
+                atendimento.setSituacaoAtendimento(situacao);
+                atendimento.setSolucao(rs.getString(7));
+
+                atendimentos.add(atendimento);        
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
         return  atendimentos;
     }
     
-     public static List<Atendimento> buscarTudoIdAtendimento(int idu, int ida) {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
+     public List<Atendimento> buscarTudoIdAtendimento(int idu, int ida) throws DAOException {
         List<Atendimento> atendimentos= new ArrayList<>();
         
-        try{
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-        st = con.prepareStatement(QUERY_BUSCA_TUDO_ATENDIMENTO);
-        st.setInt(1,idu);
-        st.setInt(2,ida);
-        rs = st.executeQuery();  
-        
-            while(rs.next()){
-                //SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao 
-                        
-                    Atendimento atendimento = new Atendimento();
-                    Produto produto = new Produto();
-                    CategoriaAtendimento categoria = new CategoriaAtendimento();
-                    SituacaoAtendimento situacao = new SituacaoAtendimento();
-                    
-                    atendimento.setId(rs.getInt(1));
-                    java.util.Date dt = new java.util.Date(
-                                       rs.getTimestamp(2).getTime());
-                    atendimento.setDataHr(dt);
-                    produto.setNome(rs.getString(3));
-                    atendimento.setProduto(produto);
-                    categoria.setNome(rs.getString(4));
-                    atendimento.setCategoriaAtendimento(categoria);
-                    atendimento.setDescricao(rs.getString(5));
-                    situacao.setNome(rs.getString(6));
-                    atendimento.setSituacaoAtendimento(situacao);
-                    atendimento.setSolucao(rs.getString(7));       
-                    atendimentos.add(atendimento);
-                    
-                }  
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return  atendimentos;
-    }
-    
-     public static Atendimento buscarTudoIdAtd(int idu, int ida) {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        Atendimento atendimento = new Atendimento();
-        
-        try{
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            st = con.prepareStatement(QUERY_BUSCA_TUDO_ATENDIMENTO);
+        try(PreparedStatement st = con.prepareStatement(QUERY_BUSCA_TUDO_ATENDIMENTO)) {
             st.setInt(1,idu);
             st.setInt(2,ida);
-            rs = st.executeQuery();
+            ResultSet rs = st.executeQuery();  
+        
+            while(rs.next()){
+                //SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao 
+                Atendimento atendimento = new Atendimento();
+                Produto produto = new Produto();
+                CategoriaAtendimento categoria = new CategoriaAtendimento();
+                SituacaoAtendimento situacao = new SituacaoAtendimento();
+
+                atendimento.setId(rs.getInt(1));
+                java.util.Date dt = new java.util.Date(rs.getTimestamp(2).getTime());
+                atendimento.setDataHr(dt);
+                produto.setNome(rs.getString(3));
+                atendimento.setProduto(produto);
+                categoria.setNome(rs.getString(4));
+                atendimento.setCategoriaAtendimento(categoria);
+                atendimento.setDescricao(rs.getString(5));
+                situacao.setNome(rs.getString(6));
+                atendimento.setSituacaoAtendimento(situacao);
+                atendimento.setSolucao(rs.getString(7));       
+                atendimentos.add(atendimento);
+            }  
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return  atendimentos;
+    }
+    
+     public Atendimento buscarTudoIdAtd(int idu, int ida) throws DAOException {
+        Atendimento atendimento = new Atendimento();
+        
+        try(PreparedStatement st = con.prepareStatement(QUERY_BUSCA_TUDO_ATENDIMENTO)) {
+            st.setInt(1,idu);
+            st.setInt(2,ida);
+            ResultSet rs = st.executeQuery();
         
             while(rs.next()){
                 //SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao 
@@ -215,30 +164,21 @@ public class AtendimentoDAO {
                 atendimento.setSituacaoAtendimento(situacao);
                 atendimento.setSolucao(rs.getString(7));
             }  
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
         
         return  atendimento;
     }
     
-    public static List<Atendimento> buscarTudo() {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
+    public List<Atendimento> buscarTudo() throws DAOException {
         List<Atendimento> atendimentos= new ArrayList<>();
         
-        try{
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            st = con.prepareStatement(QUERY_BUSCA_TUDO);
-            rs = st.executeQuery();  
+        try(PreparedStatement st = con.prepareStatement(QUERY_BUSCA_TUDO)) {
+            ResultSet rs = st.executeQuery();  
         
             while(rs.next()){
                 //SELECT a.id, a.dt_hr,  p.nome, cat.nome, a.descricao, s.nome, a.solucao 
-                        
                 Atendimento atendimento = new Atendimento();
                 Produto produto = new Produto();
                 CategoriaAtendimento categoria = new CategoriaAtendimento();
@@ -261,29 +201,19 @@ public class AtendimentoDAO {
                 
                 atendimentos.add(atendimento);
             }  
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
         
         return  atendimentos;
     }
      
-    public static boolean removerAtendimento(int id) {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        try{
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            st = con.prepareStatement(QUERY_REMOVER_ATENDIMENTO);
+    public void removerAtendimento(int id) throws DAOException {
+        try(PreparedStatement st = con.prepareStatement(QUERY_REMOVER_ATENDIMENTO)) {
             st.setInt(1, id);
-            rs = st.executeQuery();
-            return true;
-         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            st.executeQuery();
+         } catch (SQLException e) {
+            throw new DAOException(e);
         }
     }
     

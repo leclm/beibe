@@ -6,6 +6,9 @@ package com.ufpr.tads.beibe.facade;
 
 import com.ufpr.tads.beibe.beans.Atendimento;
 import com.ufpr.tads.beibe.dao.AtendimentoDAO;
+import com.ufpr.tads.beibe.dao.ConnectionFactory;
+import com.ufpr.tads.beibe.exception.DAOException;
+import com.ufpr.tads.beibe.exception.FacadeException;
 import java.util.List;
 
 /**
@@ -14,32 +17,67 @@ import java.util.List;
  */
 
 public class AtendimentoFacade {
-    public static void adicionarAtendimento(Atendimento a) {
-        AtendimentoDAO.adicionarAtendimento(a);
+    public static void adicionarAtendimento(Atendimento a) throws FacadeException {
+        try(ConnectionFactory con = new ConnectionFactory()){
+            AtendimentoDAO dao= new AtendimentoDAO(con.getConnection());
+            dao.adicionarAtendimento(a);
+        } catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao adicionar atendimento:\n ", ex);
+       }
     }
      
-    public static List<Atendimento> buscarAtendimentoPorCliente(int id) {
-         return AtendimentoDAO.buscarTudoCliente(id);
+    public static List<Atendimento> buscarAtendimentoPorCliente(int id) throws FacadeException {
+        try(ConnectionFactory con = new ConnectionFactory()){
+            AtendimentoDAO dao= new AtendimentoDAO(con.getConnection());
+            return dao.buscarTudoCliente(id);
+        } catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao buscar atendimento por cliente:\n ", ex);
+       }
     }
      
-    public static List<Atendimento> buscarAtendimentoPorIdAtendimento(int idu, int ida) {
-         return AtendimentoDAO.buscarTudoIdAtendimento(idu, ida);
+    public static List<Atendimento> buscarAtendimentoPorIdAtendimento(int idu, int ida) throws FacadeException {
+        try(ConnectionFactory con = new ConnectionFactory()){
+            AtendimentoDAO dao= new AtendimentoDAO(con.getConnection());
+            return dao.buscarTudoIdAtendimento(idu, ida);
+        } catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao buscar atendimento pelo seu identificador:\n ", ex);
+       }
     }
     
-    public static Atendimento buscarAtendimentoPorIdAtd(int idu, int ida) {
-         return AtendimentoDAO.buscarTudoIdAtd(idu, ida);
+    public static Atendimento buscarAtendimentoPorIdAtd(int idu, int ida) throws FacadeException {
+        try(ConnectionFactory con = new ConnectionFactory()){
+            AtendimentoDAO dao= new AtendimentoDAO(con.getConnection());
+            return dao.buscarTudoIdAtd(idu, ida);
+        } catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao buscar atendimento pelo seu identificador:\n ", ex);
+       }
     }
      
-    public static List<Atendimento> buscarTudo() {
-         return AtendimentoDAO.buscarTudo();
+    public static List<Atendimento> buscarTudo() throws FacadeException {
+        try(ConnectionFactory con = new ConnectionFactory()){
+            AtendimentoDAO dao= new AtendimentoDAO(con.getConnection());
+            return dao.buscarTudo();
+        } catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao buscar todos os atendimentos:\n ", ex);
+       }
     }
     
-    public static void alterarAtendimento(Atendimento a) {
-         AtendimentoDAO.alterarAtendimento(a);
+    public static void alterarAtendimento(Atendimento a) throws FacadeException {
+        try(ConnectionFactory con = new ConnectionFactory()){
+            AtendimentoDAO dao= new AtendimentoDAO(con.getConnection());
+            dao.alterarAtendimento(a);
+        } catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao alterar atendimento:\n ", ex);
+       }
     }
      
-    public static void removerAtendimento(int id) {
-        AtendimentoDAO.removerAtendimento(id);
+    public static void removerAtendimento(int id) throws FacadeException {
+        try(ConnectionFactory con = new ConnectionFactory()){
+           AtendimentoDAO dao= new AtendimentoDAO(con.getConnection());
+           dao.removerAtendimento(id);
+        } catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao remover atendimento:\n ", ex);
+       }
     }
    
 }

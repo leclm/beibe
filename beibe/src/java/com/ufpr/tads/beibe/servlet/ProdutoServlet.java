@@ -5,9 +5,8 @@
 package com.ufpr.tads.beibe.servlet;
 
 import com.ufpr.tads.beibe.beans.CategoriaProduto;
-import com.ufpr.tads.beibe.beans.LoginBean;
 import com.ufpr.tads.beibe.beans.Produto;
-import com.ufpr.tads.beibe.facade.CategoriaProdutoFacade;
+import com.ufpr.tads.beibe.exception.FacadeException;
 import com.ufpr.tads.beibe.facade.ProdutoFacade;
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +16,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -41,116 +39,121 @@ public class ProdutoServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
               
-        if(action==null || action.equals("list")){
-           /* List<Cliente> clientes = ClientesFacade.listarTodos();
-            request.setAttribute("listaClientes", clientes);
-            RequestDispatcher rd = request.getRequestDispatcher("/clientesListar.jsp");
-            rd.forward(request, response);*/
-        } else{
-            switch (action) {
-                case "listarProduto":
-                    List<Produto> listProduto = ProdutoFacade.buscarProdutos();
-                    request.setAttribute("listProduto", listProduto);
+        try{      
+            if(action==null){
+                //redireciona
+                response.sendRedirect("LogoutServlet");
+            } else{
+                switch (action) {
+                    case "listarProduto":
+                        List<Produto> listProduto = ProdutoFacade.buscarProdutos();
+                        request.setAttribute("listProduto", listProduto);
 
-                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/produtos.jsp");
-                    rd.forward(request, response);
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/produtos.jsp");
+                        rd.forward(request, response);
 
-                    break;
-                case "cadastroProduto":
-                    ProdutoFacade.ApresentarCategorias(request);
+                        break;
+                    case "cadastroProduto":
+                        ProdutoFacade.ApresentarCategorias(request);
 
-                    rd = getServletContext().getRequestDispatcher("/cadastroProduto.jsp");
-                    rd.forward(request, response);
+                        rd = getServletContext().getRequestDispatcher("/cadastroProduto.jsp");
+                        rd.forward(request, response);
 
-                    break;
-                case "adicionarProduto":
-                    Produto produto = new Produto();
+                        break;
+                    case "adicionarProduto":
+                        Produto produto = new Produto();
 
-                    int idcategoria = Integer.parseInt(request.getParameter("idcategoria"));
-                    CategoriaProduto ctg = new CategoriaProduto();
-                    ctg.setId(idcategoria);
+                        int idcategoria = Integer.parseInt(request.getParameter("idcategoria"));
+                        CategoriaProduto ctg = new CategoriaProduto();
+                        ctg.setId(idcategoria);
 
-                    int peso = Integer.parseInt(request.getParameter("peso"));
-                    String nome = (String) request.getParameter("nome");
-                    String descricao = (String) request.getParameter("descricao");
+                        int peso = Integer.parseInt(request.getParameter("peso"));
+                        String nome = (String) request.getParameter("nome");
+                        String descricao = (String) request.getParameter("descricao");
 
-                    produto.setCategoriaProduto(ctg);
-                    produto.setPeso(peso);
-                    produto.setNome(nome);
-                    produto.setDescricao(descricao);
+                        produto.setCategoriaProduto(ctg);
+                        produto.setPeso(peso);
+                        produto.setNome(nome);
+                        produto.setDescricao(descricao);
 
-                    ProdutoFacade.AdicionarProduto(produto);
+                        ProdutoFacade.AdicionarProduto(produto);
 
-                    listProduto = ProdutoFacade.buscarProdutos();
-                    request.setAttribute("listProduto", listProduto);
-                    
-                    rd = getServletContext().getRequestDispatcher("/produtos.jsp");
-                    rd.forward(request, response);
+                        listProduto = ProdutoFacade.buscarProdutos();
+                        request.setAttribute("listProduto", listProduto);
 
-                    break;
-                case "alteraProduto":
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    
-                    produto = ProdutoFacade.buscarProdutoPorId(id);
-                    ProdutoFacade.ApresentarCategorias(request);
+                        rd = getServletContext().getRequestDispatcher("/produtos.jsp");
+                        rd.forward(request, response);
 
-                    request.setAttribute("produto", produto);
-                    rd = getServletContext().getRequestDispatcher("/atualizaProduto.jsp");
-                    rd.forward(request, response);
+                        break;
+                    case "alteraProduto":
+                        int id = Integer.parseInt(request.getParameter("id"));
 
-                    break;
-                case "salvarAlteraProduto":
-                    produto = new Produto();
-                    
-                    id = Integer.parseInt(request.getParameter("id"));
-                    
-                    idcategoria = Integer.parseInt(request.getParameter("idcategoria"));
-                    ctg = new CategoriaProduto();
-                    ctg.setId(idcategoria);
+                        produto = ProdutoFacade.buscarProdutoPorId(id);
+                        ProdutoFacade.ApresentarCategorias(request);
 
-                    peso = Integer.parseInt(request.getParameter("peso"));
-                    nome = (String) request.getParameter("nome");
-                    descricao = (String) request.getParameter("descricao");
+                        request.setAttribute("produto", produto);
+                        rd = getServletContext().getRequestDispatcher("/atualizaProduto.jsp");
+                        rd.forward(request, response);
 
-                    produto.setId(id);
-                    produto.setCategoriaProduto(ctg);
-                    produto.setPeso(peso);
-                    produto.setNome(nome);
-                    produto.setDescricao(descricao);
+                        break;
+                    case "salvarAlteraProduto":
+                        produto = new Produto();
 
-                    ProdutoFacade.AlterarProduto(produto);
+                        id = Integer.parseInt(request.getParameter("id"));
 
-                    listProduto = ProdutoFacade.buscarProdutos();
-                    request.setAttribute("listProduto", listProduto);
-                    
-                    rd = getServletContext().getRequestDispatcher("/produtos.jsp");
-                    rd.forward(request, response);
-                    
-                    break;
-                case "removerProduto":
-                    id = Integer.parseInt(request.getParameter("id"));
+                        idcategoria = Integer.parseInt(request.getParameter("idcategoria"));
+                        ctg = new CategoriaProduto();
+                        ctg.setId(idcategoria);
 
-                    ProdutoFacade.RemoverProduto(id);
+                        peso = Integer.parseInt(request.getParameter("peso"));
+                        nome = (String) request.getParameter("nome");
+                        descricao = (String) request.getParameter("descricao");
 
-                    listProduto = ProdutoFacade.buscarProdutos();
-                    request.setAttribute("listProduto", listProduto);
+                        produto.setId(id);
+                        produto.setCategoriaProduto(ctg);
+                        produto.setPeso(peso);
+                        produto.setNome(nome);
+                        produto.setDescricao(descricao);
 
-                    rd = getServletContext().getRequestDispatcher("/produtos.jsp");
-                    rd.forward(request, response);
+                        ProdutoFacade.AlterarProduto(produto);
 
-                    break;
-                case "visualizarProduto":
-                    id = Integer.parseInt(request.getParameter("id"));
-                    
-                    produto = ProdutoFacade.buscarProdutoPorId(id);
-                    ProdutoFacade.ApresentarCategorias(request);
-                    
-                    request.setAttribute("produto", produto);
-                    rd = getServletContext().getRequestDispatcher("/visualizaProduto.jsp");
-                    rd.forward(request, response);
-                    
-                    break;
+                        listProduto = ProdutoFacade.buscarProdutos();
+                        request.setAttribute("listProduto", listProduto);
+
+                        rd = getServletContext().getRequestDispatcher("/produtos.jsp");
+                        rd.forward(request, response);
+
+                        break;
+                    case "removerProduto":
+                        id = Integer.parseInt(request.getParameter("id"));
+
+                        ProdutoFacade.RemoverProduto(id);
+
+                        listProduto = ProdutoFacade.buscarProdutos();
+                        request.setAttribute("listProduto", listProduto);
+
+                        rd = getServletContext().getRequestDispatcher("/produtos.jsp");
+                        rd.forward(request, response);
+
+                        break;
+                    case "visualizarProduto":
+                        id = Integer.parseInt(request.getParameter("id"));
+
+                        produto = ProdutoFacade.buscarProdutoPorId(id);
+                        ProdutoFacade.ApresentarCategorias(request);
+
+                        request.setAttribute("produto", produto);
+                        rd = getServletContext().getRequestDispatcher("/visualizaProduto.jsp");
+                        rd.forward(request, response);
+
+                        break;
+                }
             }
+        } catch(FacadeException ex) {
+            request.setAttribute("msg", ex);
+            request.setAttribute("page", "LogoutServlet");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
         }
     }
 

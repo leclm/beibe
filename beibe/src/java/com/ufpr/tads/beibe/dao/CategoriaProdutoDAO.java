@@ -6,10 +6,11 @@ package com.ufpr.tads.beibe.dao;
 
 
 import com.ufpr.tads.beibe.beans.CategoriaProduto;
+import com.ufpr.tads.beibe.exception.DAOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,20 +30,20 @@ public class CategoriaProdutoDAO {
             = "DELETE FROM tb_categoriaproduto WHERE id = ?";
     private static final String QUERY_CATEGORIA = "SELECT nome FROM tb_categoriaproduto WHERE id = ?";
     
-    public static List<CategoriaProduto> buscarTudo() {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
+    private Connection con= null;
+    
+    public CategoriaProdutoDAO(Connection con) throws DAOException {
+        if (con == null) {
+            throw new DAOException("Falha na Conexão com o Banco de Dados.");
+        }
+        this.con = con;
+    }
+    
+    public List<CategoriaProduto> buscarTudo() throws DAOException {
         List<CategoriaProduto> categoriasPrd = new ArrayList<CategoriaProduto>();
         
-        try{
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            
-            st = con.prepareStatement(QUERY_BUSCAR);
-            rs = st.executeQuery();    
+        try(PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)) {
+            ResultSet rs = st.executeQuery();    
             
             while(rs.next()){
                 CategoriaProduto categoriaProduto = new CategoriaProduto();
@@ -51,102 +52,56 @@ public class CategoriaProdutoDAO {
                 categoriasPrd.add(categoriaProduto);
 
             }  
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
         return  categoriasPrd;
     }
     
-    public static boolean AdicionarCategoriaProduto(CategoriaProduto ctg) {
-        Connection con = null;
-        PreparedStatement st = null;
-        
-        try {
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            
-            st = con.prepareStatement(QUERY_ADICIONAR);
-                    
+    public void AdicionarCategoriaProduto(CategoriaProduto ctg) throws DAOException {
+        try(PreparedStatement st = con.prepareStatement(QUERY_ADICIONAR);) {
             st.setString(1, ctg.getNome());
-            
             st.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
     }
     
-    public static void AlterarCategoriaProduto(CategoriaProduto ctg) {
-        Connection con = null;
-        PreparedStatement st = null;
-        
-        try {
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            
-            st = con.prepareStatement(QUERY_ALTERAR);
-            
+    public void AlterarCategoriaProduto(CategoriaProduto ctg) throws DAOException {
+        try(PreparedStatement st = con.prepareStatement(QUERY_ALTERAR)) {
             st.setString(1, ctg.getNome());
             st.setInt(2, ctg.getId());
             
             st.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
     }
     
-    public static void RemoverCategoriaProduto(int id) {
-        Connection con = null;
-        PreparedStatement st = null;
-        
-        try {
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            
-            st = con.prepareStatement(QUERY_REMOVER);
-            
+    public void RemoverCategoriaProduto(int id) throws DAOException {
+        try(PreparedStatement st = con.prepareStatement(QUERY_REMOVER)) {
             st.setInt(1, id);
-            
             st.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
     }
     
-    public static CategoriaProduto buscarCategoriaPorId(int id) {
-        Connection con = null;
-        PreparedStatement st = null;
+    public CategoriaProduto buscarCategoriaPorId(int id) throws DAOException {
         CategoriaProduto ctg = null;
         
-        try {
-            Class.forName(com.ufpr.tads.beibe.dao.ConnectionFactory.DRIVER);
-            con = DriverManager.getConnection(com.ufpr.tads.beibe.dao.ConnectionFactory.URL, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.LOGIN, 
-                                                com.ufpr.tads.beibe.dao.ConnectionFactory.SENHA);
-            
-            st = con.prepareStatement(QUERY_CATEGORIA);
+        try(PreparedStatement st = con.prepareStatement(QUERY_CATEGORIA)) {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             
-            try {
-                while(rs.next()){
-                    ctg = new CategoriaProduto();
-                    
-                    ctg.setId(id);
-                    ctg.setNome(rs.getString(1));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            while(rs.next()){
+                ctg = new CategoriaProduto();
+
+                ctg.setId(id);
+                ctg.setNome(rs.getString(1));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
         
         return ctg;
