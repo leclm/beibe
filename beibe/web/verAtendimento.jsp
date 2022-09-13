@@ -32,7 +32,14 @@
   <link rel="icon" type="image/x-icon" href="./assets/images/phone-solid.svg">
 </head>
 <body>
-
+    <script type="text/javascript">
+    function removerAtendimento(id) {
+        excluir = confirm('Tem certeza que deseja excluir o atendimento?');
+        if (excluir) {
+            document.location.href= ("AtendimentoServlet?action=removeAtendimento&ida="+ id);
+        }
+    }
+     </script>
   <!-- Cabeçalho da página -->
 <header class="container-fluid bg-info mb-4">
     <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
@@ -78,7 +85,6 @@
 
     <!-- Dados do atendimento -->
  
-    <form action="atendimentos.html" method="POST">
       <c:forEach items="${requestScope.atd}" var="a" >    
         
         <c:choose>
@@ -86,10 +92,10 @@
                 <a><button type="button" class="btn btn-danger float-right w-25" onclick="alert('Não é possível remover atendimento finalizado')" >Remover</button></a>
             </c:when>
             <c:otherwise>
-                <a href="AtendimentoServlet?action=removeAtendimento&ida=${a.id}" class="btn btn-danger float-right w-25">
+                <button onclick= "removerAtendimento(${a.id})" class="btn btn-danger float-right w-25">
                     <i class="far fa-delete"></i>
                 Remover
-                </a>
+                </button>
             </c:otherwise>
         </c:choose> 
           
@@ -142,7 +148,6 @@
         </div>
       </div>
       </c:forEach>   
-    </form>
   </main>
 
   <jsp:include page="footer.jsp" />
