@@ -22,7 +22,7 @@
             <a class="nav-link" href="atendimentos.html">Atendimentos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="colaboradoresGerente.jsp">Cadastro de Colaboradores</a>
+            <a class="nav-link" href="UsuarioServlet?action=colaboradoresGerente">Cadastro de Colaboradores</a>
           </li>
         </ul>
       </div>

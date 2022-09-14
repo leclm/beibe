@@ -9,6 +9,7 @@ import com.ufpr.tads.beibe.dao.ConnectionFactory;
 import com.ufpr.tads.beibe.dao.UsuarioDAO;
 import com.ufpr.tads.beibe.exception.DAOException;
 import com.ufpr.tads.beibe.exception.FacadeException;
+import java.util.List;
 /**
  *
  * @author grupo2
@@ -61,6 +62,25 @@ public class UsuarioFacade {
          }
          catch (DAOException ex){
            throw new FacadeException("Erro ao adicionar colaborador",ex );
+       }
+    }
+
+    public static List<Usuario> buscarColaboradores() throws FacadeException {
+    try(ConnectionFactory con = new ConnectionFactory()){
+         UsuarioDAO dao= new UsuarioDAO(con.getConnection());
+         return dao.buscarColaboradores();
+    }catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao buscar lista de colaboradores ", ex);
+    }
+    }
+
+    public static void removerUsuario(int id) throws FacadeException {
+        try(ConnectionFactory con = new ConnectionFactory()){
+           UsuarioDAO dao= new UsuarioDAO(con.getConnection());
+           dao.removerUsuario(id);
+       }
+       catch (DAOException ex){
+           throw new FacadeException("Erro ao remover usuario",ex );
        }
     }
      

@@ -238,6 +238,43 @@ public class UsuarioServlet extends HttpServlet {
                         rd.forward(request, response);
 
                         break;  
+                        
+                    case "colaboradoresGerente":
+                        session = request.getSession();
+                        user = (LoginBean)session.getAttribute("user");
+                        id = user.getId();
+                        //Carrega a lista de colaboradores para apresentar
+                        List<Usuario> colaboradores = UsuarioFacade.buscarColaboradores();
+
+                        //ADD OBJ NA REQUISIÇÃO
+                        request.setAttribute("colaboradores", colaboradores);
+                        //redireciona
+                        rd = getServletContext().getRequestDispatcher("/colaboradoresGerente.jsp");
+                        rd.forward(request, response);
+                        break;
+                        
+                        case "removeColaborador":
+                        id = Integer.parseInt(request.getParameter("id"));
+
+                        //remove atendimento
+                        UsuarioFacade.removerUsuario(id);
+
+                         //redireciona
+                        request.setAttribute("info", " Atendimento removido com sucesso!");
+                        request.setAttribute("page", "colaboradoresGerente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=colaboradoresGerente");
+                        rd.forward(request, response);
+                        
+                        break;
+                        
+                        case "verColaborador":
+                            //usar a pagina  dados colaborador após ajustar para 2 ações
+                        break;
+                        
+                        case "alteraColaborador":
+                            //usar a pagina  dados colaborador após ajustar para 2 ações
+                        break;
+                        
 
                     default:
                         //redireciona
