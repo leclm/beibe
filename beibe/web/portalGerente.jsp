@@ -1,3 +1,19 @@
+<%-- 
+    Document   : portalGerente
+    Created on : 14 de set de 2022, 11:40:18
+    Author     : nicol
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.ufpr.tads.beibe.beans.LoginBean"%>
+<%--Validar se usuário está logado--%>
+<c:if test="${sessionScope.user == null}" >
+    <c:redirect url="index.jsp">
+        <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+    </c:redirect>
+</c:if> 
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -8,62 +24,21 @@
   <title>
     SAC - Sistema de Atendimento ao Cliente :: Trabalho Web 2 - Protótipo
   </title>
-  <link rel="stylesheet" href="../css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../css/fontawesome.min.css" />
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="icon" type="image/x-icon" href="../assets/images/phone-solid.svg">
+  <link rel="stylesheet" href="./css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css/fontawesome.min.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="./assets/images/phone-solid.svg">
 </head>
 
 <body>
 
-  <!-- Cabeçalho de aviso de prototipagem -->
-  <div class="conteiner-fluid bg-light">
-    <div class="d-flex justify-content-between text-black-50">
-      <div><small><b>Protótipo</b></small></div>
-      <div>
-        <small>
-          <b>Opcões:</b>
-          <a href="../cliente/index.html">Cliente</a> |
-          <a href="../funcionario/index.html">Funcionário</a> |
-          <a href="../gerente/index.html">Gerente</a> |
-        </small>
-      </div>
-    </div>
-  </div>
-
   <!-- Cabeçalho da página -->
-  <header class="container-fluid bg-info mb-4">
-    <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
-      <a class="navbar-brand" href="index.html">
-        <img src="../assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
-        <span class="text-white-50 h4 c-title">SAC - Sistema de Atendimento ao Cliente</span>
-      </a>
-      <div class="container">
-        <ul class="navbar-nav text-white">
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">Início</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="atendimentos.html">Atendimentos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="colaboradores.html">Cadastro de Colaboradores</a>
-          </li>
-        </ul>
-      </div>
-      <div class="form-inline">
-        <a href="../index.html" class="alert-link text-white my-2 my-sm-0">
-          <i class="fas fa-power-off"></i><br>
-          Sair
-        </a>
-      </div>
-    </nav>
-  </header>
+  <jsp:include page="headerGerente.jsp" />
 
   <!-- Corpo da página -->
   <main class="container">
     <h2 class="mb-4">
-      Bem-vindo(a), <strong>[Gerente]</strong>
+      Bem-vindo(a), <strong>${sessionScope.user.nome}</strong>
     </h2>
     <div class="card-columns">
         <div class="card-link">
@@ -142,8 +117,7 @@
       </div>
   </main>
 
-  <script src="./js/bootstrap.min.js"></script>
-  <script src="./js/scripts.js"></script>
+   <jsp:include page="footer.jsp" />
 </body>
 
 </html>
