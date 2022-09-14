@@ -31,13 +31,31 @@
 </head>
 
 <body>
-
+       <script type="text/javascript" >
+                        function excluirCliente(id)
+                        {
+                        var x;
+                        var r=confirm("Tem certeza que deseja remover o colaborador ${id}?");
+                        if (r==true)
+                        {
+                            href = "UsuarioServlet?action=removeColaborador&id=${id}";
+                            x= "Colaborador removido!";
+                          }
+                        
+                        }
+        </script>
 
   <!-- Cabeçalho da página -->
   <jsp:include page="headerGerente.jsp" />
 
   <!-- Corpo da página -->
   <main class="container">
+       <c:if test="${requestScope.info != null || param.info != null}" >
+                      <div class="alert alert-success alert-dismissible fade show">
+                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                          <span>${requestScope.info == null ? param.info : requestScope.info}</span>
+                      </div>
+        </c:if>
     <h2 class="mb-4">
       Cadastro de Funcionários & Gerentes
     </h2>
@@ -53,121 +71,40 @@
       <table class="table table-hover">
         <thead class="c-thead">
           <tr class="text-center">
-            <th scope="col">#</th>
+            <th scope="col">ID Colaborador</th>
             <th scope="col">CPF</th>
             <th scope="col">Nome Completo</th>
-            <th scope="col">Nascido em</th>
+            <th scope="col">Email</th>
             <th scope="col">Telefone</th>
             <th scope="col">Gerente</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
+          <c:forEach items="${requestScope.colaboradores}" var="c" >
           <tr class="text-center">
-            <th scope="row">111</th>
-            <td>123.456.789-10</td>
-            <td class="text-left">Claudia Bastchen</td>
-            <td>17-jun-1987</td>
-            <td>(41) 9 9999-9999</td>
+            <th scope="row"><c:out value="${c.id}"/></th>
+            <td><c:out value="${c.cpf}"/></td>
+            <td class="text-left"><c:out value="${c.nome}"/></td>
+            <td><c:out value="${c.email}"/></td>
+            <td><c:out value="${c.telefone}"/></td>
+            <c:if test="${c.tipo == 'gerente'}" >
             <td><i class="fas fa-user-check"></i></td>
-            <td>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                  class="fas fa-eye"></i></a>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-info" title="Editar"><i
-                  class="fas fa-edit"></i></a>
-              <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-            </td>
-          </tr>
-          <tr class="text-center">
-            <th scope="row">222</th>
-            <td>321.456.789-10</td>
-            <td class="text-left">Erica Riera</td>
-            <td>21-mai-1995</td>
-            <td>(41) 9 9999-8888</td>
+            </c:if> 
+            <c:if test="${c.tipo == 'funcionario'}">
             <td></td>
+            </c:if> 
             <td>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-success" title="Visualizar"><i
+              <a href="UsuarioServlet?action=mostrarColaborador&id=<c:out value="${c.id}"/>" class="btn btn-sm btn-success" title="Visualizar"><i
                   class="fas fa-eye"></i></a>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-info" title="Editar"><i
+              <a href="UsuarioServlet?action=alterarColaborador&id=<c:out value="${c.id}"/>" class="btn btn-sm btn-info" title="Editar"><i
                   class="fas fa-edit"></i></a>
-              <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
+              <a href="javascript:void(0)" onclick="new excluirCliente(${c.id})" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
+              
+              
             </td>
           </tr>
-          <tr class="text-center">
-            <th scope="row">333</th>
-            <td>213.456.789-10</td>
-            <td class="text-left">Leticia</td>
-            <td>01-jan-1998</td>
-            <td>(41) 9 9999-7777</td>
-            <td><i class="fas fa-user-check"></i></td>
-            <td>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                  class="fas fa-eye"></i></a>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-info" title="Editar"><i
-                  class="fas fa-edit"></i></a>
-              <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-            </td>
-          </tr>
-          <tr class="text-center">
-            <<th scope="row">444</th>
-              <td>111.456.789-10</td>
-              <td class="text-left">Luiz</td>
-              <td>08-mar-1987</td>
-              <td>(41) 9 9999-6666</td>
-              <td></td>
-              <td>
-                <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                    class="fas fa-eye"></i></a>
-                <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-info" title="Editar"><i
-                    class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              </td>
-          </tr>
-          <tr class="text-center">
-            <th scope="row">555</th>
-            <td>333.456.789-10</td>
-            <td class="text-left">Jackson</td>
-            <td>30-abr-1995</td>
-            <td>(41) 9 9999-5555</td>
-            <td></td>
-            <td>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                  class="fas fa-eye"></i></a>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-info" title="Editar"><i
-                  class="fas fa-edit"></i></a>
-              <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-            </td>
-          </tr>
-          <tr class="text-center">
-            <th scope="row">666</th>
-            <td>100.456.789-10</td>
-            <td class="text-left">Julia Carrara</td>
-            <td>14-jul-1999</td>
-            <td>(41) 9 9999-4444</td>
-            <td></td>
-            <td>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                  class="fas fa-eye"></i></a>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-info" title="Editar"><i
-                  class="fas fa-edit"></i></a>
-              <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-            </td>
-          </tr>
-          <tr class="text-center">
-            <th scope="row">777</th>
-            <td>777.456.789-10</td>
-            <td class="text-left">Bruno Marquez</td>
-            <td>16-dez-1997</td>
-            <td>(41) 9 9999-3333</td>
-            <td></td>
-            <td>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-success" title="Visualizar"><i
-                  class="fas fa-eye"></i></a>
-              <a href="menuColaboradoresGerente.html" class="btn btn-sm btn-info" title="Editar"><i
-                  class="fas fa-edit"></i></a>
-              <a href="#" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-            </td>
-          </tr>
+          </c:forEach>
         </tbody>
       </table>
     </div>

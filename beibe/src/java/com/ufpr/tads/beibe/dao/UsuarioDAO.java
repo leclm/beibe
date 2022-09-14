@@ -12,6 +12,8 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,7 +28,9 @@ public class UsuarioDAO implements DAO<Usuario>{
     
    private static final String QUERY_ALTERAR= "UPDATE tb_usuario SET nome=?, email=?, cpf=?, cep=?, rua=?, nr=?, complemento=?, bairro=?, cidade=?, uf=?, senha=MD5(?), tipo=?, telefone=? WHERE id=?;";
    
-         
+    private static final String QUERY_BUSCAR_TUDO_COLABORADOR= "SELECT id, nome, email, telefone, cpf, cep, rua, nr, complemento, bairro, cidade, uf, tipo FROM tb_usuario WHERE tipo='funcionario' OR tipo='gerente'" ; 
+
+    private static final String QUERY_EXCLUIR_POR_ID= "DELETE FROM tb_usuario WHERE id=?";    
 
     
     private Connection con= null;
@@ -172,6 +176,42 @@ public class UsuarioDAO implements DAO<Usuario>{
         }
         
         
+    }
+
+    public List<Usuario> buscarColaboradores()  throws DAOException {
+         List<Usuario> colaboradores = new ArrayList<>();
+         try(PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TUDO_COLABORADOR)) {
+             ResultSet rs = st.executeQuery(); 
+            while(rs.next()){
+                
+                Usuario colaborador = new Usuario(rs.getInt("id"), 
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        rs.getString("cep"),
+                        rs.getString("rua"),
+                        rs.getInt("nr"),
+                        rs.getString("complemento"),
+                        rs.getString("bairro"),
+                        rs.getString("cidade"),
+                        rs.getString("uf"),
+                        rs.getString("tipo"));
+                colaboradores.add(colaborador);        
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } 
+         return colaboradores;
+    }
+
+    public void removerUsuario(int id) throws DAOException {
+       try(PreparedStatement st = con.prepareStatement(QUERY_EXCLUIR_POR_ID)){
+            st.setInt(1, id);
+            st.executeUpdate();         
+        } catch (SQLException e) {
+            throw new DAOException("Erro ao  remover usuário: " + QUERY_EXCLUIR_POR_ID,e); 
+        }
     }
     
     
