@@ -148,6 +148,31 @@ public class UsuarioDAO implements DAO<Usuario>{
             throw new DAOException("Erro ao atualizar usuário: " + QUERY_ALTERAR,e); 
         }
     }
+
+   
+    public void  adicionarColaborador(Usuario colab) throws DAOException {
+        
+        try(PreparedStatement st = con.prepareStatement(QUERY_INSERIR_CLIENTE)){         
+            st.setString(1, colab.getNome());
+            st.setString(2, colab.getEmail());
+            st.setString(3, colab.getCpf());
+            st.setString(4, colab.getCep());
+            st.setString(5, colab.getRua());
+            st.setInt(6, colab.getNr());
+            st.setString(7, colab.getComplemento());
+            st.setString(8, colab.getBairro());
+            st.setString(9, colab.getCidade());
+            st.setString(10, colab.getUf());
+            st.setString(11, colab.getSenha());
+            st.setString(12, colab.getTipo());
+            st.setString(13, colab.getTelefone());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Erro ao inserir Colaborador: " + QUERY_INSERIR_CLIENTE,e);           
+        }
+        
+        
+    }
     
     
 }

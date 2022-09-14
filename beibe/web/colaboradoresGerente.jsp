@@ -43,7 +43,7 @@
     </h2>
 
     <!-- Botão para abertura de novo atendimento -->
-    <a href="addColaboradoresGerente.jsp" class="btn btn-lg btn-primary">
+    <a href="UsuarioServlet?action=entrarAddColaboradores" class="btn btn-lg btn-primary">
       <i class="fa fa-plus"></i>
       Novo Colaborador
     </a>

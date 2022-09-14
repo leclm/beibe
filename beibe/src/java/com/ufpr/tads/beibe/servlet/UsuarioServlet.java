@@ -181,6 +181,63 @@ public class UsuarioServlet extends HttpServlet {
                         rd = request.getRequestDispatcher("/cadastroCliente.jsp");
                         rd.forward(request, response);
                         break;
+                        
+                    case "entrarAddColaboradores":
+                     //Carrega a lista de estados, para apresentar na Combo
+                        estados = LocalidadeFacade.bucarTudoEstado();
+                        cidades = LocalidadeFacade.bucarTudoCidade();
+                        //ADD OB NA REQUISIÇÃO
+                        request.setAttribute("estados", estados);
+                        request.setAttribute("cidades", cidades);
+
+                        //ENVIA VIA FOWARD
+                        rd = request.getRequestDispatcher("/addColaboradoresGerente.jsp");
+                        rd.forward(request, response);
+                        break;
+                    
+                   
+                    case "adicionaColabolador":
+                        //Valores pegos do formulario, já no formato para BD
+                        cpf = request.getParameter("cpf");
+                        nome = request.getParameter("nome");
+                        email = request.getParameter("email");
+                        telefone = request.getParameter("telefone");
+                        cep = request.getParameter("cep");
+                        rua = request.getParameter("rua");
+                        nr = Integer.parseInt(request.getParameter("numero"));
+                        complemento = request.getParameter("complemento");
+                        bairro = request.getParameter("bairro");
+                        cidade = request.getParameter("cidade");
+                        uf = request.getParameter("estado");
+                        senha = request.getParameter("senha");
+                        tipo = request.getParameter("tipo");
+                        //cria um novo objeto cliente
+                        Usuario colab = new Usuario();
+                        //adiciona os valores a esse objeto
+                        colab.setCpf(cpf);
+                        colab.setNome(nome);
+                        colab.setEmail(email);
+                        colab.setTelefone(telefone);
+                        colab.setCep(cep);
+                        colab.setRua(rua);
+                        colab.setNr(nr);
+                        colab.setComplemento(complemento);
+                        colab.setBairro(bairro);
+                        colab.setCidade(cidade);
+                        colab.setUf(uf);
+                        colab.setSenha(senha);
+                        colab.setTipo(tipo);
+
+
+                        //função para inserir no bd via Facade
+                        UsuarioFacade.adicionarColaborador(colab);
+                        //redireciona
+                        request.setAttribute("info", " Colaborador adicionado com sucesso!");
+                        request.setAttribute("page", "addColaboradoresGerente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=entrarAddColaboradores");
+                        rd.forward(request, response);
+
+                        break;  
 
                     default:
                         //redireciona
