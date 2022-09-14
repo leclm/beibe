@@ -52,5 +52,16 @@ public class UsuarioFacade {
            throw new FacadeException("Erro ao alterar usuario",ex );
        }
     }
+
+   
+    public static void adicionarColaborador(Usuario colab) throws FacadeException {
+         try(ConnectionFactory con = new ConnectionFactory()){
+         UsuarioDAO dao= new UsuarioDAO(con.getConnection());
+         dao.adicionarColaborador(colab);
+         }
+         catch (DAOException ex){
+           throw new FacadeException("Erro ao adicionar colaborador",ex );
+       }
+    }
      
 }

@@ -38,6 +38,12 @@
 
   <!-- Corpo da página -->
    <main class="container">
+     <c:if test="${requestScope.info != null || param.info != null}" >
+                      <div class="alert alert-success alert-dismissible fade show">
+                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                          <span>${requestScope.info == null ? param.info : requestScope.info}</span>
+                      </div>
+        </c:if>
     <h2 class="mb-4">
       Funcionário/Gerente
     </h2>
@@ -66,7 +72,7 @@
            </div>
            
           <h3 class="mb-3 h4">Dados Pessoais</h3>
-       
+        
         <div class="col-12 col-md-6">
           <div class="form-group">
             <label for="clienteNome">Nome completo:</label>
@@ -76,7 +82,7 @@
                   <i class="fas fa-user"></i>
                 </span>
               </div>
-                <input type="text" id="clienteNome" class="form-control" name="nome" value="${cliente.nome}" />
+                <input type="text" class="form-control" name="nome" placeholder="Nome completo" />
             </div>
           </div>
           <div class="form-group">
@@ -87,9 +93,10 @@
                   <i class="fab fa-slack-hash"></i>
                 </span>
               </div>
-                <input type="text" id="clienteCpf" name="cpf" class="form-control" value="${cliente.cpf}" readonly />
+                 <input type="number" class="form-control" id="cpf" name="cpf" placeholder="CPF"/>
+              </div>
             </div>
-          </div>
+         
           <div class="form-group">
             <label for="clienteEmail">E-mail:</label>
             <div class="input-group mb-3">
@@ -98,7 +105,7 @@
                   <i class="fas fa-at"></i>
                 </span>
               </div>
-                <input type="email" id="clienteEmail" name="email" class="form-control" value="${cliente.email}" readonly />
+                <input type="email" class="form-control" name="email" placeholder="email@email.com" />
             </div>
           </div>
           <div class="form-group">
@@ -109,7 +116,7 @@
                   <i class="fas fa-at"></i>
                 </span>
               </div>
-                <input type="text" id="clienteTelefone" name="telefone" class="form-control" value="${cliente.telefone}" />
+                <input type="number" name="telefone" class="form-control" id="telefone" placeholder="(41) 99999-9999" />
             </div>
           </div>
           <div class="form-group">
@@ -120,7 +127,7 @@
                   <i class="fas fa-map-marker-alt"></i>
                 </span>
               </div>
-                <input type="text" id="clienteCep"  class="form-control" name="cep" value="${cliente.cep}" />
+                <input type="number" class="form-control" name="cep" placeholder="CEP" />
             </div>
           </div>
           <div class="form-group">
@@ -131,7 +138,7 @@
                   <i class="fas fa-map"></i>
                 </span>
               </div>
-                <input type="text" id="clienteRua" class="form-control" name="rua" value="${cliente.rua}"/>
+                <input type="text" class="form-control" name="rua" placeholder="Rua: xxxxxxxxxx" />
             </div>
           </div>
           <div class="row">
@@ -144,20 +151,20 @@
                       <i class="fas fa-map-marked-alt"></i>
                     </span>
                   </div>
-                    <input type="text" id="clienteNumero" class="form-control" name="numero" value="${cliente.nr}"/>
+                    <input type="number" class="form-control" name="numero" placeholder="Número" />
                 </div>
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label for="clienteComplemento">Complemento:</label>
-                <input type="text" id="clienteComplemento" class="form-control" name="complemento" value="${cliente.complemento}" />
+                 <input type="text" class="form-control" name="complemento" placeholder="Complemento" />
               </div>
             </div>
           </div>
           <div class="form-group">
             <label for="clienteBairro">Bairro:</label>
-            <input type="text" id="clienteBairro" class="form-control" name="bairro" value="${cliente.bairro}" />  
+            <input type="text" class="form-control" name="bairro" placeholder="Bairro" /> 
           </div>  
           <div class="form-group">
             <label for="clienteCidade">Cidade:</label>
@@ -186,9 +193,9 @@
           <h3 class="mb-3 h4">Adicionar Senha</h3>
           <div class="form-group">
             <label for="clienteSenha">Senha:</label>
-            <input type="password" id="clienteSenha" class="form-control" name="senha" value="${cliente.senha}"/>
+            <input type="password" class="form-control" name="senha" placeholder="Senha" />
           </div>
-      </div>
+        </div>
     </form>
   </main>
 
