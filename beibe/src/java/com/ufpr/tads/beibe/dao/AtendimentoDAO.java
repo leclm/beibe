@@ -211,7 +211,7 @@ public class AtendimentoDAO {
     public void removerAtendimento(int id) throws DAOException {
         try(PreparedStatement st = con.prepareStatement(QUERY_REMOVER_ATENDIMENTO)) {
             st.setInt(1, id);
-            st.executeQuery();
+            st.executeUpdate();
          } catch (SQLException e) {
             throw new DAOException(e);
         }
