@@ -189,14 +189,14 @@ public class UsuarioServlet extends HttpServlet {
                         //ADD OB NA REQUISIÇÃO
                         request.setAttribute("estados", estados);
                         request.setAttribute("cidades", cidades);
-
+                        request.setAttribute("formAction", "adicionaColaborador");
                         //ENVIA VIA FOWARD
                         rd = request.getRequestDispatcher("/addColaboradoresGerente.jsp");
                         rd.forward(request, response);
                         break;
                     
                    
-                    case "adicionaColabolador":
+                    case "adicionaColaborador":
                         //Valores pegos do formulario, já no formato para BD
                         cpf = request.getParameter("cpf");
                         nome = request.getParameter("nome");
@@ -287,8 +287,96 @@ public class UsuarioServlet extends HttpServlet {
                         rd.forward(request, response);
                         break;
                         
-                        case "alteraColaborador":
-                            //usar a pagina  dados colaborador após ajustar para 2 ações
+                        
+                        case "entrarAlteraColaboradores":
+                        id = Integer.parseInt(request.getParameter("id"));
+                        //carrega a lista de colaborador
+                        colaborador = UsuarioFacade.buscaPorID(id);
+                        request.setAttribute("colaborador", colaborador);
+                     //Carrega a lista de estados, para apresentar na Combo
+                        estados = LocalidadeFacade.bucarTudoEstado();
+                        cidades = LocalidadeFacade.bucarTudoCidade();
+                        //ADD OB NA REQUISIÇÃO
+                        request.setAttribute("estados", estados);
+                        request.setAttribute("cidades", cidades);
+                        request.setAttribute("formAction", "alteraColaborador");
+                        //ENVIA VIA FOWARD
+                        rd = request.getRequestDispatcher("/addColaboradoresGerente.jsp");
+                        rd.forward(request, response);
+                        break;
+                        
+                        case "alteraColaborador":     
+                        //Valores pegos do formulario, já no formato para BD
+                        id = Integer.parseInt(request.getParameter("id"));
+                        cpf = request.getParameter("cpf");
+                        nome = request.getParameter("nome");
+                        email = request.getParameter("email");
+                        telefone = request.getParameter("telefone");
+                        cep = request.getParameter("cep");
+                        rua = request.getParameter("rua");
+                        nr = Integer.parseInt(request.getParameter("numero"));
+                        complemento = request.getParameter("complemento");
+                        bairro = request.getParameter("bairro");
+                        cidade = request.getParameter("cidade");
+                        uf = request.getParameter("estado");
+                        senha = request.getParameter("senha");
+                        tipo = request.getParameter("tipo");
+                        //cria um novo objeto cliente
+                        colab = new Usuario();
+                        //adiciona os valores a esse objeto
+                        colab.setId(id);
+                        colab.setCpf(cpf);
+                        colab.setNome(nome);
+                        colab.setEmail(email);
+                        colab.setTelefone(telefone);
+                        colab.setCep(cep);
+                        colab.setRua(rua);
+                        colab.setNr(nr);
+                        colab.setComplemento(complemento);
+                        colab.setBairro(bairro);
+                        colab.setCidade(cidade);
+                        colab.setUf(uf);
+                        colab.setSenha(senha);
+                        colab.setTipo(tipo);
+                         
+                         
+                         
+                         // try ( PrintWriter out = response.getWriter()) {
+                            /* TODO output your page here. You may use following sample code. */
+                          /* out.println("<!DOCTYPE html>");
+                            out.println("<html>");
+                            out.println("<head>");
+                            out.println("<title>Servlet NewServlet</title>");            
+                            out.println("</head>");
+                            out.println("<body>");
+                            out.println("entrou");
+                            out.println(colab.getId());
+                            out.println(colab.getTipo());
+                           out.println(colab.getSenha());
+                            out.println(colab.getUf());
+                            out.println(colab.getCidade());
+                            out.println(colab.getBairro());
+                            out.println(colab.getComplemento());
+                            out.println(colab.getNr());
+                            out.println(colab.getRua());
+                            out.println(colab.getCep());
+                            out.println(colab.getTelefone());
+                            out.println(colab.getEmail());
+                            out.println(colab.getNome());
+                            out.println(colab.getCpf());
+                            out.println("</body>");
+                            out.println("</html>");}*/
+
+                        //função para alterar no bd via Facade
+                        UsuarioFacade.aterarUsuario(colab);
+                        
+                     
+                            
+                        //redireciona
+                        request.setAttribute("info", " Colaborador alterado com sucesso!");
+                        request.setAttribute("page", "colaboradoresGerente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=colaboradoresGerente");
+                        rd.forward(request, response);
                         break;
                         
 

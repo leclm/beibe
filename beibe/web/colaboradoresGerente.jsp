@@ -97,7 +97,7 @@
             <td>
               <a href="UsuarioServlet?action=verColaborador&id=<c:out value="${c.id}"/>" class="btn btn-sm btn-success" title="Visualizar"><i
                   class="fas fa-eye"></i></a>
-              <a href="UsuarioServlet?action=alterarColaborador&id=<c:out value="${c.id}"/>" class="btn btn-sm btn-info" title="Editar"><i
+              <a href="UsuarioServlet?action=entrarAlteraColaboradores&id=<c:out value="${c.id}"/>" class="btn btn-sm btn-info" title="Editar"><i
                   class="fas fa-edit"></i></a>
               <a href="javascript:void(0)" onclick="new excluirCliente(${c.id})" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
               
