@@ -15,12 +15,13 @@
     </c:redirect>
 </c:if>
 <c:if test="${ sessionScope.user != null }" >
-    <c:if test="${ sessionScope.user.tipo != 'funcionario' }" >
+    <c:if test="${ sessionScope.user.tipo != 'gerente' }" >
         <c:redirect url="index.jsp">
             <c:param name="msg" value="Usuário não possui permissão para acessar essa página."/>
         </c:redirect>
     </c:if>
 </c:if>
+<jsp:useBean id="dataBean" class="java.util.Date"/>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -39,7 +40,7 @@
 
   <body>
     <!-- Cabeçalho da página -->
-    <jsp:include page="headerFuncionario.jsp" />
+    <jsp:include page="headerGerente.jsp" />
 
     <!-- Corpo da página -->
     <main class="container">
@@ -48,7 +49,6 @@
       </h2>
 
       <!-- Filtro de visualização de atendimentos -->
-      <jsp:useBean id="dataBean" class="java.util.Date"/>
       <div class="mt-3">
         <div class="form-inline p-2 text-center">
           <div class="mr-3 form-inline">
@@ -80,14 +80,10 @@
                     <c:when test = "${a.situacaoAtendimento.nome.equals('Aberta')}">
                         <c:choose>
                             <c:when test="${(((dataBean.getTime() - a.dataHr.getTime()) / (1000 * 60 * 60 * 24)) % 365) ge 7}">
-                                <tr class="c-clickable table-danger text-center" 
-                                    data-href="FuncionarioServlet?action=mostrarAtendimento&id=<c:out value="${a.id}"/>&idu=<c:out 
-                                        value="${a.cliente.id}"/>">
+                                <tr class="table-danger text-center">
                             </c:when>
                             <c:otherwise>
-                                <tr class="c-clickable table-warning text-center" 
-                                    data-href="FuncionarioServlet?action=mostrarAtendimento&id=<c:out value="${a.id}"/>&idu=<c:out 
-                                        value="${a.cliente.id}"/>">
+                                <tr class="table-warning text-center">
                             </c:otherwise>
                         </c:choose>
                           <td><c:out value="${a.id}"/></td>
@@ -96,7 +92,7 @@
                           <td><fmt:formatDate value="${a.dataHr}" pattern="dd/MM/yyyy HH:mm"/></td>
                           <td><span class="badge badge-sm badge-info c-status"><c:out value="${a.situacaoAtendimento.nome}"/></span></td>
                         </tr>
-                    </c:when>  
+                    </c:when>
 
                     <c:when test = "${a.situacaoAtendimento.nome.equals('Finalizada')}">
                         <tr class="table-dark text-center">

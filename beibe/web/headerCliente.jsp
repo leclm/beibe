@@ -17,7 +17,7 @@
                 
         <ul class="navbar-nav text-white">
           <li class="nav-item">
-            <a class="nav-link active" href="AtendimentoServlet?action=mostrarPortalCliente">Meus Atendimentos</a>
+            <a class="nav-link" href="AtendimentoServlet?action=mostrarPortalCliente">Meus Atendimentos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="UsuarioServlet?action=mostrarCliente">Meus Dados</a>

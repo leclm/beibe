@@ -155,6 +155,19 @@ public class AtendimentoServlet extends HttpServlet {
                         rd = getServletContext().getRequestDispatcher("/portalGerente.jsp");
                         rd.forward(request, response);
                         break;
+                    
+                    case "mostrarAtendimentosGerente":
+                        //Carrega a lista de atendimentos para apresentar
+                        atendimentos = AtendimentoFacade.buscarTudo();
+
+                        //ADD OBJ NA REQUISIÇÃO
+                        request.setAttribute("atendimentos", atendimentos);
+
+                        //redireciona
+                        rd = getServletContext().getRequestDispatcher("/atendimentosGerente.jsp");
+                        rd.forward(request, response);
+
+                        break;
                         
                     case "removeAtendimento":
                         ida = Integer.parseInt(request.getParameter("ida"));
