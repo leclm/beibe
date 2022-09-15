@@ -39,17 +39,12 @@
 
 <body>
        <script type="text/javascript" >
-                        function excluirCliente(id)
-                        {
-                        var x;
-                        var r=confirm("Tem certeza que deseja remover o colaborador ${id}?");
-                        if (r==true)
-                        {
-                            href = "UsuarioServlet?action=removeColaborador&id=${id}";
-                            x= "Colaborador removido!";
-                          }
-                        
-                        }
+        function excluirColaborador(id){
+            excluir = confirm('Tem certeza que deseja excluir o colaborador?');
+        if (excluir) {
+            document.location.href= ("UsuarioServlet?action=removeColaborador&id="+ id);
+        }
+    }
         </script>
 
   <!-- Cabeçalho da página -->
@@ -106,9 +101,8 @@
                   class="fas fa-eye"></i></a>
               <a href="UsuarioServlet?action=entrarAlteraColaboradores&id=<c:out value="${c.id}"/>" class="btn btn-sm btn-info" title="Editar"><i
                   class="fas fa-edit"></i></a>
-              <a href="javascript:void(0)" onclick="new excluirCliente(${c.id})" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
-              
-              
+              <a onclick="excluirColaborador(${c.id})" class="btn btn-sm btn-danger" title="Excluir"><i class="fas fa-trash-alt"></i></a>
+                  
             </td>
           </tr>
           </c:forEach>
