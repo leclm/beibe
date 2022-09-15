@@ -14,6 +14,13 @@
         <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
     </c:redirect>
 </c:if> 
+<c:if test="${ sessionScope.user != null }" >
+    <c:if test="${ sessionScope.user.tipo != 'gerente' }" >
+        <c:redirect url="index.jsp">
+            <c:param name="msg" value="Usuário não possui permissão para acessar essa página."/>
+        </c:redirect>
+    </c:if>
+</c:if>
 <!DOCTYPE html>
 <html lang="pt-BR">
 

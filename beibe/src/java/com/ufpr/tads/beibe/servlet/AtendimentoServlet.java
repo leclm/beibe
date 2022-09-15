@@ -134,6 +134,27 @@ public class AtendimentoServlet extends HttpServlet {
                         rd.forward(request, response);
 
                         break;
+                    
+                    case "mostrarPortalGerente":
+                        //Carrega quantidade de atendimentos
+                        int qntAtendimentosTotal = AtendimentoFacade.getQuantidadeAtendimentosTodos();
+                        int qntAtendimentosAbertos = AtendimentoFacade.getQuantidadeAtendimentosAbertos();
+                        
+                        //ADD na requisição
+                        request.setAttribute("qntAtendimentosTotal", qntAtendimentosTotal);
+                        request.setAttribute("qntAtendimentosAbertos", qntAtendimentosAbertos);
+                        
+                        //Carrega a lista de categorias para apresentar
+                        List<CategoriaAtendimento> categorias = CategoriaAtendimentoFacade.buscarCategoriaAtendimento();
+                        List<CategoriaAtendimento> categoriasAtendimento = AtendimentoFacade.getAtendimentosByCategoria(categorias);
+
+                        //ADD OBJ NA REQUISIÇÃO
+                        request.setAttribute("categoriasAtendimento", categoriasAtendimento);
+
+                        //redireciona
+                        rd = getServletContext().getRequestDispatcher("/portalGerente.jsp");
+                        rd.forward(request, response);
+                        break;
                         
                     case "removeAtendimento":
                         ida = Integer.parseInt(request.getParameter("ida"));

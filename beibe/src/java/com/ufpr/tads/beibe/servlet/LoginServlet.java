@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
                                 response.sendRedirect("FuncionarioServlet?action=mostrarPortalFuncionario");
                                 break;
                             case "gerente":
-                                response.sendRedirect("portalGerente.jsp");
+                                response.sendRedirect("AtendimentoServlet?action=mostrarPortalGerente");
                                 break;
                             default:
                                request.setAttribute("msg", " Usuário/Senha inválidos.");

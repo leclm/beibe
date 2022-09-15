@@ -8,22 +8,17 @@ import com.ufpr.tads.beibe.beans.Cidade;
 import com.ufpr.tads.beibe.beans.Estado;
 import com.ufpr.tads.beibe.beans.LoginBean;
 import com.ufpr.tads.beibe.beans.Usuario;
-import com.ufpr.tads.beibe.dao.CidadeDAO;
-import com.ufpr.tads.beibe.dao.EstadoDAO;
 import com.ufpr.tads.beibe.exception.FacadeException;
 import com.ufpr.tads.beibe.facade.LocalidadeFacade;
 import com.ufpr.tads.beibe.facade.UsuarioFacade;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,7 +48,6 @@ public class UsuarioServlet extends HttpServlet {
                 response.sendRedirect("LogoutServlet");
             } else{
                 switch (action) {
-
                     case "autocadastro":
                         //Valores pegos do formulario, já no formato para BD
                         String cpf = request.getParameter("cpf");
@@ -135,8 +129,6 @@ public class UsuarioServlet extends HttpServlet {
                         rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=mostrarCliente");
                         rd.forward(request, response); 
                         }
-                        
-
 
                         //cria um novo objeto cliente
                         Usuario u = new Usuario();
@@ -157,7 +149,7 @@ public class UsuarioServlet extends HttpServlet {
                         u.setTipo(tipo);
 
 
-                      //função para atualizar no bd via Facade
+                        //função para atualizar no bd via Facade
                         UsuarioFacade.aterarUsuario(u);
 
                         //redireciona
@@ -170,7 +162,7 @@ public class UsuarioServlet extends HttpServlet {
 
 
                     case "entrarCadastro":
-                     //Carrega a lista de estados, para apresentar na Combo
+                        //Carrega a lista de estados, para apresentar na Combo
                         estados = LocalidadeFacade.bucarTudoEstado();
                         cidades = LocalidadeFacade.bucarTudoCidade();
                         //ADD OB NA REQUISIÇÃO
@@ -253,7 +245,7 @@ public class UsuarioServlet extends HttpServlet {
                         rd.forward(request, response);
                         break;
                         
-                        case "removeColaborador":
+                    case "removeColaborador":
                         id = Integer.parseInt(request.getParameter("id"));
 
                         //remove atendimento
@@ -267,7 +259,7 @@ public class UsuarioServlet extends HttpServlet {
                         
                         break;
                         
-                        case "verColaborador":
+                    case "verColaborador":
                         id = Integer.parseInt(request.getParameter("id"));
                         
                         //carrega a lista de colaborador
@@ -288,12 +280,12 @@ public class UsuarioServlet extends HttpServlet {
                         break;
                         
                         
-                        case "entrarAlteraColaboradores":
+                    case "entrarAlteraColaboradores":
                         id = Integer.parseInt(request.getParameter("id"));
                         //carrega a lista de colaborador
                         colaborador = UsuarioFacade.buscaPorID(id);
                         request.setAttribute("colaborador", colaborador);
-                     //Carrega a lista de estados, para apresentar na Combo
+                        //Carrega a lista de estados, para apresentar na Combo
                         estados = LocalidadeFacade.bucarTudoEstado();
                         cidades = LocalidadeFacade.bucarTudoCidade();
                         //ADD OB NA REQUISIÇÃO
@@ -305,7 +297,7 @@ public class UsuarioServlet extends HttpServlet {
                         rd.forward(request, response);
                         break;
                         
-                        case "alteraColaborador":     
+                    case "alteraColaborador":     
                         //Valores pegos do formulario, já no formato para BD
                         id = Integer.parseInt(request.getParameter("id"));
                         cpf = request.getParameter("cpf");
@@ -338,47 +330,16 @@ public class UsuarioServlet extends HttpServlet {
                         colab.setUf(uf);
                         colab.setSenha(senha);
                         colab.setTipo(tipo);
-                         
-                         
-                         
-                         // try ( PrintWriter out = response.getWriter()) {
-                            /* TODO output your page here. You may use following sample code. */
-                          /* out.println("<!DOCTYPE html>");
-                            out.println("<html>");
-                            out.println("<head>");
-                            out.println("<title>Servlet NewServlet</title>");            
-                            out.println("</head>");
-                            out.println("<body>");
-                            out.println("entrou");
-                            out.println(colab.getId());
-                            out.println(colab.getTipo());
-                           out.println(colab.getSenha());
-                            out.println(colab.getUf());
-                            out.println(colab.getCidade());
-                            out.println(colab.getBairro());
-                            out.println(colab.getComplemento());
-                            out.println(colab.getNr());
-                            out.println(colab.getRua());
-                            out.println(colab.getCep());
-                            out.println(colab.getTelefone());
-                            out.println(colab.getEmail());
-                            out.println(colab.getNome());
-                            out.println(colab.getCpf());
-                            out.println("</body>");
-                            out.println("</html>");}*/
 
                         //função para alterar no bd via Facade
                         UsuarioFacade.aterarUsuario(colab);
                         
-                     
-                            
                         //redireciona
                         request.setAttribute("info", " Colaborador alterado com sucesso!");
                         request.setAttribute("page", "colaboradoresGerente.jsp");
                         rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=colaboradoresGerente");
                         rd.forward(request, response);
                         break;
-                        
 
                     default:
                         //redireciona

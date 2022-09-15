@@ -13,6 +13,8 @@ import java.io.Serializable;
 public class CategoriaAtendimento implements Serializable {
     private int id;
     private String nome;
+    private int totalAtendimentos;
+    private int atendimentosAbertos;
 
     public CategoriaAtendimento() {
     }
@@ -20,6 +22,13 @@ public class CategoriaAtendimento implements Serializable {
     public CategoriaAtendimento(int id, String nome) {
         this.id = id;
         this.nome = nome;
+    }
+    
+    public CategoriaAtendimento(int id, String nome, int totalAtendimentos, int atendimentosAbertos) {
+        this.id = id;
+        this.nome = nome;
+        this.totalAtendimentos = totalAtendimentos;
+        this.atendimentosAbertos = atendimentosAbertos;
     }
 
     public int getId() {
@@ -36,6 +45,22 @@ public class CategoriaAtendimento implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public int getTotalAtendimentos() {
+        return totalAtendimentos;
+    }
+    
+    public void setTotalAtendimentos(int totalAtendimentos) {
+        this.totalAtendimentos = totalAtendimentos;
+    }
+
+    public int getAtendimentosAbertos() {
+        return atendimentosAbertos;
+    }
+
+    public void setAtendimentosAbertos(int atendimentosAbertos) {
+        this.atendimentosAbertos = atendimentosAbertos;
     }
     
 }
