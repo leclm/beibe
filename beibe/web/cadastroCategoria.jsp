@@ -37,33 +37,7 @@
   
   <body>
     <!-- Cabeçalho da página -->
-    <header class="container-fluid bg-info mb-4">
-      <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
-        <a class="navbar-brand" href="funcionario.jsp">
-          <img src="./assets/sacW.png" width="30" height="30" class="d-inline-block align-top" alt="Logo do sistema" />
-          <span class="text-white-50 h4 c-title">SAC - Sistema de Atendimento ao Cliente</span>
-        </a>
-        <div class="container">
-          <ul class="navbar-nav text-white">
-            <li class="nav-item">
-              <a class="nav-link" href="FuncionarioServlet?action=mostrarPortalFuncionario">Atendimentos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="CategoriaProdutoServlet?action=listarCategoriaProduto">Categorias</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="ProdutoServlet?action=listarProduto">Produtos</a>
-            </li>
-          </ul>
-        </div>
-        <div class="form-inline">
-          <a href="./index.jsp" class="alert-link text-white my-2 my-sm-0">
-            <i class="fas fa-power-off"></i><br>
-            Sair
-          </a>
-        </div>
-      </nav>
-    </header>
+    <jsp:include page="headerFuncionario.jsp" />
     
     <!-- Corpo da página -->
     <main class="container">
@@ -94,5 +68,6 @@
 
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/scripts.js"></script>
+    <jsp:include page="footer.jsp" />
   </body>
 </html>

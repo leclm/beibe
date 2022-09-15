@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:useBean id="configuracao" class="com.ufpr.tads.beibe.beans.ConfigBean" scope="application" /> 
-  <div class="text-secondary c-subtitle">
+    <div class="text-secondary c-subtitle mt-5">
       <p class ="text-center">Serviço de Atendimento ao Cliente da <strong>Embuste</strong><sup>&copy;</sup></p>
       <p class ="text-center"> ${configuracao.endereco}
       <p class ="text-center"><i class="fa fa-phone-alt"></i> ${configuracao.telefone}</p>
