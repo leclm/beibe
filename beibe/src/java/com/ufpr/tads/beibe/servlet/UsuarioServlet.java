@@ -268,7 +268,23 @@ public class UsuarioServlet extends HttpServlet {
                         break;
                         
                         case "verColaborador":
-                            //usar a pagina  dados colaborador após ajustar para 2 ações
+                        id = Integer.parseInt(request.getParameter("id"));
+                        
+                        //carrega a lista de colaborador
+                        Usuario colaborador = UsuarioFacade.buscaPorID(id);
+                        request.setAttribute("colaborador", colaborador);
+                        
+                        //Carrega a lista de estados, para apresentar na Combo
+                        estados = LocalidadeFacade.bucarTudoEstado();
+                        cidades = LocalidadeFacade.bucarTudoCidade();
+                        
+                        //ADD OB NA REQUISIÇÃO
+                        request.setAttribute("estados", estados);
+                        request.setAttribute("cidades", cidades);
+
+                        //ENVIA VIA FOWARD
+                        rd = request.getRequestDispatcher("/dadosColaborador.jsp");
+                        rd.forward(request, response);
                         break;
                         
                         case "alteraColaborador":
