@@ -61,7 +61,7 @@ public class UsuarioDAO implements DAO<Usuario>{
             st.setString(13, c.getTelefone());
             st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Erro ao inserir Cliente: " + QUERY_INSERIR_CLIENTE,e);           
+            throw new DAOException(e);          
         }
         
         
@@ -93,7 +93,7 @@ public class UsuarioDAO implements DAO<Usuario>{
                 }
             }
         } catch (SQLException e) {
-             throw new DAOException("Erro ao buscar usuário: " + QUERY_BUSCAR_LOGIN,e); 
+             throw new DAOException(e);
         }
         return user;
     }
@@ -122,7 +122,7 @@ public class UsuarioDAO implements DAO<Usuario>{
                
             }
         } catch (SQLException e) {
-            throw new DAOException("Erro ao buscar usuário: " + QUERY_BUSCAR_POR_ID,e); 
+            throw new DAOException(e);
         }
         return user;
     }
@@ -149,7 +149,7 @@ public class UsuarioDAO implements DAO<Usuario>{
             st.executeUpdate();
             
         } catch (SQLException e) {
-            throw new DAOException("Erro ao atualizar usuário: " + QUERY_ALTERAR,e); 
+            throw new DAOException(e);
         }
     }
 
@@ -172,7 +172,7 @@ public class UsuarioDAO implements DAO<Usuario>{
             st.setString(13, colab.getTelefone());
             st.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Erro ao inserir Colaborador: " + QUERY_INSERIR_CLIENTE,e);           
+            throw new DAOException(e);           
         }
         
         
@@ -210,7 +210,7 @@ public class UsuarioDAO implements DAO<Usuario>{
             st.setInt(1, id);
             st.executeUpdate();         
         } catch (SQLException e) {
-            throw new DAOException("Erro ao  remover usuário: " + QUERY_EXCLUIR_POR_ID,e); 
+           throw new DAOException(e);
         }
     }
     
