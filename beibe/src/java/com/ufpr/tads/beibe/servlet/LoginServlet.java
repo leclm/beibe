@@ -51,12 +51,10 @@ public class LoginServlet extends HttpServlet {
              RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
              rd.forward(request, response); 
          } 
-                Usuario user;
+             Usuario user;
         try {
             user = UsuarioFacade.login(email,senha);
-            boolean isValid = user.getId() > 0 ? true : false;
-                if (isValid) {
-                   //Armazena o nome do usuário na sessão (indicando que o usuário está logado)
+            if(user != null) {      //Armazena o nome do usuário na sessão (indicando que o usuário está logado)
                         HttpSession session = request.getSession();
                         LoginBean bean = new LoginBean();
                         bean.setId(user.getId());
@@ -77,14 +75,22 @@ public class LoginServlet extends HttpServlet {
                             default:
                                request.setAttribute("msg", " Usuário/Senha inválidos.");
                                request.setAttribute("page", "index.jsp");
-                               RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
-                               break;
-                        }    
-                    } 
+                               RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                               rd.forward(request, response);
+                               break;}
+            } else {
+                                request.setAttribute("msg", " Usuário/Senha inválidos.");
+                                request.setAttribute("page", "index.jsp");
+                                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                                rd.forward(request, response);
+                                }
+                            
+                    
         }catch (FacadeException ex) {
                 request.setAttribute("msg", " Usuário/Senha inválidos.");
                 request.setAttribute("page", "index.jsp");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
         }
                 
             
