@@ -99,7 +99,7 @@ public class FuncionarioServlet extends HttpServlet {
                         request.setAttribute("atendimentos", atendimentos);
 
                         //redireciona
-                        rd = getServletContext().getRequestDispatcher("/atendimentos.jsp");
+                        rd = getServletContext().getRequestDispatcher("/portalFuncionario.jsp");
                         rd.forward(request, response);
 
                         break;

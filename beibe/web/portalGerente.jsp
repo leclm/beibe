@@ -14,6 +14,13 @@
         <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
     </c:redirect>
 </c:if> 
+<c:if test="${ sessionScope.user != null }" >
+    <c:if test="${ sessionScope.user.tipo != 'gerente' }" >
+        <c:redirect url="index.jsp">
+            <c:param name="msg" value="Usuário não possui permissão para acessar essa página."/>
+        </c:redirect>
+    </c:if>
+</c:if>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -40,81 +47,38 @@
     <h2 class="mb-4">
       Bem-vindo(a), <strong>${sessionScope.user.nome}</strong>
     </h2>
-    <div class="card-columns">
-        <div class="card-link">
-          <div class="text-light">
-              <div class="card bg-info" style="max-width: 18rem;">
-                  <div class="card-header">Atendimento(s) Vencido(s)</div>
-                  <div class="card-body text-center">
-                      <p class="card-text display-3">
-                          <i class="fa fa-thumbs-down"></i>
-                      </p>
-                  </div>
-                  <a href="atendimentos.html" class="stretched-link h-0"></a>
-              </div>
-          </div>
-          
-          <div class="text-light">
-              <div class="card bg-info" style="max-width: 18rem;">
-                  <div class="card-header">Atendimento(s) em Aberto</div>
-                  <div class="card-body text-center">
-                      <p class="card-text display-3">
-                          <i class="fa fa-history"></i>
-                      </p>
-                  </div>
-                  <a href="atendimentos.html" class="stretched-link h-0"></a>
-              </div>
-          </div>
-
-          <div class="text-light">
-              <div class="card bg-info" style="max-width: 18rem;">
-                  <div class="card-header">Relatório de Funcionários</div>
-                  <div class="card-body text-center">
-                      <p class="card-text display-3">
-                          <i class="fa fa-file-pdf"></i>
-                      </p>
-                  </div>
-                  <a href="#" onclick="alert('Recurso indisponível!')" class="stretched-link h-0"></a>
-              </div>
-          </div>
-
-          <div class="text-light">
-              <div class="card bg-info" style="max-width: 18rem;">
-                  <div class="card-header">Relatório de Produtos Mais Reclamados</div>
-                  <div class="card-body text-center">
-                      <p class="card-text display-3">
-                          <i class="fa fa-file-pdf"></i>
-                      </p>
-                  </div>
-                  <a href="#" onclick="alert('Recurso indisponível!')" class="stretched-link h-0"></a>
-              </div>
-          </div>
-          
-          <div class="text-light">
-              <div class="card bg-info" style="max-width: 18rem;">
-                  <div class="card-header">Relatório de Atendimentos Abertos</div>
-                  <div class="card-body text-center">
-                      <p class="card-text display-3">
-                          <i class="fa fa-file-pdf"></i>
-                      </p>
-                  </div>
-                  <a href="#" onclick="alert('Recurso indisponível!')" class="stretched-link h-0"></a>
-              </div>
-          </div>
-
-          <div class="text-light">
-              <div class="card bg-info" style="max-width: 18rem;">
-                  <div class="card-header">Relatório de Reclamações</div>
-                  <div class="card-body text-center">
-                      <p class="card-text display-3">
-                          <i class="fa fa-file-pdf"></i>
-                      </p>
-                  </div>
-                  <a href="#" onclick="alert('Recurso indisponível!')" class="stretched-link h-0"></a>
-              </div>
-          </div>
-        </div>
-      </div>
+    <div>
+        <h5 class="text-success">Total de Atendimentos:</h5>
+        <h5>
+            <small class="text-muted"><c:out value="${requestScope.qntAtendimentosTotal}"/></small>
+        </h5>
+            
+        <h5 class="text-success">Atendimentos em Aberto:</h5>
+        <h5>
+            <c:set var="porcentagemAtendimentosAbertos" scope="request" value="${requestScope.qntAtendimentosAbertos/requestScope.qntAtendimentosTotal}"/>
+            <small class="text-muted"><c:out value="${requestScope.qntAtendimentosAbertos}"/> (<fmt:formatNumber type = "percent" maxIntegerDigits="3" minFractionDigits = "2" value = "${porcentagemAtendimentosAbertos}"/>)</small>
+        </h5>
+        
+        </br><h2 class="mb-4">Categorias de Atendimentos</h2>
+        <table class="table table-hover">
+            <thead class="c-thead">
+                <tr>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Total de Atendimentos</th>
+                    <th scope="col">Atendimentos em Aberto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${categoriasAtendimento}" var="categoria">
+                    <tr>
+                        <td><c:out value="${categoria.nome}"/></td>
+                        <td><c:out value="${categoria.totalAtendimentos}"/></td>
+                        <td><c:out value="${categoria.atendimentosAbertos}"/></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
   </main>
 
    <jsp:include page="footer.jsp" />

@@ -5,10 +5,12 @@
 package com.ufpr.tads.beibe.facade;
 
 import com.ufpr.tads.beibe.beans.Atendimento;
+import com.ufpr.tads.beibe.beans.CategoriaAtendimento;
 import com.ufpr.tads.beibe.dao.AtendimentoDAO;
 import com.ufpr.tads.beibe.dao.ConnectionFactory;
 import com.ufpr.tads.beibe.exception.DAOException;
 import com.ufpr.tads.beibe.exception.FacadeException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,5 +81,51 @@ public class AtendimentoFacade {
            throw new FacadeException("[ERRO] ao remover atendimento:\n ", ex);
        }
     }
+    
+    public static int getQuantidadeAtendimentosTodos() throws FacadeException {
+        try(ConnectionFactory con = new ConnectionFactory()){
+           AtendimentoDAO dao= new AtendimentoDAO(con.getConnection());
+           return dao.getQuantidadeAtendimentosTodos();
+        } catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao buscar a quantidade total de atendimentos:\n ", ex);
+       }
+    }
+    
+    public static int getQuantidadeAtendimentosAbertos() throws FacadeException {
+        try(ConnectionFactory con = new ConnectionFactory()){
+           AtendimentoDAO dao= new AtendimentoDAO(con.getConnection());
+           return dao.getQuantidadeAtendimentosAbertos();
+        } catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao buscar a quantidade total de atendimentos abertos:\n ", ex);
+       }
+    }
    
+    public static List<CategoriaAtendimento> getAtendimentosByCategoria(List<CategoriaAtendimento> listaCategorias) throws FacadeException {
+        List<CategoriaAtendimento> listaFinal = new ArrayList<>();
+        
+        int qntAtendimentosTotal = 0;
+        int qntAtendimentosAbertos = 0;
+        
+        try (ConnectionFactory con = new ConnectionFactory()) {
+            for (CategoriaAtendimento itemCategoria : listaCategorias){
+                CategoriaAtendimento categoria = new CategoriaAtendimento();
+                
+                categoria.setId(itemCategoria.getId());
+                categoria.setNome(itemCategoria.getNome());
+                
+                AtendimentoDAO dao = new AtendimentoDAO(con.getConnection());
+                
+                qntAtendimentosTotal = dao.queryQuantidadeAtendimentosByCategoriaAtendimentoId(categoria.getId());
+                categoria.setTotalAtendimentos(qntAtendimentosTotal);
+                
+                qntAtendimentosAbertos = dao.queryQuantidadeAtendimentosAbertosByCategoriaAtendimentoId(categoria.getId());
+                categoria.setAtendimentosAbertos(qntAtendimentosAbertos);
+                
+                listaFinal.add(categoria);
+            }
+            return listaFinal;
+        } catch (DAOException ex) {
+           throw new FacadeException("[ERRO] ao buscar atendimentos por categoria:\n ", ex);
+       }
+    }
 }

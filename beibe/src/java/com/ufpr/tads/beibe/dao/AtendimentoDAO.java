@@ -34,6 +34,24 @@ public class AtendimentoDAO {
     
     private static final String QUERY_ALTERAR_ATENDIMENTO = "UPDATE tb_atendimento SET id_situacao=?,solucao=? WHERE id=?";
     
+    private final String QUERY_QNT_ANTEDIMENTOS_TOTAL = "SELECT count(*) as qntAtendimentos FROM tb_atendimento";
+    
+    private final String QUERY_QNT_ATENDIMENTOS_ABERTOS = "select count (a.id_categoria_atendimento) as atendimentosabertos from tb_atendimento a \n" +
+                        "inner join tb_situacao_atendimento sa on (a.id_situacao = sa.id) \n" +
+                        "where sa.nome = 'Aberta'";
+    
+    private final String QUERY_QNT_ANTEDIMENTOS_TOTAL_BY_CATEGORIA_ATENDIMENTO_ID = "select count (a.id_categoria_atendimento) \n" +
+                        "as atendimentosabertos from tb_atendimento a\n" +
+                        "inner join tb_categoria_atendimento tca on (a.id_categoria_atendimento = tca.id)\n" +
+                        "inner join tb_situacao_atendimento sa on (a.id_situacao = sa.id)\n" +
+                        "where tca.id = ?";
+    
+    private final String QUERY_QNT_ANTEDIMENTOS_ABERTOS_BY_CATEGORIA_ATENDIMENTO_ID = "select count (a.id_categoria_atendimento) \n" +
+                        "as atendimentosabertos from tb_atendimento a\n" +
+                        "inner join tb_categoria_atendimento tca on (a.id_categoria_atendimento = tca.id)\n" +
+                        "inner join tb_situacao_atendimento sa on (a.id_situacao = sa.id)\n" +
+                        "where tca.id = ? and sa.nome = 'Aberta'";
+    
     private Connection con= null;
     
     public AtendimentoDAO(Connection con) throws DAOException {
@@ -213,6 +231,54 @@ public class AtendimentoDAO {
             st.setInt(1, id);
             st.executeUpdate();
          } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+    
+    public int getQuantidadeAtendimentosTodos() throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_QNT_ANTEDIMENTOS_TOTAL)) {
+            try (ResultSet rs = st.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+    
+    public int getQuantidadeAtendimentosAbertos() throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_QNT_ATENDIMENTOS_ABERTOS)) {
+            try (ResultSet rs = st.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+    
+    public int queryQuantidadeAtendimentosByCategoriaAtendimentoId(int id) throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_QNT_ANTEDIMENTOS_TOTAL_BY_CATEGORIA_ATENDIMENTO_ID)) {
+            st.setInt(1, id);
+            
+            try (ResultSet rs = st.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+    
+    public int queryQuantidadeAtendimentosAbertosByCategoriaAtendimentoId(int id) throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_QNT_ANTEDIMENTOS_ABERTOS_BY_CATEGORIA_ATENDIMENTO_ID)) {
+            st.setInt(1, id);
+            
+            try (ResultSet rs = st.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
