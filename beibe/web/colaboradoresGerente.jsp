@@ -95,7 +95,7 @@
             <td></td>
             </c:if> 
             <td>
-              <a href="UsuarioServlet?action=mostrarColaborador&id=<c:out value="${c.id}"/>" class="btn btn-sm btn-success" title="Visualizar"><i
+              <a href="UsuarioServlet?action=verColaborador&id=<c:out value="${c.id}"/>" class="btn btn-sm btn-success" title="Visualizar"><i
                   class="fas fa-eye"></i></a>
               <a href="UsuarioServlet?action=alterarColaborador&id=<c:out value="${c.id}"/>" class="btn btn-sm btn-info" title="Editar"><i
                   class="fas fa-edit"></i></a>
