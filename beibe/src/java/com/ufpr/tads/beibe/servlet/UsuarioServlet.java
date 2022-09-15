@@ -247,15 +247,25 @@ public class UsuarioServlet extends HttpServlet {
                         
                     case "removeColaborador":
                         id = Integer.parseInt(request.getParameter("id"));
-
+                        session = request.getSession();
+                        user = (LoginBean)session.getAttribute("user");
+                        int idu = user.getId();
+                        if(idu == id){
+                         //redireciona
+                        request.setAttribute("info", " Não é possível excluir o próprio usuário!");
+                        request.setAttribute("page", "colaboradoresGerente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=colaboradoresGerente");
+                        rd.forward(request, response);
+                        
+                        } else{
                         //remove atendimento
                         UsuarioFacade.removerUsuario(id);
 
                          //redireciona
-                        request.setAttribute("info", " Atendimento removido com sucesso!");
+                        request.setAttribute("info", " Colaborador removido com sucesso!");
                         request.setAttribute("page", "colaboradoresGerente.jsp");
                         rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=colaboradoresGerente");
-                        rd.forward(request, response);
+                        rd.forward(request, response);}
                         
                         break;
                         
