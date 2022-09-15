@@ -49,7 +49,7 @@
     </h2>
 
     <!-- Formulário para add os dados do colaborador -->
-   <form action="UsuarioServlet?action=adicionaColabolador" method="POST" class="mt-5">
+   <form action="UsuarioServlet?action=${formAction}" method="POST" class="mt-5">
       
       <div class="row">
         <div class="col-12 jsutify-content-between">
@@ -59,13 +59,16 @@
           </button>
          </div>
         </div>
+            <div class="col-sm-10">
+            <input type="hidden" class="form-control" name="id" id="id"  value="${colaborador.id}" >
+                </div>
            <div class="form-group">
             <h3 class="mb-3 h4">Escolha a Função:</h3>
             <div class="col-4 col-md-3">
            <div class="input-group mb-lg-3">
-              <input type="radio" id="funcionario" class="form-control" name="tipo" value="funcionario"/>
+               <input type="radio" id="funcionario" class="form-control" name="tipo" value="funcionario"   <c:if test="${colaborador.tipo.equals('funcionario')}">checked</c:if>/>
               <label for="funcionario">Funcionário</label><br>
-              <input type="radio" id="gerente" class="form-control" name="tipo" value="gerente"/>
+              <input type="radio" id="gerente" class="form-control" name="tipo" value="gerente"  <c:if test="${colaborador.tipo.equals('gerente')}">checked</c:if>/>
               <label for="gerente">Gerente</label><br>
             </div>
              </div>
@@ -82,7 +85,7 @@
                   <i class="fas fa-user"></i>
                 </span>
               </div>
-                <input type="text" class="form-control" name="nome" placeholder="Nome completo" />
+                <input type="text" class="form-control" name="nome" value="${colaborador.nome}" />
             </div>
           </div>
           <div class="form-group">
@@ -93,8 +96,8 @@
                   <i class="fab fa-slack-hash"></i>
                 </span>
               </div>
-                 <input type="number" class="form-control" id="cpf" name="cpf" placeholder="CPF"/>
-              </div>
+                <input type="text" id="cpf" name="cpf" class="form-control" value="${colaborador.cpf}"/>
+            </div>
             </div>
          
           <div class="form-group">
@@ -105,7 +108,7 @@
                   <i class="fas fa-at"></i>
                 </span>
               </div>
-                <input type="email" class="form-control" name="email" placeholder="email@email.com" />
+                <input type="email" class="form-control" name="email" value="${colaborador.email}"/>
             </div>
           </div>
           <div class="form-group">
@@ -116,7 +119,7 @@
                   <i class="fas fa-at"></i>
                 </span>
               </div>
-                <input type="number" name="telefone" class="form-control" id="telefone" placeholder="(41) 99999-9999" />
+                <input type="text" id="telefone" name="telefone" class="form-control" value="${colaborador.telefone}" />
             </div>
           </div>
           <div class="form-group">
@@ -127,7 +130,7 @@
                   <i class="fas fa-map-marker-alt"></i>
                 </span>
               </div>
-                <input type="number" class="form-control" name="cep" placeholder="CEP" />
+                <input type="text" class="form-control" name="cep" value="${colaborador.cep}"/>
             </div>
           </div>
           <div class="form-group">
@@ -138,7 +141,7 @@
                   <i class="fas fa-map"></i>
                 </span>
               </div>
-                <input type="text" class="form-control" name="rua" placeholder="Rua: xxxxxxxxxx" />
+                <input type="text" class="form-control" name="rua" value="${colaborador.rua}"/>
             </div>
           </div>
           <div class="row">
@@ -151,27 +154,27 @@
                       <i class="fas fa-map-marked-alt"></i>
                     </span>
                   </div>
-                    <input type="number" class="form-control" name="numero" placeholder="Número" />
+                    <input type="text" class="form-control" name="numero" value="${colaborador.nr}" />
                 </div>
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label for="clienteComplemento">Complemento:</label>
-                 <input type="text" class="form-control" name="complemento" placeholder="Complemento" />
+                 <input type="text" class="form-control" name="complemento" value="${colaborador.complemento}" />
               </div>
             </div>
           </div>
           <div class="form-group">
             <label for="clienteBairro">Bairro:</label>
-            <input type="text" class="form-control" name="bairro" placeholder="Bairro" /> 
+            <input type="text" class="form-control" name="bairro" value="${colaborador.bairro}" /> 
           </div>  
           <div class="form-group">
             <label for="clienteCidade">Cidade:</label>
             <select  id="clienteCidade" class="form-control" name="cidade">
                     <option value="">Selecione</option>
                         <c:forEach items="${cidades}" var="city">
-                            <option value="${city.nome}"<c:if test="${cliente.cidade == city.nome}">selected</c:if>>${city.nome}</option>
+                            <option value="${city.nome}"<c:if test="${colaborador.cidade == city.nome}">selected</c:if>>${city.nome}</option>
                         </c:forEach>
             </select>
           </div>
@@ -180,9 +183,9 @@
               <div class="form-group">
                 <label for="clienteEstado">Estado:</label>
                 <select  id="clienteEstado" class="form-control" name="estado">
-                    <option value="">Selecione</option>
+                    <option value="${colaborador.uf}">Selecione</option>
                         <c:forEach items="${estados}" var="e">
-                            <option value="${e.sigla}"<c:if test="${cliente.uf == e.sigla}">selected</c:if>>${e.sigla}</option>
+                            <option value="${e.sigla}"<c:if test="${colaborador.uf == e.sigla}">selected</c:if>>${e.sigla}</option>
                         </c:forEach>
                 </select>
               </div>
@@ -193,7 +196,7 @@
           <h3 class="mb-3 h4">Adicionar Senha</h3>
           <div class="form-group">
             <label for="clienteSenha">Senha:</label>
-            <input type="password" class="form-control" name="senha" placeholder="Senha" />
+            <input type="password" class="form-control" name="senha" placeholder="Digite uma senha" value="${colaborador.senha}"/>
           </div>
         </div>
     </form>
