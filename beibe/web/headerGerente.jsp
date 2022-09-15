@@ -16,10 +16,10 @@
       <div class="container">
         <ul class="navbar-nav text-white">
           <li class="nav-item">
-            <a class="nav-link active" href="portalGerente.jsp">Início</a>
+            <a class="nav-link" href="AtendimentoServlet?action=mostrarPortalGerente"">Início</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="atendimentos.html">Atendimentos</a>
+            <a class="nav-link" href="AtendimentoServlet?action=mostrarAtendimentosGerente">Atendimentos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="UsuarioServlet?action=colaboradoresGerente">Cadastro de Colaboradores</a>
