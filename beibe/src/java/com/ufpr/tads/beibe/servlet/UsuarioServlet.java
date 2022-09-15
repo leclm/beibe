@@ -338,34 +338,6 @@ public class UsuarioServlet extends HttpServlet {
                         colab.setUf(uf);
                         colab.setSenha(senha);
                         colab.setTipo(tipo);
-                         
-                         
-                         
-                         // try ( PrintWriter out = response.getWriter()) {
-                            /* TODO output your page here. You may use following sample code. */
-                          /* out.println("<!DOCTYPE html>");
-                            out.println("<html>");
-                            out.println("<head>");
-                            out.println("<title>Servlet NewServlet</title>");            
-                            out.println("</head>");
-                            out.println("<body>");
-                            out.println("entrou");
-                            out.println(colab.getId());
-                            out.println(colab.getTipo());
-                           out.println(colab.getSenha());
-                            out.println(colab.getUf());
-                            out.println(colab.getCidade());
-                            out.println(colab.getBairro());
-                            out.println(colab.getComplemento());
-                            out.println(colab.getNr());
-                            out.println(colab.getRua());
-                            out.println(colab.getCep());
-                            out.println(colab.getTelefone());
-                            out.println(colab.getEmail());
-                            out.println(colab.getNome());
-                            out.println(colab.getCpf());
-                            out.println("</body>");
-                            out.println("</html>");}*/
 
                         //função para alterar no bd via Facade
                         UsuarioFacade.aterarUsuario(colab);
