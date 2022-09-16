@@ -51,7 +51,7 @@
     </h2>
 
     <!-- Formulário dos dados do usuário -->
-    <form action="UsuarioServlet?action=alterarCadastro" method="POST" class="mt-5">
+    <form action="UsuarioServlet?action=alterarCadastro" method="POST" class="mt-5 submit-jsp">
       
           <div class="form-group">
             <input type="hidden" id="clienteTipo" class="form-control" name="tipo" value="${cliente.tipo}"/>
