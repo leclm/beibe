@@ -51,14 +51,16 @@ public class AtendimentoServlet extends HttpServlet {
             } else{            
                 switch (action) {
                      case "novoAtendimento":
+                     
                         //Valores pegos do formulario, já no formato para BD 
                         HttpSession session = request.getSession();
                         LoginBean user = (LoginBean)session.getAttribute("user");
+                    try{ 
                         int id = user.getId();
                         int produto =  Integer.parseInt(request.getParameter("produto"));   
                         int categoriaAtendimento = Integer.parseInt(request.getParameter("categoria"));
                         String descricao = request.getParameter("descricao");
-
+                               
                         //cria novos objetos
                         Atendimento a = new Atendimento();
 
@@ -72,10 +74,18 @@ public class AtendimentoServlet extends HttpServlet {
                         a.setProduto(prod);
                         a.setCategoriaAtendimento(cat);
                         a.setDescricao(descricao);
-
+                        
+                      
                         //função para inserir no bd via Facade
                         AtendimentoFacade.adicionarAtendimento(a);
-                         
+                    } catch (NumberFormatException e){
+                            //redireciona
+                        request.setAttribute("msg", "Favor preencher todos os campos!");
+                        request.setAttribute("page", "novoAtendimento.jsp");
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/AtendimentoServlet?action=mostrarNovoAtendimento");
+                        rd.forward(request, response);
+                    }
+                        
                         //redireciona
                         request.setAttribute("info", " Atendimento adicionado com sucesso!");
                         request.setAttribute("page", "portalCliente.jsp");
@@ -121,7 +131,7 @@ public class AtendimentoServlet extends HttpServlet {
                     case "mostrarPortalCliente":
                         session = request.getSession();
                         user = (LoginBean)session.getAttribute("user");
-                        id = user.getId();
+                        int id = user.getId();
 
                         //Carrega a lista de atendimentos para apresentar
                         List<Atendimento> atendimentos = AtendimentoFacade.buscarAtendimentoPorCliente(id);

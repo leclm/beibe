@@ -38,6 +38,12 @@
     <!-- Corpo da página -->
     <main class="container">
       <jsp:useBean id="atendimento" class="com.ufpr.tads.beibe.beans.Atendimento" scope="request" />
+      <c:if test="${requestScope.msg != null || param.msg != null}" >
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <span>${requestScope.msg == null ? param.msg : requestScope.msg}</span>
+                </div>
+    </c:if>
       <h2 class="mb-4">
         Novo Atendimento
       </h2>

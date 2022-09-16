@@ -106,6 +106,8 @@ public class UsuarioServlet extends HttpServlet {
 
                     case "alterarCadastro":
                          //Valores pegos do formulario, já no formato para BD 
+                       
+                        //Valores pegos do formulario, já no formato para BD 
                         session = request.getSession();
                         user = (LoginBean)session.getAttribute("user");
                         id = user.getId();
@@ -189,6 +191,8 @@ public class UsuarioServlet extends HttpServlet {
                     
                    
                     case "adicionaColaborador":
+                       
+                        try{
                         //Valores pegos do formulario, já no formato para BD
                         cpf = request.getParameter("cpf");
                         nome = request.getParameter("nome");
@@ -203,6 +207,8 @@ public class UsuarioServlet extends HttpServlet {
                         uf = request.getParameter("estado");
                         senha = request.getParameter("senha");
                         tipo = request.getParameter("tipo");
+                           
+                        
                         //cria um novo objeto cliente
                         Usuario colab = new Usuario();
                         //adiciona os valores a esse objeto
@@ -223,6 +229,15 @@ public class UsuarioServlet extends HttpServlet {
 
                         //função para inserir no bd via Facade
                         UsuarioFacade.adicionarColaborador(colab);
+                        
+                }catch(NumberFormatException e){
+                
+                        request.setAttribute("msg", "Favor preencher todos os campos!");
+                        request.setAttribute("page", "addColaboradoresGerente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=entrarAddColaboradores");
+                        rd.forward(request, response); }
+                        
+                        
                         //redireciona
                         request.setAttribute("info", " Colaborador adicionado com sucesso!");
                         request.setAttribute("page", "addColaboradoresGerente.jsp");
@@ -323,8 +338,16 @@ public class UsuarioServlet extends HttpServlet {
                         uf = request.getParameter("estado");
                         senha = request.getParameter("senha");
                         tipo = request.getParameter("tipo");
+                        
+                        if(nome ==  null || telefone==  null || cep==  null || rua==  null ||request.getParameter("numero")== null  || complemento ==  null || bairro==  null ||senha == null || nome.isEmpty() || telefone.isEmpty() || cep.isEmpty() || rua.isEmpty() || request.getParameter("numero").isEmpty() || complemento.isEmpty() || bairro.isEmpty() || senha.isEmpty()){
+                        request.setAttribute("msg", "Favor preencher todos os campos!");
+                        request.setAttribute("page", "addColaboradoresGerente.jsp");
+                        rd = getServletContext().getRequestDispatcher("/UsuarioServlet?action=entrarAlteraColaboradores");
+                        rd.forward(request, response); 
+                        }
+                        
                         //cria um novo objeto cliente
-                        colab = new Usuario();
+                        Usuario colab = new Usuario();
                         //adiciona os valores a esse objeto
                         colab.setId(id);
                         colab.setCpf(cpf);
