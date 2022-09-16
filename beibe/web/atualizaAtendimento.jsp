@@ -73,7 +73,7 @@
         </div>
         <div class="form-group">
           <label class="font-weight-bold mr-1" for="solucao">Solução:</label>
-          <textarea id="solucao" class="form-control" name="solucao" rows="4" placeholder="Digite uma mensagem para a solução do problema.">${produto.descricao}</textarea>
+          <textarea id="solucao" class="form-control" maxlength="249"  name="solucao" rows="4" placeholder="Digite uma mensagem para a solução do problema.">${produto.descricao}</textarea>
         </div>
         <button type="submit" class="btn btn-primary float-left w-25 mt-4">
           <i class="far fa-save"></i>

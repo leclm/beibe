@@ -73,7 +73,7 @@
                   <i class="fas fa-user"></i>
                 </span>
               </div>
-                <input type="text" id="clienteNome" class="form-control" name="nome" value="${cliente.nome}" />
+                <input type="text" id="clienteNome" class="form-control" name="nome" maxlength="99" value="${cliente.nome}" />
             </div>
           </div>
           <div class="form-group">
@@ -95,7 +95,7 @@
                   <i class="fas fa-at"></i>
                 </span>
               </div>
-                <input type="email" id="clienteEmail" name="email" class="form-control" value="${cliente.email}" readonly />
+                <input type="email" id="clienteEmail" name="email" class="form-control" maxlength="99" value="${cliente.email}" readonly />
             </div>
           </div>
           <div class="form-group">
@@ -128,7 +128,7 @@
                   <i class="fas fa-map"></i>
                 </span>
               </div>
-                <input type="text" id="clienteRua" class="form-control" name="rua" value="${cliente.rua}"/>
+                <input type="text" id="clienteRua" class="form-control" name="rua" maxlength="99" value="${cliente.rua}"/>
             </div>
           </div>
           <div class="row">
@@ -141,20 +141,20 @@
                       <i class="fas fa-map-marked-alt"></i>
                     </span>
                   </div>
-                    <input type="text" id="clienteNumero" class="form-control" name="numero" value="${cliente.nr}"/>
+                    <input type="text" id="clienteNumero" class="form-control" maxlength="4" name="numero" value="${cliente.nr}"/>
                 </div>
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label for="clienteComplemento">Complemento:</label>
-                <input type="text" id="clienteComplemento" class="form-control" name="complemento" value="${cliente.complemento}" />
+                <input type="text" id="clienteComplemento" class="form-control" maxlength="49" name="complemento" value="${cliente.complemento}" />
               </div>
             </div>
           </div>
           <div class="form-group">
             <label for="clienteBairro">Bairro:</label>
-            <input type="text" id="clienteBairro" class="form-control" name="bairro" value="${cliente.bairro}" />  
+            <input type="text" id="clienteBairro" class="form-control" name="bairro" maxlength="49" value="${cliente.bairro}" />  
           </div>  
           <div class="form-group">
             <label for="clienteCidade">Cidade:</label>
@@ -183,7 +183,7 @@
           <h3 class="mb-3 h4">Alterar Senha</h3>
           <div class="form-group">
             <label for="clienteSenha">Nova senha:</label>
-            <input type="password" id="clienteSenha" class="form-control" name="senha" value="${cliente.senha}"/>
+            <input type="password" id="clienteSenha" class="form-control" maxlength="512" name="senha" value="${cliente.senha}"/>
           </div>
       </div>
     </div>

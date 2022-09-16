@@ -41,7 +41,7 @@
                   <i class="fas fa-user"></i>
                 </span>
               </div>
-              <input type="text" class="form-control" name="nome" placeholder="Nome completo" />
+              <input type="text" class="form-control" maxlength="99" name="nome" placeholder="Nome completo" />
             </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -49,7 +49,7 @@
                   <i class="fas fa-at"></i>
                 </span>
               </div>
-              <input type="email" class="form-control" name="email" placeholder="email@email.com" />
+              <input type="email" class="form-control" name="email" maxlength="99" placeholder="email@email.com" />
             </div>
             <div class="input-group mb-3">
 
@@ -77,7 +77,7 @@
                   <i class="fa fa-map-marked-alt"></i>
                 </span>
               </div>
-              <input type="text" class="form-control" name="rua" placeholder="Rua: xxxxxxxxxx" />
+              <input type="text" class="form-control" name="rua" maxlength="99" placeholder="Logradouro" />
             </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -85,9 +85,9 @@
                   <i class="fas fa-map-marked-alt"></i>
                 </span>
               </div>
-              <input type="number" class="form-control" name="numero" placeholder="Número" />
-              <input type="text" class="form-control" name="complemento" placeholder="Complemento" />
-              <input type="text" class="form-control" name="bairro" placeholder="Bairro" />
+              <input type="text" class="form-control" name="numero" maxlength="4" placeholder="Número" />
+              <input type="text" class="form-control" name="complemento" maxlength="49" placeholder="Complemento" />
+              <input type="text" class="form-control" name="bairro" maxlength="49" placeholder="Bairro" />
             </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -103,6 +103,7 @@
                   class="form-control"
                   placeholder="Cidade"
                   id="clienteCidade"
+                  maxlength="49"
                   />
 
               <input
@@ -111,6 +112,7 @@
                   name="estado"
                   class="form-control"
                   placeholder="Estado"
+                  maxlength="2"
                   id="clienteEstado"
                   />  
 
@@ -121,7 +123,7 @@
                   <i class="fas fa-unlock-alt"></i>
                 </span>
               </div>
-              <input type="password" class="form-control" name="senha" placeholder="Senha" />
+              <input type="password" class="form-control" name="senha" maxlength="512" placeholder="Senha" />
             </div>
           </div>
           <div class="card-footer text-center">

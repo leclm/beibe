@@ -77,7 +77,7 @@
             </div>
             <div class="form-group">
               <label for="atendimentoDesc">Descrição:</label>
-              <textarea id="atendimentoDesc" class="form-control" rows="5" name="descricao"></textarea>
+              <textarea id="atendimentoDesc" class="form-control" rows="5" maxlength="249" name="descricao"></textarea>
             </div>
           </div>
         </div>

@@ -60,11 +60,11 @@
             <div class="form-group">
               <label for="nome">Nome do produto:</label>
               <input type="text" id="nome" class="form-control" name="nome"
-                value="${produto.nome}" minlengh="5" maxlengh="32" />
+                value="${produto.nome}" maxlengh="199" />
             </div>
             <div class="form-group">
               <label for="descricao">Descrição:</label>
-              <textarea id="descricao" class="form-control" name="descricao" rows="4">${produto.descricao}</textarea>
+              <textarea id="descricao" class="form-control" name="descricao"  maxlength="499" rows="4">${produto.descricao}</textarea>
             </div>
           </div>
           <div class="col-12 col-md-6">
@@ -91,7 +91,7 @@
                     <i class="fas fa-weight"></i>
                   </span>
                 </div>
-                <input type="number" id="peso" class="form-control" name="peso" value="${produto.peso}" />
+                <input type="number" id="peso" class="form-control" name="peso" max="9999" value="${produto.peso}" />
               </div>
             </div>
           </div>

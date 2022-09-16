@@ -59,7 +59,7 @@
           <div class="col-12 col-md-8">
             <div class="form-group">
               <label for="categoria-nome">Nome da categoria:</label>
-              <input type="text" id="nome" class="form-control" name="nome"
+              <input type="text" id="nome" maxlength="199" class="form-control" name="nome"
                 value="${categoria.nome}" />
             </div>
           </div>

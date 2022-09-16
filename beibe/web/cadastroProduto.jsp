@@ -59,11 +59,11 @@
             <div class="form-group">
               <label for="nome">Nome do produto:</label>
               <input type="text" id="nome" class="form-control" name="nome"
-                placeholder="Digite um nome entre 5 e 32 caracteres" minlengh="5" maxlengh="32" />
+                placeholder="Digite um nome entre 5 e 32 caracteres" minlengh="5" maxlengh="199" />
             </div>
             <div class="form-group">
               <label for="descricao">Descrição:</label>
-              <textarea id="descricao" class="form-control" name="descricao" rows="4"
+              <textarea id="descricao" class="form-control" name="descricao"  maxlength="499" rows="4"
                 placeholder="Escreva informações que qualifiquem o produto (ex.: marca, cor, modelo...)"></textarea>
             </div>
           </div>
@@ -91,7 +91,7 @@
                     <i class="fas fa-weight"></i>
                   </span>
                 </div>
-                <input type="number" id="peso" class="form-control" name="peso" placeholder="Peso em gramas" />
+                <input type="number" id="peso" class="form-control" max="9999" name="peso" placeholder="Peso em gramas" />
               </div>
             </div>
           </div>
