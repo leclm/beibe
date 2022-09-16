@@ -19,7 +19,12 @@
 
   </head>
   <body>
-
+    <c:if test="${requestScope.msg != null || param.msg != null}" >
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <span>${requestScope.msg == null ? param.msg : requestScope.msg}</span>
+                </div>
+      </c:if>
     <div class=" d-flex justify-content-center">
       <!-- Formulário de cadastro -->
       <div class="col-6 p-3 d-flex align-items-stretch">
