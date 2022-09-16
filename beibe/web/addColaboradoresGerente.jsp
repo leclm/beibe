@@ -56,7 +56,7 @@
     </h2>
 
     <!-- Formulário para add os dados do colaborador -->
-   <form action="UsuarioServlet?action=${formAction}" method="POST" class="mt-5">
+   <form action="UsuarioServlet?action=${formAction}" method="POST" class="submit-jsp mt-5">
       
       <div class="row">
         <div class="col-12 jsutify-content-between">
@@ -176,6 +176,7 @@
             <label for="clienteBairro">Bairro:</label>
             <input type="text" class="form-control" name="bairro" value="${colaborador.bairro}" /> 
           </div>  
+          
           <div class="form-group">
             <label for="clienteCidade">Cidade:</label>
             <select  id="clienteCidade" class="form-control" name="cidade">

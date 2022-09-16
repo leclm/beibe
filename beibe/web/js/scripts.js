@@ -1,30 +1,3 @@
-// Adicionar eventos em formulário
-$('#buscar-cep').click(() => {
-  const cep = $('input[name="cep"]').val();
-  const formatoCEP = /^[0-9]{8}$/;
-  if (cep && formatoCEP.test(cep)) {
-    $('input[name="cep"]').attr('disabled', true);
-    $('input[name="rua"]').val('');
-    $('input[name="numero"]').val('');
-    $('input[name="complemento"]').val('');
-    $('input[name="cidade"]').val('');
-    $('input[name="estado"]').val('');
-    $.ajax({
-      method: 'GET',
-      url: `https://viacep.com.br/ws/${cep}/json`,
-      success(response) {
-        console.log($('input[name="estado"]'))
-        $('input[name="rua"]').val(response.logradouro);
-        $('input[name="cidade"]').val(response.localidade);
-        $('input[name="estado"]').val(response.uf);
-        $('input[name="numero"]').focus();
-      },
-      complete() {
-        $('input[name="cep"]').attr('disabled', false);
-      }
-    });
-  }
-});
 $('#buscar-produto').click(() => {
   const produto = $('#codigo-produto').val();
   $('#detalhes-produto').show();
