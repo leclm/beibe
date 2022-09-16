@@ -21,6 +21,7 @@
         </c:redirect>
     </c:if>
 </c:if>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -51,6 +52,12 @@
                           <span>${requestScope.info == null ? param.info : requestScope.info}</span>
                       </div>
         </c:if>
+       <c:if test="${requestScope.msg != null || param.msg != null}" >
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <span>${requestScope.msg == null ? param.msg : requestScope.msg}</span>
+                </div>
+    </c:if>
     <h2 class="mb-4">
       Funcionário/Gerente
     </h2>
