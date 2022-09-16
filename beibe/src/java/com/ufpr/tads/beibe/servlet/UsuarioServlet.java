@@ -105,7 +105,6 @@ public class UsuarioServlet extends HttpServlet {
                         break;
 
                     case "alterarCadastro":
-                         //Valores pegos do formulario, já no formato para BD 
                        
                         //Valores pegos do formulario, já no formato para BD 
                         session = request.getSession();

@@ -1,9 +1,3 @@
-CREATE DATABASE "Beibe"
-    WITH
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    CONNECTION LIMIT = -1;
-
 CREATE TABLE IF NOT EXISTS public.tb_usuario
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
@@ -17,9 +11,11 @@ CREATE TABLE IF NOT EXISTS public.tb_usuario
     bairro character varying(50) COLLATE pg_catalog."default" NOT NULL,
     cidade character varying(50) COLLATE pg_catalog."default" NOT NULL,
     uf character(2) COLLATE pg_catalog."default" NOT NULL,
-    senha character varying(15) COLLATE pg_catalog."default" NOT NULL,
+    senha character varying(512) COLLATE pg_catalog."default" NOT NULL,
     tipo character varying(15) COLLATE pg_catalog."default" NOT NULL,
+    telefone character varying(11) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT tb_usuario_pkey PRIMARY KEY (id),
+    CONSTRAINT tb_usuario_email_key UNIQUE (email),
     CONSTRAINT "valoresUnicos" UNIQUE (cpf, email)
 )
 
