@@ -49,7 +49,7 @@ public class UsuarioServlet extends HttpServlet {
             } else{
                 switch (action) {
                     case "autocadastro":
-                        //Valores pegos do formulario, já no formato para BD
+                    try{    //Valores pegos do formulario, já no formato para BD
                         String cpf = request.getParameter("cpf");
                         String nome = request.getParameter("nome");
                         String email = request.getParameter("email");
@@ -62,6 +62,8 @@ public class UsuarioServlet extends HttpServlet {
                         String cidade = request.getParameter("cidade");
                         String uf = request.getParameter("estado");
                         String senha = request.getParameter("senha");
+                        
+                        
                         //cria um novo objeto cliente
                         Usuario c = new Usuario();
                         //adiciona os valores a esse objeto
@@ -82,7 +84,18 @@ public class UsuarioServlet extends HttpServlet {
                         //função para inserir no bd via Facade
                         UsuarioFacade.adicionarCliente(c);
                         //redireciona
-                        response.sendRedirect("index.jsp");
+                        //response.sendRedirect("index.jsp");
+                        }catch(NumberFormatException e){
+                        request.setAttribute("msg", "Favor preencher todos os campos!");
+                        request.setAttribute("page", "cadastroCliente.jsp");
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastroCliente.jsp");
+                        rd.forward(request, response); }
+                        
+                        //redireciona
+                        request.setAttribute("info", " Cliente cadastrado com sucesso!");
+                        request.setAttribute("page", "index.jsp");
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                        rd.forward(request, response);
                         break;  
 
                     case "mostrarCliente":
@@ -100,7 +113,7 @@ public class UsuarioServlet extends HttpServlet {
                         request.setAttribute("cidades", cidades);
 
                         //ENVIA VIA FOWARD
-                        RequestDispatcher rd = request.getRequestDispatcher("/dadosCliente.jsp");
+                        rd = request.getRequestDispatcher("/dadosCliente.jsp");
                         rd.forward(request, response);
                         break;
 
@@ -110,18 +123,18 @@ public class UsuarioServlet extends HttpServlet {
                         session = request.getSession();
                         user = (LoginBean)session.getAttribute("user");
                         id = user.getId();
-                        cpf = request.getParameter("cpf");
-                        nome = request.getParameter("nome");
-                        telefone = request.getParameter("telefone");
-                        email = request.getParameter("email");
-                        cep = request.getParameter("cep");
-                        rua = request.getParameter("rua");
-                        nr = Integer.parseInt(request.getParameter("numero"));
-                        complemento = request.getParameter("complemento");
-                        bairro = request.getParameter("bairro");
-                        cidade = request.getParameter("cidade");
-                        uf = request.getParameter("estado");
-                        senha = request.getParameter("senha");
+                        String cpf = request.getParameter("cpf");
+                        String nome = request.getParameter("nome");
+                        String telefone = request.getParameter("telefone");
+                        String email = request.getParameter("email");
+                        String cep = request.getParameter("cep");
+                        String rua = request.getParameter("rua");
+                        int nr = Integer.parseInt(request.getParameter("numero"));
+                        String complemento = request.getParameter("complemento");
+                        String bairro = request.getParameter("bairro");
+                        String cidade = request.getParameter("cidade");
+                        String uf = request.getParameter("estado");
+                        String senha = request.getParameter("senha");
                         String tipo = request.getParameter("tipo");
                          
                         if(nome ==  null || telefone==  null || cep==  null || rua==  null ||request.getParameter("numero")== null  || complemento ==  null || bairro==  null ||senha == null || nome.isEmpty() || telefone.isEmpty() || cep.isEmpty() || rua.isEmpty() || request.getParameter("numero").isEmpty() || complemento.isEmpty() || bairro.isEmpty() || senha.isEmpty()){
