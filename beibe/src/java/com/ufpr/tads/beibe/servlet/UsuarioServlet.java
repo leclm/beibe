@@ -62,6 +62,14 @@ public class UsuarioServlet extends HttpServlet {
                         String cidade = request.getParameter("cidade");
                         String uf = request.getParameter("estado");
                         String senha = request.getParameter("senha");
+                        
+                        if(nome ==  null || telefone==  null || cep==  null || rua==  null ||request.getParameter("numero")== null  || complemento ==  null || bairro==  null ||senha == null || nome.isEmpty() || telefone.isEmpty() || cep.isEmpty() || rua.isEmpty() || request.getParameter("numero").isEmpty() || complemento.isEmpty() || bairro.isEmpty() || senha.isEmpty()){
+                        request.setAttribute("msg", "Favor preencher todos os campos!");
+                        request.setAttribute("page", "cadastroCliente.jsp");
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastroCliente.jsp");
+                        rd.forward(request, response);
+                        }
+                        
                         //cria um novo objeto cliente
                         Usuario c = new Usuario();
                         //adiciona os valores a esse objeto
