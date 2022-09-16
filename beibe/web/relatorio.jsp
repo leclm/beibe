@@ -1,7 +1,7 @@
- <%-- 
+<%-- 
     Document   : relatorios
     Created on : 15 de set. de 2022, 17:34:03
-    Author     : grupo2
+    Author     : Clau
 --%>
 
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -46,34 +46,11 @@
   <!-- Corpo da página -->
   <main class="container">
     <h2 class="mb-4">
-      Bem-vindo(a), <strong>[Gerente]</strong>
+      Bem-vindo(a)
     </h2>
     <div class="card-columns">
         <div class="card-link">
-          <div class="text-light">
-              <div class="card bg-info" style="max-width: 18rem;">
-                  <div class="card-header">Atendimento(s) Vencido(s)</div>
-                  <div class="card-body text-center">
-                      <p class="card-text display-3">
-                          <i class="fa fa-thumbs-down"></i>
-                      </p>
-                  </div>
-                  <a href="atendimentos.html" class="stretched-link h-0"></a>
-              </div>
-          </div>
           
-          <div class="text-light">
-              <div class="card bg-info" style="max-width: 18rem;">
-                  <div class="card-header">Atendimento(s) em Aberto</div>
-                  <div class="card-body text-center">
-                      <p class="card-text display-3">
-                          <i class="fa fa-history"></i>
-                      </p>
-                  </div>
-                  <a href="atendimentos.html" class="stretched-link h-0"></a>
-              </div>
-          </div>
-
           <div class="text-light">
               <div class="card bg-info" style="max-width: 18rem;">
                   <div class="card-header">Relatório de Funcionários</div>
@@ -94,7 +71,7 @@
                           <i class="fa fa-file-pdf"></i>
                       </p>
                   </div>
-                  <a href="GeradorRelatorioServlet?action=relatorioProdMaisRecl" class="stretched-link h-0"></a>
+                  <a href="GeradorRelatorioServlet?action=relatorioProdutosMaisReclamados" class="stretched-link h-0"></a>
               </div>
           </div>
           
@@ -118,7 +95,7 @@
                           <i class="fa fa-file-pdf"></i>
                       </p>
                   </div>
-                  <a href="#" onclick="alert('Recurso indisponível!')" class="stretched-link h-0"></a>
+                  <a href="GeradorRelatorioServlet?action=relatorioTodasReclamacoes" class="stretched-link h-0"></a>
               </div>
           </div>
         </div>

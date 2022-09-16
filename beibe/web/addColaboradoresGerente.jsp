@@ -99,7 +99,7 @@
                   <i class="fas fa-user"></i>
                 </span>
               </div>
-                <input type="text" class="form-control" name="nome" value="${colaborador.nome}" />
+                <input required="true" type="text" class="form-control" name="nome" value="${colaborador.nome}" />
             </div>
           </div>
           <div class="form-group">
@@ -110,7 +110,7 @@
                   <i class="fab fa-slack-hash"></i>
                 </span>
               </div>
-                <input type="text" id="cpf" name="cpf" class="form-control" value="${colaborador.cpf}"/>
+                <input  type="text" id="cpf" name="cpf" class="form-control" value="${colaborador.cpf}"/>
             </div>
             </div>
          
@@ -155,7 +155,7 @@
                   <i class="fas fa-map"></i>
                 </span>
               </div>
-                <input type="text" class="form-control" name="rua" value="${colaborador.rua}"/>
+                <input required="true" type="text" class="form-control" name="rua" value="${colaborador.rua}"/>
             </div>
           </div>
           <div class="row">
@@ -168,20 +168,20 @@
                       <i class="fas fa-map-marked-alt"></i>
                     </span>
                   </div>
-                    <input type="text" class="form-control" name="numero" value="${colaborador.nr}" />
+                    <input required="true" type="text" class="form-control" name="numero" value="${colaborador.nr}" />
                 </div>
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label for="clienteComplemento">Complemento:</label>
-                 <input type="text" class="form-control" name="complemento" value="${colaborador.complemento}" />
+                 <input required="true" type="text" class="form-control" name="complemento" value="${colaborador.complemento}" />
               </div>
             </div>
           </div>
           <div class="form-group">
             <label for="clienteBairro">Bairro:</label>
-            <input type="text" class="form-control" name="bairro" value="${colaborador.bairro}" /> 
+            <input required="true" type="text" class="form-control" name="bairro" value="${colaborador.bairro}" /> 
           </div>  
           
           <div class="form-group">
@@ -211,7 +211,7 @@
           <h3 class="mb-3 h4">Adicionar Senha</h3>
           <div class="form-group">
             <label for="clienteSenha">Senha:</label>
-            <input type="password" class="form-control" name="senha" placeholder="Digite uma senha" value="${colaborador.senha}"/>
+            <input required="true" type="password" class="form-control" name="senha" placeholder="Digite uma senha" value="${colaborador.senha}"/>
           </div>
         </div>
     </form>
